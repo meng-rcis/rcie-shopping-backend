@@ -36,7 +36,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: nuttchai/go-rest-api:1.0.0
     restart: always
     ports:
       - 8080:8080
