@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:13.1
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root"]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    container_name: db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      APP_DB_USER: postgres
+      APP_DB_PASS: postgres
+      APP_DB_NAME: shopping_db
+    volumes:
+      # [+] point data to local folder for persistent data
+      - ./external/database/data:/var/lib/postgresql/data
+      # [+] point to your backup for data restoration
+      - ./external/database/db_backup:/db_backup
+      # [+] point docker to directory with your config
+      # - ./external/database/db_config:/db_config
+      # [+] point to your postgres init scripts (folder or file)
+      # docker-entrypoint-initdb.d normally only accepy .sql file to be executed
+      # otherwise, it returns permission denied
+      - ../rcie-database/scripts/01-init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    ports:
+      - 5432:5432
+    networks:
+      - shopping
+
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nuttchai/go-rest-api:1.0.0
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    networks:
+      - shopping
+
+networks:
+  shopping:
