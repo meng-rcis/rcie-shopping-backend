@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/labstack/echo"
+	_ "github.com/lib/pq"
 	"github.com/nuttchai/go-rest/internal/config"
 	"github.com/nuttchai/go-rest/internal/middleware"
 	"github.com/nuttchai/go-rest/internal/repositories"
