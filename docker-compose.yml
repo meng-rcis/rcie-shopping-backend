@@ -25,7 +25,7 @@ services:
       # [+] point to your postgres init scripts (folder or file)
       # docker-entrypoint-initdb.d normally only accepy .sql file to be executed
       # otherwise, it returns permission denied
-      - ../rcie-database/scripts/01-init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./external/database/scripts:/docker-entrypoint-initdb.d
     ports:
       - 5432:5432
     networks:
