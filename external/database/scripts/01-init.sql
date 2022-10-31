@@ -3,7 +3,7 @@
 \set dbname `echo "$APP_DB_NAME"`
 CREATE DATABASE IF NOT EXISTS :'dbname';
 CREATE USER :'userdb' WITH ENCRYPTED PASSWORD :'passdb';
-\c `shopping_db`
+\c :'dbname'
 
 CREATE TABLE IF NOT EXISTS `user` (
     `id` UUID PRIMARY KEY DEFAULT uuid_generate_v4(),

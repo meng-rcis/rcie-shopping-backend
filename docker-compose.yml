@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: password
       APP_DB_USER: postgres
       APP_DB_PASS: postgres
-      APP_DB_NAME: shopping_db
+      APP_DB_NAME: shopping
     volumes:
       # [+] point data to local folder for persistent data
       - ./external/database/data:/var/lib/postgresql/data

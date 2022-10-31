@@ -34,7 +34,7 @@ func Client() {
 	dbPass := env.GetEnv("APP_DB_PASS", "password")
 	dbHost := env.GetEnv("DB_HOST", "localhost")
 	dbPort := env.GetEnv("DB_PORT", "27017")
-	dbName := env.GetEnv("APP_DB_NAME", "shopping_db")
+	dbName := env.GetEnv("APP_DB_NAME", "shopping")
 	dbDriver := env.GetEnv("DB_DRIVER", "postgres")
 	port := env.GetEnv("APP_PORT", "8000")
 	dbConnStr := fmt.Sprintf(
