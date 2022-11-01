@@ -14,6 +14,13 @@ GRANT ALL PRIVILEGES ON DATABASE :"dbname" TO :"userdb";
 -- Create Extension and Install into Database
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- Create Role Table
+CREATE TABLE "role" (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(25) NOT NULL,
+    description VARCHAR(255)
+);
+
 -- Create User Table
 CREATE TABLE "user" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -23,18 +30,11 @@ CREATE TABLE "user" (
     username VARCHAR(50) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     password_salt VARCHAR(32) NOT NULL,
-    role_id INT NOT NULL,
+    role_id INT NOT NULL REFERENCES "role" (id),
     mobile VARCHAR(15),
     address VARCHAR(255),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
--- Create Role Table
-CREATE TABLE "role" (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(25) NOT NULL,
-    description VARCHAR(255)
 );
 
 -- Insert Role Data
