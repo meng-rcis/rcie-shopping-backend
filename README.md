@@ -1,8 +1,16 @@
 # go-rest
 
-### To-do-List
+### Command to Clear All Database Data and Docker Service
 
-- Add unit test for each layer
-- Create github ci workflow to build image
-- Create script file to initial database?
-- Create docker-compose file (with api and database)
+    rm -rf external/database/data && \
+    rm -rf external/database/db_backup && \
+    docker rm db && \
+    docker rm api
+
+### Clear to Prune Docker
+
+    docker system prune
+
+### Start Docker Service
+
+    docker-compose up --build
