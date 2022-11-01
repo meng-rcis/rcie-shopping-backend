@@ -106,11 +106,30 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
--- Create a Trigger to Update the Given Table Timestamp when their Rows are Updated
-CREATE TRIGGER update_row_task_updated_at 
-    BEFORE UPDATE
-    ON "user", "shop", "product", "order", "cart"
-    FOR EACH ROW 
+-- Create a Trigger to Update the Given Tables Timestamp when their Rows are Updated
+CREATE TRIGGER update_user_task_updated_at
+    BEFORE UPDATE ON "user"
+    FOR EACH ROW
+EXECUTE PROCEDURE update_timestamp_updated_at();
+
+CREATE TRIGGER update_shop_task_updated_at
+    BEFORE UPDATE ON "shop"
+    FOR EACH ROW
+EXECUTE PROCEDURE update_timestamp_updated_at();
+
+CREATE TRIGGER update_product_task_updated_at
+    BEFORE UPDATE ON "product"
+    FOR EACH ROW
+EXECUTE PROCEDURE update_timestamp_updated_at();
+
+CREATE TRIGGER update_order_task_updated_at
+    BEFORE UPDATE ON "order"
+    FOR EACH ROW
+EXECUTE PROCEDURE update_timestamp_updated_at();
+
+CREATE TRIGGER update_cart_task_updated_at
+    BEFORE UPDATE ON "cart"
+    FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp_updated_at();
 
 -- Insert Role Data
