@@ -37,6 +37,16 @@ CREATE TABLE "user" (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create Shop Table
+CREATE TABLE "shop" (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(255),
+    owner_id UUID NOT NULL REFERENCES "user" (id),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Create Product Table
 CREATE TABLE "product" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -44,7 +54,7 @@ CREATE TABLE "product" (
     description VARCHAR(255),
     price DECIMAL(10,2) NOT NULL,
     quantity INT NOT NULL,
-    seller_id UUID NOT NULL REFERENCES "user" (id),
+    shop_id UUID NOT NULL REFERENCES "shop" (id),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -97,9 +107,9 @@ END;
 $$ language 'plpgsql';
 
 -- Create a Trigger to Update the Given Table Timestamp when their Rows are Updated
-CREATE TRIGGER update_user_task_updated_at 
+CREATE TRIGGER update_row_task_updated_at 
     BEFORE UPDATE
-    ON "user", "product", "order", "cart"
+    ON "user", "shop", "product", "order", "cart"
     FOR EACH ROW 
 EXECUTE PROCEDURE update_timestamp_updated_at();
 
