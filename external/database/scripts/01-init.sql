@@ -86,6 +86,17 @@ INSERT INTO "order_status" (name, description) VALUES
     ('Delivered', 'Order is Delivered'),
     ('Cancelled', 'Order is Cancelled');
 
+-- Create Cart Table
+CREATE TABLE "cart" (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    buyer_id UUID NOT NULL REFERENCES "user" (id),
+    product_id UUID NOT NULL REFERENCES "product" (id),
+    quantity INT NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Create a Function to Update Timestamp at "updated_at" Column
 CREATE OR REPLACE FUNCTION update_timestamp_updated_at()
 RETURNS TRIGGER AS $$
@@ -95,16 +106,9 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
--- Create a Trigger to Update User Table Timestamp when Row is Updated
+-- Create a Trigger to Update the Given Table Timestamp when their Rows are Updated
 CREATE TRIGGER update_user_task_updated_at 
     BEFORE UPDATE
-    ON "user"
+    ON "user", "product", "order", "cart"
     FOR EACH ROW 
-EXECUTE PROCEDURE update_timestamp_updated_at();
-
--- Create a Trigger to Update Product Table Timestamp when Row is Updated
-CREATE TRIGGER update_product_task_updated_at 
-    BEFORE UPDATE
-    ON "product"
-    FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp_updated_at();
