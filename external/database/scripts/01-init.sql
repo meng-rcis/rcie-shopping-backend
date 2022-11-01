@@ -94,7 +94,7 @@ CREATE TABLE "wishlist" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     buyer_id UUID NOT NULL REFERENCES "user" (id),
     product_id UUID NOT NULL REFERENCES "product" (id),
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create a Function to Update Timestamp at "updated_at" Column
