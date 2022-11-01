@@ -30,22 +30,6 @@ CREATE TABLE "user" (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create the Function to Update Timestamp at "updated_at" Column
-CREATE OR REPLACE FUNCTION update_user_timestamp_updated_at()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = now();
-    RETURN NEW;
-END;
-$$ language 'plpgsql';
-
--- Create the Trigger to Update Timestamp at "updated_at" Column
-CREATE TRIGGER update_user_task_updated_at 
-    BEFORE UPDATE
-    ON "user"
-    FOR EACH ROW 
-EXECUTE PROCEDURE update_user_timestamp_updated_at();
-
 -- Create Role Table
 CREATE TABLE "role" (
     id SERIAL PRIMARY KEY,
@@ -62,3 +46,38 @@ INSERT INTO "role" (name, description) VALUES
 -- Insert Admin User
 INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id) VALUES 
     ('Admin', 'Admin', '', 'admin', 'd3b6c2a2b1c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6', '1234567890', 1);
+
+-- Create Product Table
+CREATE TABLE "product" (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL,
+    seller_id UUID NOT NULL REFERENCES "user" (id),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create a Function to Update Timestamp at "updated_at" Column
+CREATE OR REPLACE FUNCTION update_timestamp_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = now();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+-- Create a Trigger to Update User Table Timestamp when Row is Updated
+CREATE TRIGGER update_user_task_updated_at 
+    BEFORE UPDATE
+    ON "user"
+    FOR EACH ROW 
+EXECUTE PROCEDURE update_timestamp_updated_at();
+
+-- Create a Trigger to Update Product Table Timestamp when Row is Updated
+CREATE TRIGGER update_product_task_updated_at 
+    BEFORE UPDATE
+    ON "product"
+    FOR EACH ROW
+EXECUTE PROCEDURE update_timestamp_updated_at();
