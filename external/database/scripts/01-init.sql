@@ -37,16 +37,6 @@ CREATE TABLE "user" (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert Role Data
-INSERT INTO "role" (name, description) VALUES 
-    ('Admin', 'System Administrator'),
-    ('Buyer', 'Client Logged-In as Buyer'),
-    ('Seller', 'Client Logged-In as Seller');
-
--- Insert Admin User
-INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id) VALUES 
-    ('Admin', 'Admin', '', 'admin', 'd3b6c2a2b1c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6', '1234567890', 1);
-
 -- Create Product Table
 CREATE TABLE "product" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -78,14 +68,6 @@ CREATE TABLE "order" (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert Order Status Data
-INSERT INTO "order_status" (name, description) VALUES 
-    ('Pending', 'Order is Pending'),
-    ('Processing', 'Order is Processing'),
-    ('Shipped', 'Order is Shipped'),
-    ('Delivered', 'Order is Delivered'),
-    ('Cancelled', 'Order is Cancelled');
-
 -- Create Cart Table
 CREATE TABLE "cart" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -95,6 +77,14 @@ CREATE TABLE "cart" (
     total_price DECIMAL(10,2) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create Wishlist Table
+CREATE TABLE "wishlist" (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    buyer_id UUID NOT NULL REFERENCES "user" (id),
+    product_id UUID NOT NULL REFERENCES "product" (id),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 );
 
 -- Create a Function to Update Timestamp at "updated_at" Column
@@ -112,3 +102,21 @@ CREATE TRIGGER update_user_task_updated_at
     ON "user", "product", "order", "cart"
     FOR EACH ROW 
 EXECUTE PROCEDURE update_timestamp_updated_at();
+
+-- Insert Role Data
+INSERT INTO "role" (name, description) VALUES 
+    ('Admin', 'System Administrator'),
+    ('Buyer', 'Client Logged-In as Buyer'),
+    ('Seller', 'Client Logged-In as Seller');
+
+-- Insert Admin User
+INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id) VALUES 
+    ('Admin', 'Admin', '', 'admin', 'd3b6c2a2b1c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6', '1234567890', 1);
+
+-- Insert Order Status Data
+INSERT INTO "order_status" (name, description) VALUES 
+    ('Pending', 'Order is Pending'),
+    ('Processing', 'Order is Processing'),
+    ('Shipped', 'Order is Shipped'),
+    ('Delivered', 'Order is Delivered'),
+    ('Cancelled', 'Order is Cancelled');
