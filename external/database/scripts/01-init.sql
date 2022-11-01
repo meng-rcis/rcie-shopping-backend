@@ -23,9 +23,9 @@ CREATE TABLE "user" (
     username VARCHAR(50) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     password_salt VARCHAR(32) NOT NULL,
+    role_id INT NOT NULL,
     mobile VARCHAR(15),
     address VARCHAR(255),
-    role_id INT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -34,7 +34,7 @@ CREATE TABLE "user" (
 CREATE TABLE "role" (
     id SERIAL PRIMARY KEY,
     name VARCHAR(25) NOT NULL,
-    description VARCHAR(255) NOT NULL
+    description VARCHAR(255)
 );
 
 -- Insert Role Data
@@ -51,13 +51,40 @@ INSERT INTO "user" (first_name, last_name, email, username, password_hash, passw
 CREATE TABLE "product" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(50) NOT NULL,
-    description VARCHAR(255) NOT NULL,
+    description VARCHAR(255),
     price DECIMAL(10,2) NOT NULL,
     quantity INT NOT NULL,
     seller_id UUID NOT NULL REFERENCES "user" (id),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Create Order Status Table
+CREATE TABLE "order_status" (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(25) NOT NULL,
+    description VARCHAR(255)
+);
+
+-- Create Order Table
+CREATE TABLE "order" (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    buyer_id UUID NOT NULL REFERENCES "user" (id),
+    product_id UUID NOT NULL REFERENCES "product" (id),
+    status_id INT NOT NULL REFERENCES "order_status" (id),
+    quantity INT NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert Order Status Data
+INSERT INTO "order_status" (name, description) VALUES 
+    ('Pending', 'Order is Pending'),
+    ('Processing', 'Order is Processing'),
+    ('Shipped', 'Order is Shipped'),
+    ('Delivered', 'Order is Delivered'),
+    ('Cancelled', 'Order is Cancelled');
 
 -- Create a Function to Update Timestamp at "updated_at" Column
 CREATE OR REPLACE FUNCTION update_timestamp_updated_at()
