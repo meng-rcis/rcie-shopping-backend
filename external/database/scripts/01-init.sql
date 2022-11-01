@@ -46,7 +46,19 @@ CREATE TRIGGER update_user_task_updated_at
     FOR EACH ROW 
 EXECUTE PROCEDURE update_user_timestamp_updated_at();
 
+-- Create Role Table
+CREATE TABLE "role" (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(25) NOT NULL,
+    description VARCHAR(255) NOT NULL
+);
+
+-- Insert Role Data
+INSERT INTO "role" (name, description) VALUES 
+    ('Admin', 'System Administrator'),
+    ('Buyer', 'Client Logged-In as Buyer'),
+    ('Seller', 'Client Logged-In as Seller');
+
 -- Insert Admin User
-INSERT INTO "user" 
-    (first_name, last_name, email, username, password_hash, password_salt, role_id) 
-VALUES ('Admin', 'Admin', '', 'admin', 'd3b6c2a2b1c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6', '1234567890', 1);
+INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id) VALUES 
+    ('Admin', 'Admin', '', 'admin', 'd3b6c2a2b1c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6', '1234567890', 1);
