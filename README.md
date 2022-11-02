@@ -7,7 +7,7 @@
     docker rm db && \
     docker rm api
 
-### Clear to Prune Docker
+### Prune Docker System
 
     docker system prune
 
