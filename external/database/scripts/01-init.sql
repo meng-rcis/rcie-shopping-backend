@@ -21,6 +21,12 @@ CREATE TABLE "role" (
     description VARCHAR(255)
 );
 
+-- Insert Role Data
+INSERT INTO "role" (name, description) VALUES 
+    ('Admin', 'System Administrator'),
+    ('Buyer', 'Client Logged-In as Buyer'),
+    ('Seller', 'Client Logged-In as Seller');
+
 -- Create User Table
 CREATE TABLE "user" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -37,12 +43,28 @@ CREATE TABLE "user" (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create Shop Status Table
+CREATE TABLE "shop_status" (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(25) NOT NULL,
+    description VARCHAR(255)
+);
+
+-- Insert Shop Status Data
+INSERT INTO "shop_status" (name, description) VALUES 
+    ('Pending', 'Shop is Pending'),
+    ('Approved', 'Shop is Approved'),
+    ('Rejected', 'Shop is Rejected'),
+    ('Suspended', 'Shop is Suspended'),
+    ('Banned', 'Shop is Banned');
+
 -- Create Shop Table
 CREATE TABLE "shop" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(50) NOT NULL,
     description VARCHAR(255),
     owner_id UUID NOT NULL REFERENCES "user" (id),
+    status_id INT NOT NULL REFERENCES "shop_status" (id) DEFAULT 1,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -65,6 +87,14 @@ CREATE TABLE "order_status" (
     name VARCHAR(25) NOT NULL,
     description VARCHAR(255)
 );
+
+-- Insert Order Status Data
+INSERT INTO "order_status" (name, description) VALUES 
+    ('Pending', 'Order is Pending'),
+    ('Processing', 'Order is Processing'),
+    ('Shipped', 'Order is Shipped'),
+    ('Delivered', 'Order is Delivered'),
+    ('Cancelled', 'Order is Cancelled');
 
 -- Create Order Table
 CREATE TABLE "order" (
@@ -132,20 +162,8 @@ CREATE TRIGGER update_cart_task_updated_at
     FOR EACH ROW
 EXECUTE PROCEDURE update_timestamp_updated_at();
 
--- Insert Role Data
-INSERT INTO "role" (name, description) VALUES 
-    ('Admin', 'System Administrator'),
-    ('Buyer', 'Client Logged-In as Buyer'),
-    ('Seller', 'Client Logged-In as Seller');
-
--- Insert Admin User
+-- Insert User
 INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id) VALUES 
-    ('Admin', 'Admin', '', 'admin', 'd3b6c2a2b1c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6', '1234567890', 1);
-
--- Insert Order Status Data
-INSERT INTO "order_status" (name, description) VALUES 
-    ('Pending', 'Order is Pending'),
-    ('Processing', 'Order is Processing'),
-    ('Shipped', 'Order is Shipped'),
-    ('Delivered', 'Order is Delivered'),
-    ('Cancelled', 'Order is Cancelled');
+    ('Admin', 'Admin', '', 'admin', '$2y$10$.e1Wj4lLegaMLph0AOioNOm/J3cwBz6khW6xFqYlJmhH8aikhECkC', '1234567890', 1);
+    ('John', 'Doe', '', 'john@outlook.com', '$2y$10$z58WMvXDW6f0Q5fL5bdjFOuOr1IM57dXBOeUi7g.wgccUBBFbtdlm', '1234567890', 2);
+    ('Mary', 'Jane', '', 'mary@mail.com', '$2y$10$nOhsyEXK.BNoT1z8vYsb2OLjH4tgkmclLZsXmFv7E0uhzaZoltzxW', '1234567890', 3);
