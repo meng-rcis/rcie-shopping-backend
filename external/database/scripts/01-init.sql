@@ -69,6 +69,18 @@ CREATE TABLE "shop" (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create Product Status Table
+CREATE TABLE "product_status" (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(25) NOT NULL,
+    description VARCHAR(255)
+);
+
+-- Insert Product Status Data
+INSERT INTO "product_status" (name, description) VALUES 
+    ('Shown', 'Product is Shown'),
+    ('Hidden', 'Product is Hidden');
+
 -- Create Product Table
 CREATE TABLE "product" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -77,6 +89,7 @@ CREATE TABLE "product" (
     price DECIMAL(10,2) NOT NULL,
     quantity INT NOT NULL,
     shop_id UUID NOT NULL REFERENCES "shop" (id),
+    status_id INT NOT NULL REFERENCES "product_status" (id) DEFAULT 1,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
