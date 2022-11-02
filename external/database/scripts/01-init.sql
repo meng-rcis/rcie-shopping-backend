@@ -164,6 +164,6 @@ EXECUTE PROCEDURE update_timestamp_updated_at();
 
 -- Insert User
 INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id) VALUES 
-    ('Admin', 'Admin', '', 'admin', '$2y$10$.e1Wj4lLegaMLph0AOioNOm/J3cwBz6khW6xFqYlJmhH8aikhECkC', '1234567890', 1);
-    ('John', 'Doe', '', 'john@outlook.com', '$2y$10$z58WMvXDW6f0Q5fL5bdjFOuOr1IM57dXBOeUi7g.wgccUBBFbtdlm', '1234567890', 2);
-    ('Mary', 'Jane', '', 'mary@mail.com', '$2y$10$nOhsyEXK.BNoT1z8vYsb2OLjH4tgkmclLZsXmFv7E0uhzaZoltzxW', '1234567890', 3);
+    ('Admin', 'Admin', '', 'admin', '$2y$10$.e1Wj4lLegaMLph0AOioNOm/J3cwBz6khW6xFqYlJmhH8aikhECkC', '1234567890', 1),
+    ('John', 'Doe', 'john@outlook.com', 'johndoe', '$2y$10$z58WMvXDW6f0Q5fL5bdjFOuOr1IM57dXBOeUi7g.wgccUBBFbtdlm', '1234567890', 2),
+    ('Mary', 'Jane', 'mary@mail.com', 'mary001', '$2y$10$nOhsyEXK.BNoT1z8vYsb2OLjH4tgkmclLZsXmFv7E0uhzaZoltzxW', '1234567890', 3);
