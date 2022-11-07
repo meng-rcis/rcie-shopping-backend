@@ -22,7 +22,7 @@ func InitAPIConfig(apiConfig *APIConfig) error {
 	dbUser := env.GetEnv("APP_DB_USER", "postgres")
 	dbPass := env.GetEnv("APP_DB_PASS", "postgres")
 	dbHost := env.GetEnv("DB_HOST", "localhost")
-	dbPort := env.GetEnv("DB_PORT", "27017")
+	dbPort := env.GetEnv("DB_PORT", "5432")
 	dbName := env.GetEnv("APP_DB_NAME", "shopping")
 	dbDriver := env.GetEnv("DB_DRIVER", "postgres")
 	port := env.GetEnv("APP_PORT", "8000")

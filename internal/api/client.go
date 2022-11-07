@@ -25,7 +25,7 @@ func Client() {
 	}
 
 	// Establish Database Connection
-	config.App.Logf("Connecting database: %s", apiConfig.Db.Dsn)
+	config.App.Log("Connecting database...")
 	db, err := db.OpenSqlDB(&apiConfig)
 	if err != nil {
 		config.App.Fatalf("Database Connection Failed (Error: %s)", err.Error())
