@@ -14,7 +14,10 @@
 - Windows
 
   ```
-  rm .\external\database\data; rm .\external\database\db_backup; docker rm db; docker rm api
+  rm .\external\database\data; `
+  rm .\external\database\db_backup; `
+  docker rm db; `
+  docker rm api
   ```
 
 ### Prune Docker System
