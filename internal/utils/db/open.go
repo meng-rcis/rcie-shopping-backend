@@ -7,8 +7,8 @@ import (
 	"github.com/nuttchai/go-rest/internal/utils/context"
 )
 
-func OpenSqlDB(driver string, cfg config.APIConfig) (*sql.DB, error) {
-	db, err := sql.Open(driver, cfg.Db.Dsn)
+func OpenSqlDB(cfg *config.APIConfig) (*sql.DB, error) {
+	db, err := sql.Open(cfg.Db.Driver, cfg.Db.Dsn)
 	if err != nil {
 		return nil, err
 	}
