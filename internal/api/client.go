@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"flag"
 	"fmt"
 
 	"github.com/labstack/echo"
@@ -12,50 +11,22 @@ import (
 	"github.com/nuttchai/go-rest/internal/routers"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/utils/db"
-	"github.com/nuttchai/go-rest/internal/utils/env"
 )
 
 var appConfig *config.AppConfig
 var apiConfig config.APIConfig
 
 func Client() {
-	// Load Environment Variables
-	config.App.Log("Loading ENV...")
-	appEnv := env.GetEnv("APP_ENV", "development")
-	envDefaultDir, err := env.GetDefaultEnvDir(appEnv)
+	// Add the Configuration into ApiConfig
+	config.App.Log("Loading App Configuration...")
+	err := config.InitAPIConfig(&apiConfig)
 	if err != nil {
 		config.App.Fatalf("Error Loading Root Directory (Error: %s)", err.Error())
 	}
 
-	envDir := env.GetEnv("ENV_PATH", envDefaultDir)
-	env.LoadEnv(envDir)
-	dbType := env.GetEnv("DB_TYPE", "postgres")
-	dbUser := env.GetEnv("APP_DB_USER", "postgres")
-	dbPass := env.GetEnv("APP_DB_PASS", "postgres")
-	dbHost := env.GetEnv("DB_HOST", "localhost")
-	dbPort := env.GetEnv("DB_PORT", "27017")
-	dbName := env.GetEnv("APP_DB_NAME", "shopping")
-	dbDriver := env.GetEnv("DB_DRIVER", "postgres")
-	port := env.GetEnv("APP_PORT", "8000")
-	dbConnStr := fmt.Sprintf(
-		"%s://%s:%s@%s:%s/%s?sslmode=disable",
-		dbType,
-		dbUser,
-		dbPass,
-		dbHost,
-		dbPort,
-		dbName,
-	)
-
-	// Store ENV Variables to ApiConfig
-	flag.StringVar(&apiConfig.Env, "env", appEnv, "Application Environment")
-	flag.StringVar(&apiConfig.Port, "port", port, "Server Listening Port")
-	flag.StringVar(&apiConfig.Db.Dsn, "dsn", dbConnStr, "Data Source Name")
-	flag.Parse()
-
 	// Establish Database Connection
-	config.App.Logf("Connecting database: %s", dbConnStr)
-	db, err := db.OpenSqlDB(dbDriver, apiConfig)
+	config.App.Logf("Connecting database: %s", apiConfig.Db.Dsn)
+	db, err := db.OpenSqlDB(&apiConfig)
 	if err != nil {
 		config.App.Fatalf("Database Connection Failed (Error: %s)", err.Error())
 	}
@@ -81,7 +52,6 @@ func Client() {
 	// Start Server
 	config.App.Logf("Starting Server...")
 	serverPort := fmt.Sprintf(":%s", apiConfig.Port)
-
 	if err := e.Start(serverPort); err != nil {
 		config.App.Fatalf("Server Start Failed (Error: %s)", err.Error())
 	}

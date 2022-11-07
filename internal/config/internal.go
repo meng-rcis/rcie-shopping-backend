@@ -6,7 +6,8 @@ type APIConfig struct {
 	Port string
 	Env  string
 	Db   struct {
-		Dsn string
+		Dsn    string
+		Driver string
 	}
 }
 
