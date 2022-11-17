@@ -27,3 +27,9 @@
 ### Start Docker Service
 
     docker-compose up --build
+
+### Software Required
+
+- Generate Sample Data
+
+SB Data Generator
