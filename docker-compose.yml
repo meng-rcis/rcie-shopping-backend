@@ -17,9 +17,9 @@ services:
       APP_DB_NAME: shopping
     volumes:
       # [+] point data to local folder for persistent data
-      - ./external/database/data:/var/lib/postgresql/data
+      - ./external/database/volumes/data:/var/lib/postgresql/data
       # [+] point to your backup for data restoration
-      - ./external/database/db_backup:/db_backup
+      - ./external/database/volumes/db_backup:/db_backup
       # [+] point docker to directory with your config
       # - ./external/database/db_config:/db_config
       # [+] point to your postgres init scripts (folder or file)
