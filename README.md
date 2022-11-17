@@ -5,8 +5,7 @@
 - MacOS
 
   ```
-  rm -rf external/database/data && \
-  rm -rf external/database/db_backup && \
+  rm -rf external/database/volumes && \
   docker rm db && \
   docker rm api
   ```
@@ -14,8 +13,7 @@
 - Windows
 
   ```
-  rm .\external\database\data; `
-  rm .\external\database\db_backup; `
+  rm .\external\database\volumes; `
   docker rm db; `
   docker rm api
   ```
