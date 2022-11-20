@@ -177,6 +177,6 @@ INSERT INTO "order_status" (name, description) VALUES
 
 -- Insert User
 INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id) VALUES 
-    ('Admin', 'Admin', '', 'admin', 'd5503b08cca52c56cfb12db044a4891a44a5929a52f5ea6c4acf7d1c9c792b83', '1234567890', 3),
-    ('John', 'Doe', 'john@outlook.com', 'johndoe', '5a66d38defd48f6c1ccf3229a1ae37b1e096cb67bab14ebfceb832b5d71115fa', '1234567890', 1),
-    ('Mary', 'Jane', 'mary@mail.com', 'mary001', '22c3ac3de5dbc7c1b22b4b1f773abd8c56829218e571398aab676135098bd7d2', '1234567890', 2);
+    ('Admin', 'Admin', '', 'admin', 'd5503b08cca52c56cfb12db044a4891a44a5929a52f5ea6c4acf7d1c9c792b83', 'tOvyVv6VNs', 3),
+    ('John', 'Doe', 'john@outlook.com', 'johndoe', '5a66d38defd48f6c1ccf3229a1ae37b1e096cb67bab14ebfceb832b5d71115fa', 'mT8kgmRfep', 1),
+    ('Mary', 'Jane', 'mary@mail.com', 'mary001', '22c3ac3de5dbc7c1b22b4b1f773abd8c56829218e571398aab676135098bd7d2', 'xNjc22n5kY', 2);
