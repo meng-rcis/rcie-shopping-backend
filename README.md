@@ -28,6 +28,34 @@
 
 ### Software Required
 
-- Generate Sample Data
+- [SB Data Generator](https://soft-builder.com/sb-data-generator/)
+- [Hash Password Generator Tool](https://emn178.github.io/online-tools/sha256.html)
+- [Random String Generator](https://www.random.org/strings/)
 
-SB Data Generator
+### Account Password
+
+Hash Algorithm: SHA256
+
+- Admin
+
+```
+  User: admin
+  Password: AdminPassword#123
+  Salt: tOvyVv6VNs
+```
+
+- Buyer
+
+```
+  User: johndoe
+  Password: BuyerPassword#123
+  Salt: mT8kgmRfep
+```
+
+- Seller
+
+```
+  User: mary001
+  Password: SellerPassword#123
+  Salt: xNjc22n5kY
+```
