@@ -36,6 +36,8 @@
 
 Hash Algorithm: SHA256
 
+Hash -> {{password}} + {{ salt }}
+
 - Admin
 
 ```
@@ -44,7 +46,7 @@ Hash Algorithm: SHA256
   Salt: tOvyVv6VNs
 ```
 
-- Buyer
+- Buyer (John)
 
 ```
   User: johndoe
@@ -52,10 +54,18 @@ Hash Algorithm: SHA256
   Salt: mT8kgmRfep
 ```
 
-- Seller
+- Seller (Mary)
 
 ```
   User: mary001
   Password: SellerPassword#123
   Salt: xNjc22n5kY
+```
+
+- The Rest
+
+```
+  Password: TheRestPassword#123
+  Salt: vA3fmg0T71
+  Hash: 6a9526e49628084ffb22d6da266ec6067c6a215b5d1b916c01b473af7a4d71a8
 ```
