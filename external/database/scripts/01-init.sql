@@ -47,7 +47,7 @@ CREATE TABLE "shop_status" (
 -- Create Shop Table
 CREATE TABLE "shop" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(50) NOT NULL,
     description VARCHAR(255),
     owner_id UUID NOT NULL REFERENCES "user" (id),
     status_id INT NOT NULL REFERENCES "shop_status" (id) DEFAULT 1,
