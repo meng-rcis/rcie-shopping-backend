@@ -50,16 +50,28 @@ Hash -> {{password}} + {{ salt }}
 
 ```
   User: johndoe
-  Password: BuyerPassword#123
+  Password: JohnDoePassword#123
   Salt: mT8kgmRfep
+```
+
+```
+  User: janecat
+  Password: JaneCatPassword#123
+  Salt: p5U1fGte3y
 ```
 
 - Seller (Mary)
 
 ```
   User: mary001
-  Password: SellerPassword#123
+  Password: Mary001Password#123
   Salt: xNjc22n5kY
+```
+
+```
+  User: katecha
+  Password: KateChaPassword#123
+  Salt: ljUy3RtWer
 ```
 
 - The Rest
