@@ -31,7 +31,7 @@ CREATE TABLE "user" (
     password_hash VARCHAR(255) NOT NULL,
     password_salt VARCHAR(32) NOT NULL,
     role_id INT NOT NULL REFERENCES "role" (id),
-    mobile VARCHAR(15),
+    mobile VARCHAR(20),
     address VARCHAR(255),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -177,11 +177,11 @@ INSERT INTO "order_status" (name, description) VALUES
 
 -- Insert User
 INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id, mobile, address) VALUES 
-    ('Admin', 'Admin', '', 'admin', 'd5503b08cca52c56cfb12db044a4891a44a5929a52f5ea6c4acf7d1c9c792b83', 'tOvyVv6VNs', 3),
-    ('John', 'Doe', 'john@outlook.com', 'johndoe', 'bdf281208b843d12f1b322674536f5b75533bd6b52a60f969752597284e96267', 'mT8kgmRfep', 1, "+66 81 111 1111", "Bangkok"),
-    ('Jane', 'Catterin', 'jane@outlook.com', 'janecat', 'd22ccae83a060c6379c7d9d0f07dd3a05e9b96bc9ec1e7ae1a6a9d946df739a3', 'p5U1fGte3y', 1, NULL, "Nontaburi"),
-    ('Mary', 'Jane', 'mary@mail.com', 'mary001', 'c26507b2360af67bb3e4c1158ba108e76ed665d11da5a00b35ad737c9d562ba8', 'xNjc22n5kY', 2, "+66 82 222 2222", "Bangkok"),
-    ('Kate', 'Smith', 'kate@hotmail.com', 'katecha', '00f3deb28fcc9dfc2fd02725503b0a5d6dcee323705294784b22b591eb5a925b', 'ljUy3RtWer', 2, "+66 83 333 3333", NULL);
+    ('Admin', 'Admin', '', 'admin', 'd5503b08cca52c56cfb12db044a4891a44a5929a52f5ea6c4acf7d1c9c792b83', 'tOvyVv6VNs', 3, NULL, NULL),
+    ('John', 'Doe', 'john@outlook.com', 'johndoe', 'bdf281208b843d12f1b322674536f5b75533bd6b52a60f969752597284e96267', 'mT8kgmRfep', 1, '+66811111111', 'Bangkok'),
+    ('Jane', 'Catterin', 'jane@outlook.com', 'janecat', 'd22ccae83a060c6379c7d9d0f07dd3a05e9b96bc9ec1e7ae1a6a9d946df739a3', 'p5U1fGte3y', 1, NULL, 'Nonthaburi'),
+    ('Mary', 'Jane', 'mary@mail.com', 'mary001', 'c26507b2360af67bb3e4c1158ba108e76ed665d11da5a00b35ad737c9d562ba8', 'xNjc22n5kY', 2, '+66822222222', 'Bangkok'),
+    ('Kate', 'Smith', 'kate@hotmail.com', 'katecha', '00f3deb28fcc9dfc2fd02725503b0a5d6dcee323705294784b22b591eb5a925b', 'ljUy3RtWer', 2, '+66833333333', NULL);
 
 -- Insert Shop
 INSERT INTO "shop" (name, description, owner_id, status_id) VALUES 
