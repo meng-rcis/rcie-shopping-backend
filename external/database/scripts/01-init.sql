@@ -85,7 +85,7 @@ CREATE TABLE "order_status" (
 -- Create Order Table
 CREATE TABLE "order" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    buyer_id UUID NOT NULL REFERENCES "user" (id),
+    owner_id UUID NOT NULL REFERENCES "user" (id),
     product_id UUID NOT NULL REFERENCES "product" (id),
     status_id INT NOT NULL REFERENCES "order_status" (id),
     quantity INT NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE "order" (
 -- Create Cart Table
 CREATE TABLE "cart" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    buyer_id UUID NOT NULL REFERENCES "user" (id),
+    owner_id UUID NOT NULL REFERENCES "user" (id),
     product_id UUID NOT NULL REFERENCES "product" (id),
     quantity INT NOT NULL,
     total_price DECIMAL(10,2) NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE "cart" (
 -- Create Wishlist Table
 CREATE TABLE "wishlist" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    buyer_id UUID NOT NULL REFERENCES "user" (id),
+    owner_id UUID NOT NULL REFERENCES "user" (id),
     product_id UUID NOT NULL REFERENCES "product" (id),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -176,7 +176,51 @@ INSERT INTO "order_status" (name, description) VALUES
     ('Cancelled', 'Order is Cancelled');
 
 -- Insert User
-INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id) VALUES 
+INSERT INTO "user" (first_name, last_name, email, username, password_hash, password_salt, role_id, mobile, address) VALUES 
     ('Admin', 'Admin', '', 'admin', 'd5503b08cca52c56cfb12db044a4891a44a5929a52f5ea6c4acf7d1c9c792b83', 'tOvyVv6VNs', 3),
-    ('John', 'Doe', 'john@outlook.com', 'johndoe', '5a66d38defd48f6c1ccf3229a1ae37b1e096cb67bab14ebfceb832b5d71115fa', 'mT8kgmRfep', 1),
-    ('Mary', 'Jane', 'mary@mail.com', 'mary001', '22c3ac3de5dbc7c1b22b4b1f773abd8c56829218e571398aab676135098bd7d2', 'xNjc22n5kY', 2);
+    ('John', 'Doe', 'john@outlook.com', 'johndoe', 'bdf281208b843d12f1b322674536f5b75533bd6b52a60f969752597284e96267', 'mT8kgmRfep', 1, "+66 81 111 1111", "Bangkok"),
+    ('Jane', 'Catterin', 'jane@outlook.com', 'janecat', 'd22ccae83a060c6379c7d9d0f07dd3a05e9b96bc9ec1e7ae1a6a9d946df739a3', 'p5U1fGte3y', 1, NULL, "Nontaburi"),
+    ('Mary', 'Jane', 'mary@mail.com', 'mary001', 'c26507b2360af67bb3e4c1158ba108e76ed665d11da5a00b35ad737c9d562ba8', 'xNjc22n5kY', 2, "+66 82 222 2222", "Bangkok"),
+    ('Kate', 'Smith', 'kate@hotmail.com', 'katecha', '00f3deb28fcc9dfc2fd02725503b0a5d6dcee323705294784b22b591eb5a925b', 'ljUy3RtWer', 2, "+66 83 333 3333", NULL);
+
+-- Insert Shop
+INSERT INTO "shop" (name, description, owner_id, status_id) VALUES 
+    ('Mary Shop', 
+    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    (SELECT id FROM "user" WHERE username = 'mary001'),
+    2),
+    ('SmithPlay', 
+    'Contrary to popular belief, Lorem Ipsum is not simply random text.',
+    (SELECT id FROM "user" WHERE username = 'katecha'),
+    2);
+
+
+-- Insert Product
+INSERT INTO "product" (name, description, price, quantity, shop_id, status_id) VALUES 
+    ('Mary Product 1', 'Mary Product 1 Description', 10.00, 10, (SELECT id FROM "shop" WHERE name = 'Mary Shop'), 1),
+    ('Mary Product 2', 'Mary Product 2 Description', 200.00, 20, (SELECT id FROM "shop" WHERE name = 'Mary Shop'), 1),
+    ('Mary Product 3', 'Mary Product 3 Description', 320.00, 50, (SELECT id FROM "shop" WHERE name = 'Mary Shop'), 1),
+    ('Mary Product 4', 'Mary Product 4 Description', 550.00, 50, (SELECT id FROM "shop" WHERE name = 'Mary Shop'), 2),
+    ('Mary Product 5', 'Mary Product 5 Description', 600.00, 50, (SELECT id FROM "shop" WHERE name = 'Mary Shop'), 2),
+    ('Smith Product 1', 'Smith Product 1 Description', 300.00, 30, (SELECT id FROM "shop" WHERE name = 'SmithPlay'), 1),
+    ('Smith Product 2', 'Smith Product 2 Description', 350.00, 10, (SELECT id FROM "shop" WHERE name = 'SmithPlay'), 1),
+    ('Smith Product 3', 'Smith Product 3 Description', 400.00, 40, (SELECT id FROM "shop" WHERE name = 'SmithPlay'), 2),
+    ('Smith Product 4', 'Smith Product 4 Description', 300.00, 30, (SELECT id FROM "shop" WHERE name = 'SmithPlay'), 2);
+
+-- Insert Order
+INSERT INTO "order" (owner_id, product_id, quantity, total_price, status_id) VALUES 
+    ((SELECT id FROM "user" WHERE username = 'johndoe'), (SELECT id FROM "product" WHERE name = 'Mary Product 1'), 4, 40.00, 4),
+    ((SELECT id FROM "user" WHERE username = 'johndoe'), (SELECT id FROM "product" WHERE name = 'Smith Product 1'), 1, 300.00, 1),
+    ((SELECT id FROM "user" WHERE username = 'janecat'), (SELECT id FROM "product" WHERE name = 'Mary Product 5'), 2, 1200.00, 2);
+
+-- Insert Cart
+INSERT INTO "cart" (owner_id, product_id, quantity, total_price) VALUES 
+    ((SELECT id FROM "user" WHERE username = 'johndoe'), (SELECT id FROM "product" WHERE name = 'Mary Product 2'), 4, 800.00),
+    ((SELECT id FROM "user" WHERE username = 'johndoe'), (SELECT id FROM "product" WHERE name = 'Mary Product 3'), 1, 320.00),
+    ((SELECT id FROM "user" WHERE username = 'janecat'), (SELECT id FROM "product" WHERE name = 'Smith Product 3'), 4, 1600.00);
+
+-- Insert Wishlist
+INSERT INTO "wishlist" (owner_id, product_id) VALUES 
+    ((SELECT id FROM "user" WHERE username = 'johndoe'), (SELECT id FROM "product" WHERE name = 'Mary Product 2')),
+    ((SELECT id FROM "user" WHERE username = 'johndoe'), (SELECT id FROM "product" WHERE name = 'Mary Product 5')),
+    ((SELECT id FROM "user" WHERE username = 'janecat'), (SELECT id FROM "product" WHERE name = 'Mary Product 2'));
