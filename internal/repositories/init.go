@@ -3,17 +3,17 @@ package repositories
 import "database/sql"
 
 type DBModel struct {
-	SqlDB *sql.DB
+	DB *sql.DB
 }
 
 type Models struct {
 	DB DBModel
 }
 
-func InitModels(SqlDB *sql.DB) Models {
+func InitModels(db *sql.DB) Models {
 	return Models{
 		DB: DBModel{
-			SqlDB: SqlDB,
+			DB: db,
 		},
 	}
 }

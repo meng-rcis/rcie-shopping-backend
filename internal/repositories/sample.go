@@ -12,7 +12,7 @@ func (m *DBModel) GetSample(id string) (*models.Sample, error) {
 	defer cancel()
 
 	query := `select * from samples where id = $1`
-	row := m.SqlDB.QueryRowContext(ctx, query, id)
+	row := m.DB.QueryRowContext(ctx, query, id)
 
 	var sample models.Sample
 	err := row.Scan(
@@ -33,7 +33,7 @@ func (m *DBModel) CreateSample(s *models.NewSample) (int, error) {
 		values ($1, $2)
 		returning id
 	`
-	err := m.SqlDB.QueryRowContext(ctx, query, s.Name, s.Desc).Scan(&id)
+	err := m.DB.QueryRowContext(ctx, query, s.Name, s.Desc).Scan(&id)
 
 	return id, err
 }
@@ -46,7 +46,7 @@ func (m *DBModel) UpdateSample(s *models.Sample) (sql.Result, error) {
 		update samples set name = $1, desc = $2
 		where id = $3
 	`
-	result, err := m.SqlDB.ExecContext(ctx, query, s.Name, s.Desc, s.Id)
+	result, err := m.DB.ExecContext(ctx, query, s.Name, s.Desc, s.Id)
 
 	return result, err
 }
@@ -59,7 +59,7 @@ func (m *DBModel) DeleteSample(id string) (sql.Result, error) {
 		delete from samples 
 		where id = $1
 	`
-	result, err := m.SqlDB.ExecContext(ctx, query, id)
+	result, err := m.DB.ExecContext(ctx, query, id)
 
 	return result, err
 }
@@ -72,7 +72,7 @@ func (m *DBModel) EmptySampleDesc(id string) (sql.Result, error) {
 		update samples set desc = '-'
 		where id = $1
 	`
-	result, err := m.SqlDB.ExecContext(ctx, query, id)
+	result, err := m.DB.ExecContext(ctx, query, id)
 
 	return result, err
 }
