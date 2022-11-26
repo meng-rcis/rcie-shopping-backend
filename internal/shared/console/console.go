@@ -1,36 +1,36 @@
-package config
+package console
 
 import (
 	"log"
 	"os"
 )
 
-type Shared struct {
+type Console struct {
 	Logger      *log.Logger
 	ErrorLogger *log.Logger
 }
 
-var App *Shared
+var App *Console
 
 func init() {
-	App = &Shared{
+	App = &Console{
 		Logger:      log.New(os.Stdout, "APP_LOG: ", log.Ldate|log.Ltime),
 		ErrorLogger: log.New(os.Stdout, "APP_ERROR_LOG: ", log.Ldate|log.Ltime),
 	}
 }
 
-func (s *Shared) Log(message string) {
+func (s *Console) Log(message string) {
 	s.Logger.Println(message)
 }
 
-func (s *Shared) Logf(message string, options ...any) {
+func (s *Console) Logf(message string, options ...any) {
 	s.Logger.Printf(message, options...)
 }
 
-func (s *Shared) Fatal(message string) {
+func (s *Console) Fatal(message string) {
 	s.ErrorLogger.Fatal(message)
 }
 
-func (s *Shared) Fatalf(message string, options ...any) {
+func (s *Console) Fatalf(message string, options ...any) {
 	s.ErrorLogger.Fatalf(message, options...)
 }

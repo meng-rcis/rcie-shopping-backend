@@ -3,6 +3,7 @@ package routers
 import (
 	"github.com/labstack/echo"
 	"github.com/nuttchai/go-rest/internal/handlers"
+	"github.com/nuttchai/go-rest/internal/shared/console"
 	"github.com/nuttchai/go-rest/internal/utils/api"
 )
 
@@ -16,5 +17,6 @@ func initSampleRouterPath(e *echo.Echo) *echo.Echo {
 
 	e.DELETE(api.CreatePath("sample/:id"), handlers.SampleHandler.DeleteSample)
 
+	console.App.Log("Sample Router Initialized")
 	return e
 }

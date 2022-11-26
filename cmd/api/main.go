@@ -2,10 +2,10 @@ package main
 
 import (
 	internal "github.com/nuttchai/go-rest/internal/api"
-	"github.com/nuttchai/go-rest/internal/config"
+	"github.com/nuttchai/go-rest/internal/shared/console"
 )
 
 func main() {
-	config.App.Log("Start client...")
+	console.App.Log("Start client...")
 	internal.Client()
 }

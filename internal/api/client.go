@@ -10,6 +10,7 @@ import (
 	"github.com/nuttchai/go-rest/internal/repositories"
 	"github.com/nuttchai/go-rest/internal/routers"
 	"github.com/nuttchai/go-rest/internal/services"
+	"github.com/nuttchai/go-rest/internal/shared/console"
 	"github.com/nuttchai/go-rest/internal/utils/db"
 )
 
@@ -18,19 +19,19 @@ var apiConfig config.APIConfig
 
 func Client() {
 	// Add the Configuration into ApiConfig
-	config.App.Log("Loading App Configuration...")
+	console.App.Log("Loading App Configuration...")
 	err := config.InitAPIConfig(&apiConfig)
 	if err != nil {
-		config.App.Fatalf("Error Loading Root Directory (Error: %s)", err.Error())
+		console.App.Fatalf("Error Loading Root Directory (Error: %s)", err.Error())
 	}
 
 	// Establish Database Connection
-	config.App.Log("Connecting Database...")
+	console.App.Log("Connecting Database...")
 	db, err := db.OpenSqlDB(&apiConfig)
 	if err != nil {
-		config.App.Fatalf("Database Connection Failed (Error: %s)", err.Error())
+		console.App.Fatalf("Database Connection Failed (Error: %s)", err.Error())
 	}
-	config.App.Log("Connected Database Successfully")
+	console.App.Log("Connected Database Successfully")
 	defer db.Close()
 
 	// Add the Configuration into AppConfig
@@ -40,20 +41,20 @@ func Client() {
 	}
 
 	// Initialize Services
-	config.App.Logf("Initializing Services...")
+	console.App.Logf("Initializing Services...")
 	repo := services.InitRepo(appConfig)
 	services.InitServices(repo)
 
 	// Initialize Routers
-	config.App.Logf("Initializing Routers...")
+	console.App.Logf("Initializing Routers...")
 	e := echo.New()
 	middleware.EnableCORS(e)
 	routers.InitRouters(e)
 
 	// Start Server
-	config.App.Logf("Starting Server...")
+	console.App.Logf("Starting Server...")
 	serverPort := fmt.Sprintf(":%s", apiConfig.Port)
 	if err := e.Start(serverPort); err != nil {
-		config.App.Fatalf("Server Start Failed (Error: %s)", err.Error())
+		console.App.Fatalf("Server Start Failed (Error: %s)", err.Error())
 	}
 }
