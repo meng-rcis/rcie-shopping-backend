@@ -4,6 +4,7 @@ import "github.com/labstack/echo"
 
 func InitRouters(e *echo.Echo) *echo.Echo {
 	initSampleRouterPath(e)
+	initCartRouterPath(e)
 
 	return e
 }
