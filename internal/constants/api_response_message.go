@@ -11,7 +11,11 @@ const (
 	EmptySampleDescSuccessMsg = "Empty sample description successfully"
 	DeleteSampleSuccessMsg    = "Delete sample successfully"
 
+	// Cart Service
+	GetCartItemsSuccessMsg = "Get cart items successfully"
+
 	// Common
 	DecodingJSONError       = "Decoding JSON Error"
 	ConvertStringToIntError = "Convert string to int error"
+	MissingParamError       = "Missing parameter"
 )
