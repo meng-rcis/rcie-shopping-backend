@@ -29,6 +29,14 @@ func InternalServerError(err error) *APIError {
 	}
 }
 
+func BadRequestError(err error) *APIError {
+	return &APIError{
+		Status:  400,
+		Message: "BadRequestError",
+		Error:   err.Error(),
+	}
+}
+
 func NotFoundError(err error) *APIError {
 	return &APIError{
 		Status:  404,
