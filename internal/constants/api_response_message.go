@@ -13,6 +13,7 @@ const (
 
 	// Cart Service
 	GetCartItemsSuccessMsg = "Get cart items successfully"
+	AddCartItemSuccessMsg  = "Add item to the cart successfully"
 
 	// Common
 	DecodingJSONError       = "Decoding JSON Error"

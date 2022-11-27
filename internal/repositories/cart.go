@@ -5,7 +5,7 @@ import (
 	"github.com/nuttchai/go-rest/internal/utils/context"
 )
 
-func (m *DBModel) GetItems(userId string) ([]*models.CartItem, error) {
+func (m *DBModel) GetAllCartProducts(userId string) ([]*models.CartItem, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
@@ -20,7 +20,7 @@ func (m *DBModel) GetItems(userId string) ([]*models.CartItem, error) {
 	cartItems := []*models.CartItem{}
 	for rows.Next() {
 		var cartItem models.CartItem
-		err := rows.Scan(
+		if err := rows.Scan(
 			&cartItem.Id,
 			&cartItem.OwnerId,
 			&cartItem.ProductId,
@@ -28,8 +28,7 @@ func (m *DBModel) GetItems(userId string) ([]*models.CartItem, error) {
 			&cartItem.TotalPrice,
 			&cartItem.CreatedAt,
 			&cartItem.UpdatedAt,
-		)
-		if err != nil {
+		); err != nil {
 			return nil, err
 		}
 
@@ -37,4 +36,27 @@ func (m *DBModel) GetItems(userId string) ([]*models.CartItem, error) {
 	}
 
 	return cartItems, nil
+}
+
+func (m *DBModel) AddProductToCart(userId string, productId string, quantity int, total_price float64) (*models.CartItem, error) {
+	ctx, cancel := context.WithTimeout(3)
+	defer cancel()
+
+	query := "insert into cart (owner_id, product_id, quantity, total_price) values ($1, $2, $3, $4) returning *"
+	row := m.DB.QueryRowContext(ctx, query, userId, productId, quantity, total_price)
+
+	var cartItem models.CartItem
+	if err := row.Scan(
+		&cartItem.Id,
+		&cartItem.OwnerId,
+		&cartItem.ProductId,
+		&cartItem.Quantity,
+		&cartItem.TotalPrice,
+		&cartItem.CreatedAt,
+		&cartItem.UpdatedAt,
+	); err != nil {
+		return nil, err
+	}
+
+	return &cartItem, nil
 }

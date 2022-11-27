@@ -1,13 +1,17 @@
 package services
 
-import "github.com/nuttchai/go-rest/internal/models"
+import (
+	"github.com/nuttchai/go-rest/internal/models"
+	"github.com/nuttchai/go-rest/internal/utils/validators"
+)
 
 type cartService struct {
 	repo *Repository
 }
 
 type cartServiceInterface interface {
-	GetItems(userId string) ([]*models.CartItem, error)
+	GetAllCartProducts(userId string) ([]*models.CartItem, error)
+	AddProductToCart(userId string, productId string, quantity int) (*models.CartItem, error)
 }
 
 var (
@@ -20,6 +24,30 @@ func init() {
 	}
 }
 
-func (s *cartService) GetItems(userId string) ([]*models.CartItem, error) {
-	return s.repo.Models.DB.GetItems(userId)
+func (s *cartService) GetAllCartProducts(userId string) ([]*models.CartItem, error) {
+	return s.repo.Models.DB.GetAllCartProducts(userId)
+}
+
+func (s *cartService) AddProductToCart(userId string, productId string, quantity int) (*models.CartItem, error) {
+	productDetail, err := ProductService.GetProductDetail(productId)
+	if err != nil {
+		return nil, err
+	} else if err = validators.ValidateCartProduct(
+		productDetail,
+		quantity,
+	); err != nil {
+		return nil, err
+	} else if err = ProductService.DeductProductQuantity(
+		productId,
+		quantity,
+	); err != nil {
+		return nil, err
+	}
+
+	return s.repo.Models.DB.AddProductToCart(
+		userId,
+		productId,
+		quantity,
+		float64(quantity)*productDetail.Price,
+	)
 }
