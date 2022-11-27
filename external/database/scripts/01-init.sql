@@ -67,8 +67,8 @@ CREATE TABLE "product" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(50) NOT NULL,
     description VARCHAR(255),
-    price DECIMAL(10,2) NOT NULL,
-    quantity INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL CHECK (price > 0),
+    quantity INT NOT NULL CHECK (quantity >= 0),
     shop_id UUID NOT NULL REFERENCES "shop" (id),
     status_id INT NOT NULL REFERENCES "product_status" (id) DEFAULT 1,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -88,8 +88,8 @@ CREATE TABLE "order" (
     owner_id UUID NOT NULL REFERENCES "user" (id),
     product_id UUID NOT NULL REFERENCES "product" (id),
     status_id INT NOT NULL REFERENCES "order_status" (id),
-    quantity INT NOT NULL,
-    total_price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL CHECK (quantity >= 0),
+    total_price DECIMAL(10,2) NOT NULL CHECK (total_price > 0),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -99,8 +99,8 @@ CREATE TABLE "cart" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     owner_id UUID NOT NULL REFERENCES "user" (id),
     product_id UUID NOT NULL REFERENCES "product" (id),
-    quantity INT NOT NULL,
-    total_price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL CHECK (quantity >= 0),
+    total_price DECIMAL(10,2) NOT NULL CHECK (total_price > 0),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
