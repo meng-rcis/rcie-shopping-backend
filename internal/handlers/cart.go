@@ -49,7 +49,7 @@ func (h *cartHandler) GetAllCartProducts(c echo.Context) error {
 }
 
 func (h *cartHandler) AddProductToCart(c echo.Context) error {
-	var reqBody *cart_dto.AddCartItemDTO
+	var reqBody *cart_dto.AddCartProductDTO
 	err := json.NewDecoder(c.Request().Body).Decode(&reqBody)
 	if err != nil {
 		jsonErr := api.BadRequestError(err)
