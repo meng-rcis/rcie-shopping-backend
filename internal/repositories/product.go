@@ -35,10 +35,26 @@ func (m *DBModel) GetProductDetail(id string) (*models.Product, error) {
 	return &product, err
 }
 
+func (m *DBModel) AddProductQuantity(id string, quantity int) (sql.Result, error) {
+	ctx, cancel := context.WithTimeout(3)
+	defer cancel()
+
+	query := `
+		update product
+		set quantity = quantity + $1
+		where id = $2
+	`
+	return m.DB.ExecContext(ctx, query, quantity, id)
+}
+
 func (m *DBModel) DeductProductQuantity(id string, quantity int) (sql.Result, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
-	query := "update product set quantity = quantity - $1 where id = $2"
+	query := `
+		update product 
+		set quantity = quantity - $1 
+		where id = $2
+	`
 	return m.DB.ExecContext(ctx, query, quantity, id)
 }

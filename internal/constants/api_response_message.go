@@ -12,8 +12,9 @@ const (
 	DeleteSampleSuccessMsg    = "Delete sample successfully"
 
 	// Cart Service
-	GetCartItemsSuccessMsg = "Get cart items successfully"
-	AddCartItemSuccessMsg  = "Add item to the cart successfully"
+	GetCartItemsSuccessMsg   = "Get cart items successfully"
+	AddCartItemSuccessMsg    = "Add item to the cart successfully"
+	UpdateCartItemSuccessMsg = "Update cart item successfully"
 
 	// Common
 	DecodingJSONError       = "Decoding JSON Error"

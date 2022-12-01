@@ -5,7 +5,28 @@ import (
 	"github.com/nuttchai/go-rest/internal/utils/context"
 )
 
-func (m *DBModel) GetAllCartProducts(userId string) ([]*models.CartItem, error) {
+func (m *DBModel) GetCartItem(cartId string) (*models.CartItem, error) {
+	ctx, cancel := context.WithTimeout(3)
+	defer cancel()
+
+	query := "select * from cart where id = $1"
+	row := m.DB.QueryRowContext(ctx, query, cartId)
+
+	var cartItem models.CartItem
+	err := row.Scan(
+		&cartItem.Id,
+		&cartItem.OwnerId,
+		&cartItem.ProductId,
+		&cartItem.Quantity,
+		&cartItem.TotalPrice,
+		&cartItem.CreatedAt,
+		&cartItem.UpdatedAt,
+	)
+
+	return &cartItem, err
+}
+
+func (m *DBModel) GetAllCartItems(userId string) ([]*models.CartItem, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
@@ -38,7 +59,7 @@ func (m *DBModel) GetAllCartProducts(userId string) ([]*models.CartItem, error) 
 	return cartItems, nil
 }
 
-func (m *DBModel) AddCartProduct(userId string, productId string, quantity int, total_price float64) (*models.CartItem, error) {
+func (m *DBModel) AddCartItem(userId string, productId string, quantity int, total_price float64) (*models.CartItem, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
@@ -59,4 +80,25 @@ func (m *DBModel) AddCartProduct(userId string, productId string, quantity int, 
 	}
 
 	return &cartItem, nil
+}
+
+func (m *DBModel) UpdateCartItem(cartId string, quantity int, total_price float64) (*models.CartItem, error) {
+	ctx, cancel := context.WithTimeout(3)
+	defer cancel()
+
+	query := "update cart set quantity = $1, total_price = $2 where id = $3 returning *"
+	row := m.DB.QueryRowContext(ctx, query, quantity, total_price, cartId)
+
+	var cartItem models.CartItem
+	err := row.Scan(
+		&cartItem.Id,
+		&cartItem.OwnerId,
+		&cartItem.ProductId,
+		&cartItem.Quantity,
+		&cartItem.TotalPrice,
+		&cartItem.CreatedAt,
+		&cartItem.UpdatedAt,
+	)
+
+	return &cartItem, err
 }
