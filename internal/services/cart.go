@@ -11,7 +11,7 @@ type cartService struct {
 
 type cartServiceInterface interface {
 	GetAllCartProducts(userId string) ([]*models.CartItem, error)
-	AddProductToCart(userId string, productId string, quantity int) (*models.CartItem, error)
+	AddCartProduct(userId string, productId string, quantity int) (*models.CartItem, error)
 }
 
 var (
@@ -28,7 +28,7 @@ func (s *cartService) GetAllCartProducts(userId string) ([]*models.CartItem, err
 	return s.repo.Models.DB.GetAllCartProducts(userId)
 }
 
-func (s *cartService) AddProductToCart(userId string, productId string, quantity int) (*models.CartItem, error) {
+func (s *cartService) AddCartProduct(userId string, productId string, quantity int) (*models.CartItem, error) {
 	productDetail, err := ProductService.GetProductDetail(productId)
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func (s *cartService) AddProductToCart(userId string, productId string, quantity
 		return nil, err
 	}
 
-	return s.repo.Models.DB.AddProductToCart(
+	return s.repo.Models.DB.AddCartProduct(
 		userId,
 		productId,
 		quantity,

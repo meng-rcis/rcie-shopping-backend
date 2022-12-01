@@ -16,7 +16,7 @@ type cartHandler struct{}
 
 type cartHandlerInterface interface {
 	GetAllCartProducts(c echo.Context) error
-	AddProductToCart(c echo.Context) error
+	AddCartProduct(c echo.Context) error
 }
 
 var (
@@ -48,7 +48,7 @@ func (h *cartHandler) GetAllCartProducts(c echo.Context) error {
 	return c.JSON(res.Status, res)
 }
 
-func (h *cartHandler) AddProductToCart(c echo.Context) error {
+func (h *cartHandler) AddCartProduct(c echo.Context) error {
 	var reqBody *cart_dto.AddCartProductDTO
 	err := json.NewDecoder(c.Request().Body).Decode(&reqBody)
 	if err != nil {
@@ -56,7 +56,7 @@ func (h *cartHandler) AddProductToCart(c echo.Context) error {
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
-	item, err := services.CartService.AddProductToCart(reqBody.UserId, reqBody.ProductId, reqBody.Quantity)
+	item, err := services.CartService.AddCartProduct(reqBody.UserId, reqBody.ProductId, reqBody.Quantity)
 	if err != nil {
 		jsonErr := api.InternalServerError(err)
 		return c.JSON(jsonErr.Status, jsonErr)

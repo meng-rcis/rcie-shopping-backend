@@ -38,7 +38,7 @@ func (m *DBModel) GetAllCartProducts(userId string) ([]*models.CartItem, error) 
 	return cartItems, nil
 }
 
-func (m *DBModel) AddProductToCart(userId string, productId string, quantity int, total_price float64) (*models.CartItem, error) {
+func (m *DBModel) AddCartProduct(userId string, productId string, quantity int, total_price float64) (*models.CartItem, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
