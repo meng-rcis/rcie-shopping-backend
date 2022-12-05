@@ -10,6 +10,6 @@ import (
 func initProductRouterPath(e *echo.Echo) *echo.Echo {
 	e.GET(api.CreatePath("product/:id"), handlers.ProductHandler.GetProduct)
 
-	console.App.Log("Cart Router Initialized")
+	console.App.Log("Product Router Initialized")
 	return e
 }
