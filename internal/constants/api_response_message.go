@@ -24,6 +24,9 @@ const (
 	GetOrdersSuccessMsg   = "Get order successfully"
 	CreateOrderSuccessMsg = "Create order successfully"
 
+	// Search Service
+	SearchProductSuccessMsg = "Search product successfully"
+
 	// Admin Service
 	UpdateOrderStatusSuccessMsg     = "Update order status successfully"
 	UpdateProductQuantitySuccessMsg = "Update product quantity successfully"

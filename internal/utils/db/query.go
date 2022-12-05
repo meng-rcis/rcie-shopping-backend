@@ -1,7 +1,7 @@
 package db
 
 import (
-	"strconv"
+	"fmt"
 
 	"github.com/nuttchai/go-rest/internal/types"
 )
@@ -16,12 +16,12 @@ func BuildQueryWithFilter(
 	argsIndex := len(args) + 1
 
 	for _, filter := range filters {
-		joinQuery := " and "
+		joinQuery := "and"
 		if argsIndex == 1 {
-			joinQuery = " where "
+			joinQuery = "where"
 		}
 
-		query += joinQuery + filter.Field + " = $" + strconv.Itoa(argsIndex)
+		query += fmt.Sprintf(" %s %s %s $%d", joinQuery, filter.Field, filter.Operator, argsIndex)
 		args = append(args, filter.Value)
 		argsIndex++
 	}

@@ -30,15 +30,17 @@ func (s *orderService) GetOrders(orderQuery *types.OrderQuery) ([]*models.Order,
 	orderFilter := []*types.QueryFilter{}
 	if orderQuery.UserId != "" {
 		orderFilter = append(orderFilter, &types.QueryFilter{
-			Field: "o.owner_id",
-			Value: orderQuery.UserId,
+			Field:    "o.owner_id",
+			Operator: "=",
+			Value:    orderQuery.UserId,
 		})
 	}
 
 	if orderQuery.Status != "" {
 		orderFilter = append(orderFilter, &types.QueryFilter{
-			Field: "os.name",
-			Value: orderQuery.Status,
+			Field:    "os.name",
+			Operator: "=",
+			Value:    orderQuery.Status,
 		})
 	}
 

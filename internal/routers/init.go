@@ -8,6 +8,7 @@ func InitRouters(e *echo.Echo) *echo.Echo {
 	initCartRouterPath(e)
 	initProductRouterPath(e)
 	initOrderRouterPath(e)
+	initSearchRouterPath(e)
 
 	return e
 }

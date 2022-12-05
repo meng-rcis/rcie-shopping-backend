@@ -34,8 +34,9 @@ func (s *cartService) GetCartItem(id string, cartQuery *types.CartQuery) (*model
 	cartFilter := []*types.QueryFilter{}
 	if cartQuery.UserId != "" {
 		cartFilter = append(cartFilter, &types.QueryFilter{
-			Field: "owner_id",
-			Value: cartQuery.UserId,
+			Field:    "owner_id",
+			Operator: "=",
+			Value:    cartQuery.UserId,
 		})
 	}
 
