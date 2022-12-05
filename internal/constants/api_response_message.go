@@ -20,6 +20,9 @@ const (
 	// Product Service
 	GetProductSuccessMsg = "Get product successfully"
 
+	// Order Service
+	GetOrdersSuccessMsg = "Get order successfully"
+
 	// Common
 	DecodingJSONError       = "Decoding JSON Error"
 	ConvertStringToIntError = "Convert string to int error"

@@ -96,8 +96,6 @@ func (s *cartService) UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*model
 		); err != nil {
 			return nil, err
 		}
-	} else {
-		return nil, errors.New("cannot update cart item with same quantity")
 	}
 
 	productDetail, err := ProductService.GetProduct(productId)
