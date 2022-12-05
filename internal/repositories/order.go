@@ -83,3 +83,39 @@ func (m *DBModel) CreateOrder(order *models.Order) (*models.Order, error) {
 
 	return &newOrder, nil
 }
+
+func (m *DBModel) UpdateOrder(order *models.Order) (*models.Order, error) {
+	ctx, cancel := context.WithTimeout(3)
+	defer cancel()
+
+	query := `
+		update "order"
+		set status_id = (
+			select id from order_status where name = $1
+		)
+		where id = $2
+		returning *
+	`
+	row := m.DB.QueryRowContext(
+		ctx,
+		query,
+		order.Status,
+		order.Id,
+	)
+
+	var updatedOrder models.Order
+	if err := row.Scan(
+		&updatedOrder.Id,
+		&updatedOrder.OwnerId,
+		&updatedOrder.ProductId,
+		&updatedOrder.Status,
+		&updatedOrder.Quantity,
+		&updatedOrder.TotalPrice,
+		&updatedOrder.CreatedAt,
+		&updatedOrder.UpdatedAt,
+	); err != nil {
+		return nil, err
+	}
+
+	return &updatedOrder, nil
+}

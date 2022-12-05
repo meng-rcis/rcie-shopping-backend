@@ -13,6 +13,7 @@ type orderService struct {
 type orderServiceInterface interface {
 	GetOrders(orderQuery *types.OrderQuery) ([]*models.Order, error)
 	CreateOrder(order *orderdto.CreateOrderDTO) (*models.Order, error)
+	UpdateOrder(order *models.Order) (*models.Order, error)
 }
 
 var (
@@ -74,4 +75,9 @@ func (s *orderService) CreateOrder(orderdto *orderdto.CreateOrderDTO) (*models.O
 	}
 
 	return newOrder, nil
+}
+
+func (s *orderService) UpdateOrder(orderdto *models.Order) (*models.Order, error) {
+	// TODO: Check if user status is valid to edit order status
+	return s.repo.Models.DB.UpdateOrder(orderdto)
 }

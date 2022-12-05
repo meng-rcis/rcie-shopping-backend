@@ -24,6 +24,10 @@ const (
 	GetOrdersSuccessMsg   = "Get order successfully"
 	CreateOrderSuccessMsg = "Create order successfully"
 
+	// Admin Service
+	UpdateOrderStatusSuccessMsg     = "Update order status successfully"
+	UpdateProductQuantitySuccessMsg = "Update product quantity successfully"
+
 	// Common
 	DecodingJSONError       = "Decoding JSON Error"
 	ConvertStringToIntError = "Convert string to int error"
