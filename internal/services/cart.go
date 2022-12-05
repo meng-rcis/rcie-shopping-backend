@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 
-	"github.com/nuttchai/go-rest/internal/dto/cart_dto"
+	cartdto "github.com/nuttchai/go-rest/internal/dto/cart_dto"
 	"github.com/nuttchai/go-rest/internal/models"
 	"github.com/nuttchai/go-rest/internal/utils/validators"
 )
@@ -14,8 +14,8 @@ type cartService struct {
 
 type cartServiceInterface interface {
 	GetAllCartItems(userId string) ([]*models.CartItem, error)
-	AddCartItem(cartDTO *cart_dto.AddCartItemDTO) (*models.CartItem, error)
-	UpdateCartItem(cartDTO *cart_dto.UpdateCartItemDTO) (*models.CartItem, error)
+	AddCartItem(cartDTO *cartdto.AddCartItemDTO) (*models.CartItem, error)
+	UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*models.CartItem, error)
 	RemoveCartItem(id string) error
 }
 
@@ -33,7 +33,7 @@ func (s *cartService) GetAllCartItems(userId string) ([]*models.CartItem, error)
 	return s.repo.Models.DB.GetAllCartItems(userId)
 }
 
-func (s *cartService) AddCartItem(cartDTO *cart_dto.AddCartItemDTO) (*models.CartItem, error) {
+func (s *cartService) AddCartItem(cartDTO *cartdto.AddCartItemDTO) (*models.CartItem, error) {
 	userId := cartDTO.UserId
 	productId := cartDTO.ProductId
 	quantity := cartDTO.Quantity
@@ -60,7 +60,7 @@ func (s *cartService) AddCartItem(cartDTO *cart_dto.AddCartItemDTO) (*models.Car
 	)
 }
 
-func (s *cartService) UpdateCartItem(cartDTO *cart_dto.UpdateCartItemDTO) (*models.CartItem, error) {
+func (s *cartService) UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*models.CartItem, error) {
 	cartId := cartDTO.Id
 	productId := cartDTO.ProductId
 	quantity := cartDTO.Quantity

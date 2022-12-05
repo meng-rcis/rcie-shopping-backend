@@ -1,4 +1,4 @@
-package cart_dto
+package cartdto
 
 type UpdateCartItemDTO struct {
 	Id        string `json:"id"`

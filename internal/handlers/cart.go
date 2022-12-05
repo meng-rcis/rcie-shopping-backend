@@ -7,7 +7,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/nuttchai/go-rest/internal/constants"
-	"github.com/nuttchai/go-rest/internal/dto/cart_dto"
+	cartdto "github.com/nuttchai/go-rest/internal/dto/cart_dto"
 	customdto "github.com/nuttchai/go-rest/internal/dto/custom_dto"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/utils/api"
@@ -52,7 +52,7 @@ func (h *cartHandler) GetAllCartItems(c echo.Context) error {
 }
 
 func (h *cartHandler) AddCartItem(c echo.Context) error {
-	var reqBody *cart_dto.AddCartItemDTO
+	var reqBody *cartdto.AddCartItemDTO
 	err := json.NewDecoder(c.Request().Body).Decode(&reqBody)
 	if err != nil {
 		jsonErr := api.BadRequestError(err)
@@ -70,7 +70,7 @@ func (h *cartHandler) AddCartItem(c echo.Context) error {
 }
 
 func (h *cartHandler) UpdateCartItem(c echo.Context) error {
-	var reqBody *cart_dto.UpdateCartItemDTO
+	var reqBody *cartdto.UpdateCartItemDTO
 	err := json.NewDecoder(c.Request().Body).Decode(&reqBody)
 	if err != nil {
 		jsonErr := api.BadRequestError(err)
