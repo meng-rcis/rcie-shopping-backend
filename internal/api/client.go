@@ -11,7 +11,6 @@ import (
 	"github.com/nuttchai/go-rest/internal/routers"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/shared/console"
-	"github.com/nuttchai/go-rest/internal/utils/db"
 )
 
 var appConfig *config.AppConfig
@@ -27,7 +26,7 @@ func Client() {
 
 	// Establish Database Connection
 	console.App.Log("Connecting Database...")
-	db, err := db.OpenSqlDB(&apiConfig)
+	db, err := config.InitSqlDB(&apiConfig)
 	if err != nil {
 		console.App.Fatalf("Database Connection Failed (Error: %s)", err.Error())
 	}

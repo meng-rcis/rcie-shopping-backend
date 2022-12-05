@@ -1,9 +1,11 @@
 package config
 
 import (
+	"database/sql"
 	"flag"
 	"fmt"
 
+	"github.com/nuttchai/go-rest/internal/utils/context"
 	"github.com/nuttchai/go-rest/internal/utils/env"
 )
 
@@ -44,4 +46,21 @@ func InitAPIConfig(apiConfig *APIConfig) error {
 	flag.Parse()
 
 	return nil
+}
+
+func InitSqlDB(cfg *APIConfig) (*sql.DB, error) {
+	db, err := sql.Open(cfg.Db.Driver, cfg.Db.Dsn)
+	if err != nil {
+		return nil, err
+	}
+
+	ctx, cancel := context.WithTimeout(5)
+	defer cancel()
+
+	err = db.PingContext(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return db, nil
 }

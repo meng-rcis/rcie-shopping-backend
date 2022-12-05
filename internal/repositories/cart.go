@@ -4,15 +4,20 @@ import (
 	"database/sql"
 
 	"github.com/nuttchai/go-rest/internal/models"
+	"github.com/nuttchai/go-rest/internal/types"
 	"github.com/nuttchai/go-rest/internal/utils/context"
+	"github.com/nuttchai/go-rest/internal/utils/db"
 )
 
-func (m *DBModel) GetCartItem(cartId string) (*models.CartItem, error) {
+func (m *DBModel) GetCartItem(id string, filters ...*types.QueryFilter) (*models.CartItem, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
-	query := "select * from cart where id = $1"
-	row := m.DB.QueryRowContext(ctx, query, cartId)
+	baseQuery := "select * from cart where id = $1"
+	baseArgs := []interface{}{id}
+
+	query, args := db.BuildQueryWithFilter(baseQuery, baseArgs, filters...)
+	row := m.DB.QueryRowContext(ctx, query, args...)
 
 	var cartItem models.CartItem
 	err := row.Scan(
@@ -61,12 +66,12 @@ func (m *DBModel) GetAllCartItems(userId string) ([]*models.CartItem, error) {
 	return cartItems, nil
 }
 
-func (m *DBModel) AddCartItem(userId string, productId string, quantity int, total_price float64) (*models.CartItem, error) {
+func (m *DBModel) AddCartItem(userId string, productId string, quantity int, totalPrice float64) (*models.CartItem, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
 	query := "insert into cart (owner_id, product_id, quantity, total_price) values ($1, $2, $3, $4) returning *"
-	row := m.DB.QueryRowContext(ctx, query, userId, productId, quantity, total_price)
+	row := m.DB.QueryRowContext(ctx, query, userId, productId, quantity, totalPrice)
 
 	var cartItem models.CartItem
 	if err := row.Scan(
@@ -84,12 +89,12 @@ func (m *DBModel) AddCartItem(userId string, productId string, quantity int, tot
 	return &cartItem, nil
 }
 
-func (m *DBModel) UpdateCartItem(cartId string, quantity int, total_price float64) (*models.CartItem, error) {
+func (m *DBModel) UpdateCartItem(id string, quantity int, totalPrice float64) (*models.CartItem, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
 	query := "update cart set quantity = $1, total_price = $2 where id = $3 returning *"
-	row := m.DB.QueryRowContext(ctx, query, quantity, total_price, cartId)
+	row := m.DB.QueryRowContext(ctx, query, quantity, totalPrice, id)
 
 	var cartItem models.CartItem
 	err := row.Scan(

@@ -5,6 +5,7 @@ import (
 
 	cartdto "github.com/nuttchai/go-rest/internal/dto/cart"
 	"github.com/nuttchai/go-rest/internal/models"
+	"github.com/nuttchai/go-rest/internal/types"
 	"github.com/nuttchai/go-rest/internal/utils/validators"
 )
 
@@ -68,7 +69,13 @@ func (s *cartService) UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*model
 		return nil, errors.New("updated quantity must be greater than 0")
 	}
 
-	cartDetail, err := s.repo.Models.DB.GetCartItem(cartId)
+	cartDetail, err := s.repo.Models.DB.GetCartItem(
+		cartId,
+		&types.QueryFilter{
+			Key:   "owner_id",
+			Value: cartDTO.UserId,
+		},
+	)
 	if err != nil {
 		return nil, err
 	}

@@ -1,5 +1,5 @@
 package migrations
 
 func addUsers() {
-	// db := db.OpenSqlDB()
+	// db := db.InitSqlDB()
 }
