@@ -17,6 +17,9 @@ const (
 	UpdateCartItemSuccessMsg = "Update cart item successfully"
 	RemoveCartItemSuccessMsg = "Delete cart item successfully"
 
+	// Product Service
+	GetProductSuccessMsg = "Get product successfully"
+
 	// Common
 	DecodingJSONError       = "Decoding JSON Error"
 	ConvertStringToIntError = "Convert string to int error"

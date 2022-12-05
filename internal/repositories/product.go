@@ -7,7 +7,7 @@ import (
 	"github.com/nuttchai/go-rest/internal/utils/context"
 )
 
-func (m *DBModel) GetProductDetail(id string) (*models.Product, error) {
+func (m *DBModel) GetProductById(id string) (*models.Product, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
