@@ -1,4 +1,4 @@
-package customdto
+package shareddto
 
 type ValidatorResultDTO struct {
 	Action    string `json:"action"`

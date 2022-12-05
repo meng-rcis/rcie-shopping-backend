@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/nuttchai/go-rest/internal/constants"
 	cartdto "github.com/nuttchai/go-rest/internal/dto/cart"
-	customdto "github.com/nuttchai/go-rest/internal/dto/shared"
+	shareddto "github.com/nuttchai/go-rest/internal/dto/shared"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/utils/api"
 )
@@ -105,7 +105,7 @@ func (h *cartHandler) RemoveCartItem(c echo.Context) error {
 	}
 
 	res := api.SuccessResponse(
-		&customdto.ValidatorResultDTO{
+		&shareddto.ValidatorResultDTO{
 			IsSuccess: true,
 			Action:    "RemoveCartItem",
 		},
