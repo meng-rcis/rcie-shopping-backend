@@ -11,7 +11,7 @@ func (m *DBModel) GetOrders(filters ...*types.QueryFilter) ([]*models.Order, err
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
-	// we need to pass table name as "order", not order with not "", because order is a reserved word in postgres
+	// we need to pass table name as "order", not order with no "", because order is a reserved word in postgres
 	baseQuery := `
 		select o.id, o.owner_id, o.product_id, os.name, o.quantity, o.total_price, o.created_at, o.updated_at
 		from "order" as o
