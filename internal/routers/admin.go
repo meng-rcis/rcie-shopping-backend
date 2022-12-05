@@ -11,6 +11,6 @@ func initAdminRouterPath(e *echo.Echo) *echo.Echo {
 	e.PUT(api.CreatePath("admin/order"), handlers.AdminHandler.UpdateOrderStatus)
 	e.PUT(api.CreatePath("admin/product"), handlers.AdminHandler.AddProductQuantity)
 
-	console.App.Log("Cart Router Initialized")
+	console.App.Log("Admin Router Initialized")
 	return e
 }
