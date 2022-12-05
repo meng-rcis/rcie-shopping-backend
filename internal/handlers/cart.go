@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/go-playground/validator"
 	"github.com/labstack/echo"
 	"github.com/nuttchai/go-rest/internal/constants"
 	cartdto "github.com/nuttchai/go-rest/internal/dto/cart"
@@ -59,6 +60,12 @@ func (h *cartHandler) AddCartItem(c echo.Context) error {
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
+	validate := validator.New()
+	if err := validate.Struct(reqBody); err != nil {
+		jsonErr := api.BadRequestError(err)
+		return c.JSON(jsonErr.Status, jsonErr)
+	}
+
 	item, err := services.CartService.AddCartItem(reqBody)
 	if err != nil {
 		jsonErr := api.InternalServerError(err)
@@ -73,6 +80,12 @@ func (h *cartHandler) UpdateCartItem(c echo.Context) error {
 	var reqBody *cartdto.UpdateCartItemDTO
 	err := json.NewDecoder(c.Request().Body).Decode(&reqBody)
 	if err != nil {
+		jsonErr := api.BadRequestError(err)
+		return c.JSON(jsonErr.Status, jsonErr)
+	}
+
+	validate := validator.New()
+	if err := validate.Struct(reqBody); err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}

@@ -1,8 +1,6 @@
 package services
 
 import (
-	"errors"
-
 	cartdto "github.com/nuttchai/go-rest/internal/dto/cart"
 	"github.com/nuttchai/go-rest/internal/models"
 	"github.com/nuttchai/go-rest/internal/types"
@@ -75,10 +73,6 @@ func (s *cartService) AddCartItem(cartDTO *cartdto.AddCartItemDTO) (*models.Cart
 
 func (s *cartService) UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*models.CartItem, error) {
 	cartId, productId, quantity := cartDTO.Id, cartDTO.ProductId, cartDTO.Quantity
-	if quantity < 1 {
-		return nil, errors.New("updated quantity must be greater than 0")
-	}
-
 	cartDetail, err := s.repo.Models.DB.GetCartItem(
 		cartId,
 		&types.QueryFilter{
