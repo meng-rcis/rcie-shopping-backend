@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/nuttchai/go-rest/internal/constants"
 	"github.com/nuttchai/go-rest/internal/dto/cart_dto"
+	customdto "github.com/nuttchai/go-rest/internal/dto/custom_dto"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/utils/api"
 )
@@ -18,6 +19,7 @@ type cartHandlerInterface interface {
 	GetAllCartItems(c echo.Context) error
 	AddCartItem(c echo.Context) error
 	UpdateCartItem(c echo.Context) error
+	RemoveCartItem(c echo.Context) error
 }
 
 var (
@@ -82,5 +84,32 @@ func (h *cartHandler) UpdateCartItem(c echo.Context) error {
 	}
 
 	res := api.SuccessResponse(item, constants.UpdateCartItemSuccessMsg)
+	return c.JSON(res.Status, res)
+}
+
+func (h *cartHandler) RemoveCartItem(c echo.Context) error {
+	id := c.Param("id")
+	if id == "" {
+		jsonErr := api.BadRequestError(
+			errors.New(
+				fmt.Sprint(constants.MissingParamError, ": cart-id"),
+			),
+		)
+		return c.JSON(jsonErr.Status, jsonErr)
+	}
+
+	err := services.CartService.RemoveCartItem(id)
+	if err != nil {
+		jsonErr := api.InternalServerError(err)
+		return c.JSON(jsonErr.Status, jsonErr)
+	}
+
+	res := api.SuccessResponse(
+		&customdto.ValidatorResultDTO{
+			IsSuccess: true,
+			Action:    "RemoveCartItem",
+		},
+		constants.RemoveCartItemSuccessMsg)
+
 	return c.JSON(res.Status, res)
 }

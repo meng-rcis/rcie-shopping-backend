@@ -16,6 +16,7 @@ type cartServiceInterface interface {
 	GetAllCartItems(userId string) ([]*models.CartItem, error)
 	AddCartItem(cartDTO *cart_dto.AddCartItemDTO) (*models.CartItem, error)
 	UpdateCartItem(cartDTO *cart_dto.UpdateCartItemDTO) (*models.CartItem, error)
+	RemoveCartItem(id string) error
 }
 
 var (
@@ -102,4 +103,25 @@ func (s *cartService) UpdateCartItem(cartDTO *cart_dto.UpdateCartItemDTO) (*mode
 		quantity,
 		float64(quantity)*productDetail.Price,
 	)
+}
+
+func (s *cartService) RemoveCartItem(id string) error {
+	cartDetail, err := s.repo.Models.DB.GetCartItem(id)
+	if err != nil {
+		return err
+	}
+
+	deleteResult, err := s.repo.Models.DB.RemoveCartItem(id)
+	if err != nil {
+		return err
+	}
+
+	if err = ProductService.AddProductQuantity(
+		cartDetail.ProductId,
+		cartDetail.Quantity,
+	); err != nil {
+		return err
+	}
+
+	return validators.CheckRowsAffected(deleteResult)
 }

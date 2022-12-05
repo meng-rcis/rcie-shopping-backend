@@ -8,12 +8,10 @@ import (
 )
 
 func initCartRouterPath(e *echo.Echo) *echo.Echo {
-	// userId in Query Param is required
 	e.GET(api.CreatePath("cart"), handlers.CartHandler.GetAllCartItems)
-
 	e.POST(api.CreatePath("cart"), handlers.CartHandler.AddCartItem)
-
 	e.PUT(api.CreatePath("cart"), handlers.CartHandler.UpdateCartItem)
+	e.DELETE(api.CreatePath("cart/:id"), handlers.CartHandler.RemoveCartItem)
 
 	console.App.Log("Cart Router Initialized")
 	return e

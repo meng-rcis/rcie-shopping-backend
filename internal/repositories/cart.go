@@ -1,6 +1,8 @@
 package repositories
 
 import (
+	"database/sql"
+
 	"github.com/nuttchai/go-rest/internal/models"
 	"github.com/nuttchai/go-rest/internal/utils/context"
 )
@@ -101,4 +103,17 @@ func (m *DBModel) UpdateCartItem(cartId string, quantity int, total_price float6
 	)
 
 	return &cartItem, err
+}
+
+func (m *DBModel) RemoveCartItem(id string) (sql.Result, error) {
+	ctx, cancel := context.WithTimeout(3)
+	defer cancel()
+
+	query := `
+		delete from cart 
+		where id = $1
+	`
+	result, err := m.DB.ExecContext(ctx, query, id)
+
+	return result, err
 }
