@@ -72,18 +72,13 @@ func (s *cartService) AddCartItem(cartDTO *cartdto.AddCartItemDTO) (*models.Cart
 }
 
 func (s *cartService) UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*models.CartItem, error) {
-	cartId, productId, quantity := cartDTO.Id, cartDTO.ProductId, cartDTO.Quantity
-	cartDetail, err := s.repo.Models.DB.GetCartItem(
-		cartId,
-		&types.QueryFilter{
-			Field: "owner_id",
-			Value: cartDTO.UserId,
-		},
-	)
+	cartId, quantity := cartDTO.Id, cartDTO.Quantity
+	cartDetail, err := s.repo.Models.DB.GetCartItem(cartId)
 	if err != nil {
 		return nil, err
 	}
 
+	productId := cartDetail.ProductId
 	if cartDetail.Quantity < quantity {
 		quantityDiff := quantity - cartDetail.Quantity
 		if err = ProductService.DeductProductQuantity(
