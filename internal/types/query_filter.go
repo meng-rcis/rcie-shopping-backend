@@ -1,6 +1,6 @@
 package types
 
 type QueryFilter struct {
-	Key   string
+	Field string
 	Value string
 }

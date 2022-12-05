@@ -72,7 +72,7 @@ func (s *cartService) UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*model
 	cartDetail, err := s.repo.Models.DB.GetCartItem(
 		cartId,
 		&types.QueryFilter{
-			Key:   "owner_id",
+			Field: "owner_id",
 			Value: cartDTO.UserId,
 		},
 	)
