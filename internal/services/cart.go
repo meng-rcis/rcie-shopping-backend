@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 
-	cartdto "github.com/nuttchai/go-rest/internal/dto/cart_dto"
+	cartdto "github.com/nuttchai/go-rest/internal/dto/cart"
 	"github.com/nuttchai/go-rest/internal/models"
 	"github.com/nuttchai/go-rest/internal/utils/validators"
 )

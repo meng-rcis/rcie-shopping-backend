@@ -7,8 +7,8 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/nuttchai/go-rest/internal/constants"
-	cartdto "github.com/nuttchai/go-rest/internal/dto/cart_dto"
-	customdto "github.com/nuttchai/go-rest/internal/dto/custom_dto"
+	cartdto "github.com/nuttchai/go-rest/internal/dto/cart"
+	customdto "github.com/nuttchai/go-rest/internal/dto/custom"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/utils/api"
 )
