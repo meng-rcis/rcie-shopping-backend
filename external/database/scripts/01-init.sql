@@ -87,7 +87,7 @@ CREATE TABLE "order" (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     owner_id UUID NOT NULL REFERENCES "user" (id),
     product_id UUID NOT NULL REFERENCES "product" (id),
-    status_id INT NOT NULL REFERENCES "order_status" (id),
+    status_id INT NOT NULL REFERENCES "order_status" (id) DEFAULT 1,
     quantity INT NOT NULL CHECK (quantity >= 0),
     total_price DECIMAL(10,2) NOT NULL CHECK (total_price > 0),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

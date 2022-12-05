@@ -21,7 +21,8 @@ const (
 	GetProductSuccessMsg = "Get product successfully"
 
 	// Order Service
-	GetOrdersSuccessMsg = "Get order successfully"
+	GetOrdersSuccessMsg   = "Get order successfully"
+	CreateOrderSuccessMsg = "Create order successfully"
 
 	// Common
 	DecodingJSONError       = "Decoding JSON Error"

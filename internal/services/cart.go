@@ -14,10 +14,12 @@ type cartService struct {
 }
 
 type cartServiceInterface interface {
+	GetCartItem(id string, cartQuery *types.CartQuery) (*models.CartItem, error)
 	GetAllCartItems(userId string) ([]*models.CartItem, error)
 	AddCartItem(cartDTO *cartdto.AddCartItemDTO) (*models.CartItem, error)
 	UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*models.CartItem, error)
 	RemoveCartItem(id string) error
+	PurchaseCartItem(id string) error
 }
 
 var (
@@ -30,14 +32,24 @@ func init() {
 	}
 }
 
+func (s *cartService) GetCartItem(id string, cartQuery *types.CartQuery) (*models.CartItem, error) {
+	cartFilter := []*types.QueryFilter{}
+	if cartQuery.UserId != "" {
+		cartFilter = append(cartFilter, &types.QueryFilter{
+			Field: "owner_id",
+			Value: cartQuery.UserId,
+		})
+	}
+
+	return s.repo.Models.DB.GetCartItem(id, cartFilter...)
+}
+
 func (s *cartService) GetAllCartItems(userId string) ([]*models.CartItem, error) {
 	return s.repo.Models.DB.GetAllCartItems(userId)
 }
 
 func (s *cartService) AddCartItem(cartDTO *cartdto.AddCartItemDTO) (*models.CartItem, error) {
-	userId := cartDTO.UserId
-	productId := cartDTO.ProductId
-	quantity := cartDTO.Quantity
+	userId, productId, quantity := cartDTO.UserId, cartDTO.ProductId, cartDTO.Quantity
 	productDetail, err := ProductService.GetProduct(productId)
 	if err != nil {
 		return nil, err
@@ -62,9 +74,7 @@ func (s *cartService) AddCartItem(cartDTO *cartdto.AddCartItemDTO) (*models.Cart
 }
 
 func (s *cartService) UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*models.CartItem, error) {
-	cartId := cartDTO.Id
-	productId := cartDTO.ProductId
-	quantity := cartDTO.Quantity
+	cartId, productId, quantity := cartDTO.Id, cartDTO.ProductId, cartDTO.Quantity
 	if quantity < 1 {
 		return nil, errors.New("updated quantity must be greater than 0")
 	}
@@ -125,6 +135,15 @@ func (s *cartService) RemoveCartItem(id string) error {
 		cartDetail.ProductId,
 		cartDetail.Quantity,
 	); err != nil {
+		return err
+	}
+
+	return validators.CheckRowsAffected(deleteResult)
+}
+
+func (s *cartService) PurchaseCartItem(id string) error {
+	deleteResult, err := s.repo.Models.DB.RemoveCartItem(id)
+	if err != nil {
 		return err
 	}
 

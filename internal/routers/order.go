@@ -9,6 +9,7 @@ import (
 
 func initOrderRouterPath(e *echo.Echo) *echo.Echo {
 	e.GET(api.CreatePath("order"), handlers.OrderHandler.GetOrders)
+	e.POST(api.CreatePath("order"), handlers.OrderHandler.CreateOrder)
 
 	console.App.Log("Order Router Initialized")
 	return e

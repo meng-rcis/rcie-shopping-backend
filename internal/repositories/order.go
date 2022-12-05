@@ -48,3 +48,38 @@ func (m *DBModel) GetOrders(filters ...*types.QueryFilter) ([]*models.Order, err
 
 	return orders, nil
 }
+
+func (m *DBModel) CreateOrder(order *models.Order) (*models.Order, error) {
+	ctx, cancel := context.WithTimeout(3)
+	defer cancel()
+
+	query := `
+		insert into "order" (owner_id, product_id, quantity, total_price)
+		values ($1, $2, $3, $4)
+		returning *
+	`
+	row := m.DB.QueryRowContext(
+		ctx,
+		query,
+		order.OwnerId,
+		order.ProductId,
+		order.Quantity,
+		order.TotalPrice,
+	)
+
+	var newOrder models.Order
+	if err := row.Scan(
+		&newOrder.Id,
+		&newOrder.OwnerId,
+		&newOrder.ProductId,
+		&newOrder.Status,
+		&newOrder.Quantity,
+		&newOrder.TotalPrice,
+		&newOrder.CreatedAt,
+		&newOrder.UpdatedAt,
+	); err != nil {
+		return nil, err
+	}
+
+	return &newOrder, nil
+}
