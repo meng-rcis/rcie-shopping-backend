@@ -13,7 +13,7 @@ import (
 type productHandler struct{}
 
 type productHandlerInterface interface {
-	GetProductById(c echo.Context) error
+	GetProduct(c echo.Context) error
 }
 
 var (
@@ -24,7 +24,7 @@ func init() {
 	ProductHandler = &productHandler{}
 }
 
-func (h *productHandler) GetProductById(c echo.Context) error {
+func (h *productHandler) GetProduct(c echo.Context) error {
 	id := c.Param("id")
 	if id == "" {
 		jsonErr := api.BadRequestError(
@@ -35,7 +35,7 @@ func (h *productHandler) GetProductById(c echo.Context) error {
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
-	product, err := services.ProductService.GetProductById(id)
+	product, err := services.ProductService.GetProduct(id)
 	if err != nil {
 		jsonErr := api.InternalServerError(err)
 		return c.JSON(jsonErr.Status, jsonErr)

@@ -37,7 +37,7 @@ func (s *cartService) AddCartItem(cartDTO *cartdto.AddCartItemDTO) (*models.Cart
 	userId := cartDTO.UserId
 	productId := cartDTO.ProductId
 	quantity := cartDTO.Quantity
-	productDetail, err := ProductService.GetProductById(productId)
+	productDetail, err := ProductService.GetProduct(productId)
 	if err != nil {
 		return nil, err
 	} else if err = validators.ValidateCartItem(
@@ -93,7 +93,7 @@ func (s *cartService) UpdateCartItem(cartDTO *cartdto.UpdateCartItemDTO) (*model
 		return nil, errors.New("cannot update cart item with same quantity")
 	}
 
-	productDetail, err := ProductService.GetProductById(productId)
+	productDetail, err := ProductService.GetProduct(productId)
 	if err != nil {
 		return nil, err
 	}
