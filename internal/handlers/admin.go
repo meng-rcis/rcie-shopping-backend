@@ -3,12 +3,12 @@ package handlers
 import (
 	"encoding/json"
 
-	"github.com/go-playground/validator"
 	"github.com/labstack/echo"
 	"github.com/nuttchai/go-rest/internal/constants"
 	admindto "github.com/nuttchai/go-rest/internal/dto/admin"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/utils/api"
+	"github.com/nuttchai/go-rest/internal/utils/validators"
 )
 
 type adminHandler struct{}
@@ -34,8 +34,7 @@ func (h *adminHandler) UpdateOrderStatus(c echo.Context) error {
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
-	validate := validator.New()
-	if err = validate.Struct(reqBody); err != nil {
+	if err := validators.ValidateStruct(reqBody); err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
@@ -58,8 +57,7 @@ func (h *adminHandler) AddProductQuantity(c echo.Context) error {
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
-	validate := validator.New()
-	if err = validate.Struct(reqBody); err != nil {
+	if err := validators.ValidateStruct(reqBody); err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
