@@ -1,4 +1,4 @@
-# go-rest
+# rcie-shopping-backedn
 
 ### Command to Clear All Database Data and Docker Service
 
