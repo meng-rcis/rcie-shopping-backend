@@ -42,8 +42,7 @@ func (h *orderHandler) GetOrders(c echo.Context) error {
 
 func (h *orderHandler) CreateOrder(c echo.Context) error {
 	var reqBody orderdto.CreateOrderDTO
-	err := api.DecodeDTO(c, &reqBody)
-	if err != nil {
+	if err := api.DecodeDTO(c, &reqBody); err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}

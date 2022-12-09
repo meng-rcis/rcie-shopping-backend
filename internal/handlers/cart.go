@@ -52,8 +52,7 @@ func (h *cartHandler) GetAllCartItems(c echo.Context) error {
 
 func (h *cartHandler) AddCartItem(c echo.Context) error {
 	var reqBody cartdto.AddCartItemDTO
-	err := api.DecodeDTO(c, &reqBody)
-	if err != nil {
+	if err := api.DecodeDTO(c, &reqBody); err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
@@ -70,8 +69,7 @@ func (h *cartHandler) AddCartItem(c echo.Context) error {
 
 func (h *cartHandler) UpdateCartItem(c echo.Context) error {
 	var reqBody cartdto.UpdateCartItemDTO
-	err := api.DecodeDTO(c, &reqBody)
-	if err != nil {
+	if err := api.DecodeDTO(c, &reqBody); err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}

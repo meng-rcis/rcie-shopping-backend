@@ -25,8 +25,7 @@ func init() {
 
 func (h *adminHandler) UpdateOrderStatus(c echo.Context) error {
 	var reqBody admindto.UpdateOrderStatusDTO
-	err := api.DecodeDTO(c, &reqBody)
-	if err != nil {
+	if err := api.DecodeDTO(c, &reqBody); err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
@@ -43,13 +42,12 @@ func (h *adminHandler) UpdateOrderStatus(c echo.Context) error {
 
 func (h *adminHandler) AddProductQuantity(c echo.Context) error {
 	var reqBody admindto.AddProductQuantityDTO
-	err := api.DecodeDTO(c, &reqBody)
-	if err != nil {
+	if err := api.DecodeDTO(c, &reqBody); err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
-	err = services.AdminService.AddProductQuantity(&reqBody)
+	err := services.AdminService.AddProductQuantity(&reqBody)
 	if err != nil {
 		jsonErr := api.InternalServerError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
