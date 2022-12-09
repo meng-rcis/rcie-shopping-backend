@@ -1,4 +1,4 @@
-# rcie-shopping-backedn
+# rcie-shopping-backend
 
 ### Command to Clear All Database Data and Docker Service
 
