@@ -1,6 +1,8 @@
 package validators
 
-import "github.com/go-playground/validator"
+import (
+	"github.com/go-playground/validator"
+)
 
 var validate *validator.Validate
 

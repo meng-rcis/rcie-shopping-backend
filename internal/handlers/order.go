@@ -1,15 +1,12 @@
 package handlers
 
 import (
-	"encoding/json"
-
 	"github.com/labstack/echo"
 	"github.com/nuttchai/go-rest/internal/constants"
 	orderdto "github.com/nuttchai/go-rest/internal/dto/order"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/types"
 	"github.com/nuttchai/go-rest/internal/utils/api"
-	"github.com/nuttchai/go-rest/internal/utils/validators"
 )
 
 type orderHandler struct{}
@@ -44,19 +41,14 @@ func (h *orderHandler) GetOrders(c echo.Context) error {
 }
 
 func (h *orderHandler) CreateOrder(c echo.Context) error {
-	var reqBody *orderdto.CreateOrderDTO
-	err := json.NewDecoder(c.Request().Body).Decode(&reqBody)
+	var reqBody orderdto.CreateOrderDTO
+	err := api.DecodeDTO(c, &reqBody)
 	if err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
-	if err := validators.ValidateStruct(reqBody); err != nil {
-		jsonErr := api.BadRequestError(err)
-		return c.JSON(jsonErr.Status, jsonErr)
-	}
-
-	order, err := services.OrderService.CreateOrder(reqBody)
+	order, err := services.OrderService.CreateOrder(&reqBody)
 	if err != nil {
 		jsonErr := api.InternalServerError(err)
 		return c.JSON(jsonErr.Status, jsonErr)

@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 
@@ -11,7 +10,6 @@ import (
 	shareddto "github.com/nuttchai/go-rest/internal/dto/shared"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/utils/api"
-	"github.com/nuttchai/go-rest/internal/utils/validators"
 )
 
 type cartHandler struct{}
@@ -53,19 +51,14 @@ func (h *cartHandler) GetAllCartItems(c echo.Context) error {
 }
 
 func (h *cartHandler) AddCartItem(c echo.Context) error {
-	var reqBody *cartdto.AddCartItemDTO
-	err := json.NewDecoder(c.Request().Body).Decode(&reqBody)
+	var reqBody cartdto.AddCartItemDTO
+	err := api.DecodeDTO(c, &reqBody)
 	if err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
-	if err := validators.ValidateStruct(reqBody); err != nil {
-		jsonErr := api.BadRequestError(err)
-		return c.JSON(jsonErr.Status, jsonErr)
-	}
-
-	item, err := services.CartService.AddCartItem(reqBody)
+	item, err := services.CartService.AddCartItem(&reqBody)
 	if err != nil {
 		jsonErr := api.InternalServerError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
@@ -76,19 +69,14 @@ func (h *cartHandler) AddCartItem(c echo.Context) error {
 }
 
 func (h *cartHandler) UpdateCartItem(c echo.Context) error {
-	var reqBody *cartdto.UpdateCartItemDTO
-	err := json.NewDecoder(c.Request().Body).Decode(&reqBody)
+	var reqBody cartdto.UpdateCartItemDTO
+	err := api.DecodeDTO(c, &reqBody)
 	if err != nil {
 		jsonErr := api.BadRequestError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
-	if err := validators.ValidateStruct(reqBody); err != nil {
-		jsonErr := api.BadRequestError(err)
-		return c.JSON(jsonErr.Status, jsonErr)
-	}
-
-	item, err := services.CartService.UpdateCartItem(reqBody)
+	item, err := services.CartService.UpdateCartItem(&reqBody)
 	if err != nil {
 		jsonErr := api.InternalServerError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
