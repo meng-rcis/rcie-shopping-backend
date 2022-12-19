@@ -31,21 +31,21 @@ services:
     networks:
       - shopping
 
-  # api:
-  #   container_name: api
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #   links:
-  #     - db
-  #   networks:
-  #     - shopping
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+    networks:
+      - shopping
 
 networks:
   shopping:
