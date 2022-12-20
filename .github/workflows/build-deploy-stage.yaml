@@ -39,6 +39,49 @@ jobs:
           echo IMAGE_API_NAME=${{ secrets.DEPLOY_ENV_API_IMAGE_NAME }} >> $GITHUB_ENV
           echo MAJOR_API_TAG=${{ secrets.DEPLOY_ENV_API_IMAGE_MAJOR_TAG }} >> $GITHUB_ENV
           echo MINOR_API_TAG=${{ secrets.DEPLOY_ENV_API_IMAGE_MINOR_TAG }} >> $GITHUB_ENV
+  copy-scripts:
+    name: Filter Updated Path
+    runs-on: ubuntu-latest
+    env:
+      REMOTE_FOLDER: scripts
+      LOCAL_FOLDER: scripts
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+          ref: main
+      - name: Getting sha for last release
+        id: last-release
+        shell: bash
+        run: |
+          tag=`git tag --sort=creatordate | tail -2 | sed -n '1p'`
+          echo "Tag: $tag"
+          sha=`git show-ref --tags | grep $tag | awk '{print $1;}'`
+          echo "SHA: $sha"
+          echo "::set-output name=sha::$sha"
+        env:
+          GITHUB_TOKEN: ${{secrets.REPOSITORY_ACCESS_TOKEN}}
+      - name: Check path updated
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          base: ${{ steps.last-release.outputs.sha }}
+          filters: |
+            scripts:
+              - scripts/**
+      - name: Echo when deployment script changed
+        if: steps.filter.outputs.scripts == 'true'
+        run: echo "deployment script changed"
+      - name: Copy file to remote server if deployment script changed
+        if: steps.filter.outputs.scripts == 'true'
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_API_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          privateKey: ${{ secrets.SSH_KEY }}
+          local: ${{ env.LOCAL_FOLDER }}
+          remote: ${{ env.REMOTE_FOLDER }}
   deploy:
     name: Deploy Server
     needs: build
