@@ -81,3 +81,6 @@ Hash -> {{password}} + {{ salt }}
   Salt: vA3fmg0T71
   Hash: 6a9526e49628084ffb22d6da266ec6067c6a215b5d1b916c01b473af7a4d71a8
 ```
+
+to-do list
+- create cicd pipeline deploying the code
