@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  api:
+    container_name: api
+    image: ${DOCKERHUB_USER}/${API_IMAGE_NAME}:${API_IMAGE_MAJOR_TAG}.${API_IMAGE_MINOR_TAG}
+    restart: always
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    networks:
+      - shopping
+
+networks:
+  shopping:
