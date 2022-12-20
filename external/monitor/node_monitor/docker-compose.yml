@@ -36,11 +36,11 @@ services:
     user: "1000:1000"
     volumes:
       # In case if we want to mount volume with a current directory
-      # - ./prometheus/etc/prometheus:/etc/prometheus
-      # - ./prometheus/data/prometheus:/data/prometheus
-      # - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - /etc/prometheus:/etc/prometheus
-      - /data/prometheus:/data/prometheus
+      - ./prometheus/etc/prometheus:/etc/prometheus
+      - ./prometheus/data/prometheus:/data/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      # - /etc/prometheus:/etc/prometheus
+      # - /data/prometheus:/data/prometheus
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/data/prometheus"
@@ -62,5 +62,5 @@ services:
     networks:
       - monitoring
     volumes:
-      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources # This configuration file will tell Grafana about Prometheus. You could omit this and add the configuration via the Grafana UI.
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources # This configuration file will tell Grafana about Prometheus. You could omit this and add the configuration via the Grafana UI. You can see its example in ./grafana/provisioning/datasources
       - grafana-data:/var/lib/grafana

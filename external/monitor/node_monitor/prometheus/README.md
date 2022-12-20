@@ -7,6 +7,7 @@
    ```
 
 2. Create a new folder and a new configuration file for Prometheus
+   You can see example prometheus.yml in this current directory
 
    ```
     $ mkdir /etc/prometheus
