@@ -39,6 +39,17 @@ jobs:
           echo IMAGE_API_NAME=${{ secrets.DEPLOY_ENV_API_IMAGE_NAME }} >> $GITHUB_ENV
           echo MAJOR_API_TAG=${{ secrets.DEPLOY_ENV_API_IMAGE_MAJOR_TAG }} >> $GITHUB_ENV
           echo MINOR_API_TAG=${{ secrets.DEPLOY_ENV_API_IMAGE_MINOR_TAG }} >> $GITHUB_ENV
+      - name: Build and push API image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: ${{ env.OWNER }}/${{ env.IMAGE_API_NAME }}:${{ env.MAJOR_API_TAG }}.${{ env.MINOR_API_TAG }}
+          build-args: |
+            OWNER=${{ env.OWNER }}
+            IMAGE_API_NAME=${{ env.IMAGE_API_NAME }}
+            MAJOR_API_TAG=${{ env.MAJOR_API_TAG }}
+            MINOR_API_TAG=${{ env.MINOR_API_TAG }}
   deploy:
     name: Deploy Server
     needs: build
