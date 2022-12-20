@@ -1,0 +1,7 @@
+# This configuration file will tell Grafana about Prometheus. You could omit this and add the configuration via the Grafana UI.
+datasources:
+  - name: Prometheus
+    access: proxy
+    type: prometheus
+    url: http://prometheus:9090
+    isDefault: true
