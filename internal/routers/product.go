@@ -8,7 +8,7 @@ import (
 )
 
 func initProductRouterPath(e *echo.Echo) *echo.Echo {
-	e.GET(api.CreatePath("product/:id"), handlers.ProductHandler.GetProduct)
+	e.GET(api.CreatePath("product/:id"), handlers.ProductHandler.GetProduct) // API NO.1
 
 	console.App.Log("Product Router Initialized")
 	return e

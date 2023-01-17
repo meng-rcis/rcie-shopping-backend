@@ -8,8 +8,8 @@ import (
 )
 
 func initOrderRouterPath(e *echo.Echo) *echo.Echo {
-	e.GET(api.CreatePath("order"), handlers.OrderHandler.GetOrders)
-	e.POST(api.CreatePath("order"), handlers.OrderHandler.CreateOrder)
+	e.GET(api.CreatePath("order"), handlers.OrderHandler.GetOrders)    // NO.1
+	e.POST(api.CreatePath("order"), handlers.OrderHandler.CreateOrder) // NO.1
 
 	console.App.Log("Order Router Initialized")
 	return e
