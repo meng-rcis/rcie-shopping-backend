@@ -26,7 +26,7 @@ func (h *searchHandler) SearchProduct(c echo.Context) error {
 	searchQuery := types.SearchQuery{
 		Keyword: c.QueryParam("keyword"),
 		ShopId:  c.QueryParam("shopId"),
-		Page:    c.QueryParam("page"),
+		Offset:  c.QueryParam("offset"),
 	}
 
 	limit := c.QueryParam("limit")

@@ -42,7 +42,7 @@ func (s *searchService) SearchProduct(searchQuery *types.SearchQuery) ([]*models
 	}
 
 	return s.repo.Models.DB.SearchProduct(
-		searchQuery.Page,
+		searchQuery.Offset,
 		searchQuery.Limit,
 		searchFilter...,
 	)

@@ -10,7 +10,7 @@ import (
 )
 
 func (m *DBModel) SearchProduct(
-	page string,
+	offset string,
 	limit string,
 	filters ...*types.QueryFilter,
 ) ([]*models.Product, error) {
@@ -27,10 +27,10 @@ func (m *DBModel) SearchProduct(
 	query, args := db.BuildQueryWithFilter(baseQuery, baseArgs, filters...)
 	query += " order by p.name asc"
 
-	if page != "" && limit != "" {
+	if offset != "" && limit != "" {
 		limitIndex, offsetIndex := len(args)+1, len(args)+2
 		query += fmt.Sprintf(" limit $%d offset $%d", limitIndex, offsetIndex)
-		args = append(args, limit, page)
+		args = append(args, limit, offset)
 	}
 
 	rows, err := m.DB.QueryContext(ctx, query, args...)
