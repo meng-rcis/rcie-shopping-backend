@@ -68,7 +68,7 @@ func (m *DBModel) CreateOrder(order *models.Order) (*models.Order, error) {
 	)
 
 	var newOrder models.Order
-	if err := row.Scan(
+	err := row.Scan(
 		&newOrder.Id,
 		&newOrder.OwnerId,
 		&newOrder.ProductId,
@@ -77,11 +77,9 @@ func (m *DBModel) CreateOrder(order *models.Order) (*models.Order, error) {
 		&newOrder.TotalPrice,
 		&newOrder.CreatedAt,
 		&newOrder.UpdatedAt,
-	); err != nil {
-		return nil, err
-	}
+	)
 
-	return &newOrder, nil
+	return &newOrder, err
 }
 
 func (m *DBModel) UpdateOrder(order *models.Order) (*models.Order, error) {
@@ -104,7 +102,7 @@ func (m *DBModel) UpdateOrder(order *models.Order) (*models.Order, error) {
 	)
 
 	var updatedOrder models.Order
-	if err := row.Scan(
+	err := row.Scan(
 		&updatedOrder.Id,
 		&updatedOrder.OwnerId,
 		&updatedOrder.ProductId,
@@ -113,9 +111,7 @@ func (m *DBModel) UpdateOrder(order *models.Order) (*models.Order, error) {
 		&updatedOrder.TotalPrice,
 		&updatedOrder.CreatedAt,
 		&updatedOrder.UpdatedAt,
-	); err != nil {
-		return nil, err
-	}
+	)
 
-	return &updatedOrder, nil
+	return &updatedOrder, err
 }

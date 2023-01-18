@@ -35,6 +35,47 @@ func (m *DBModel) GetProduct(id string) (*models.Product, error) {
 	return &product, err
 }
 
+func (m *DBModel) UpdateProduct(product *models.Product) (*models.Product, error) {
+	ctx, cancel := context.WithTimeout(3)
+	defer cancel()
+
+	query := `
+		update product
+		set name = $1, description = $2, price = $3, quantity = $4, shop_id = $5, status_id = (
+			select id from product_status where name = $6
+		)
+		where id = $7
+		returning id, name, description, price, quantity, shop_id, $6, created_at, updated_at
+	`
+
+	row := m.DB.QueryRowContext(
+		ctx,
+		query,
+		product.Name,
+		product.Description,
+		product.Price,
+		product.Quantity,
+		product.ShopId,
+		product.Status,
+		product.Id,
+	)
+
+	var updatedProduct models.Product
+	err := row.Scan(
+		&updatedProduct.Id,
+		&updatedProduct.Name,
+		&updatedProduct.Description,
+		&updatedProduct.Price,
+		&updatedProduct.Quantity,
+		&updatedProduct.ShopId,
+		&updatedProduct.Status,
+		&updatedProduct.CreatedAt,
+		&updatedProduct.UpdatedAt,
+	)
+
+	return &updatedProduct, err
+}
+
 func (m *DBModel) AddProductQuantity(id string, quantity int) (sql.Result, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()

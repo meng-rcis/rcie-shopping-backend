@@ -74,7 +74,7 @@ func (m *DBModel) AddCartItem(userId string, productId string, quantity int, tot
 	row := m.DB.QueryRowContext(ctx, query, userId, productId, quantity, totalPrice)
 
 	var cartItem models.CartItem
-	if err := row.Scan(
+	err := row.Scan(
 		&cartItem.Id,
 		&cartItem.OwnerId,
 		&cartItem.ProductId,
@@ -82,11 +82,9 @@ func (m *DBModel) AddCartItem(userId string, productId string, quantity int, tot
 		&cartItem.TotalPrice,
 		&cartItem.CreatedAt,
 		&cartItem.UpdatedAt,
-	); err != nil {
-		return nil, err
-	}
+	)
 
-	return &cartItem, nil
+	return &cartItem, err
 }
 
 func (m *DBModel) UpdateCartItem(id string, quantity int, totalPrice float64) (*models.CartItem, error) {

@@ -11,6 +11,7 @@ type productService struct {
 
 type productServiceInterface interface {
 	GetProduct(id string) (*models.Product, error)
+	UpdateProduct(product *models.Product) (*models.Product, error)
 	AddProductQuantity(id string, quantity int) error
 	DeductProductQuantity(id string, quantity int) error
 }
@@ -27,6 +28,12 @@ func init() {
 
 func (s *productService) GetProduct(id string) (*models.Product, error) {
 	return s.repo.Models.DB.GetProduct(id)
+}
+
+func (s *productService) UpdateProduct(product *models.Product) (*models.Product, error) {
+	updatedProduct, err := s.repo.Models.DB.UpdateProduct(product)
+
+	return updatedProduct, err
 }
 
 func (s *productService) AddProductQuantity(id string, quantity int) error {

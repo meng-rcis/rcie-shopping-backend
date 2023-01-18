@@ -30,6 +30,7 @@ const (
 	// Admin Service
 	UpdateOrderStatusSuccessMsg     = "Update order status successfully"
 	UpdateProductQuantitySuccessMsg = "Update product quantity successfully"
+	BulkUpdateProductSuccessMsg     = "Bulk update product successfully"
 
 	// Common
 	DecodingJSONError       = "Decoding JSON Error"

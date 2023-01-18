@@ -9,10 +9,11 @@ import (
 
 func initAdminRouterPath(e *echo.Echo) *echo.Echo {
 	e.PUT(api.CreatePath("admin/order"), handlers.AdminHandler.UpdateOrderStatus)
-	e.PUT(api.CreatePath("admin/product"), handlers.AdminHandler.AddProductQuantity)
+	e.PUT(api.CreatePath("admin/product/quantity"), handlers.AdminHandler.AddProductQuantity)
 
-	// NO.7 Search + Modify the Product
-	// NO.8 Search + Modify the Product
+	// NO.7 Search + Modify the Product (with keyword = "" and limit = "100000" with random offset (prevent cache) ~ 5 calls/min)
+	// NO.8 Search + Modify the Product (with keyword = "" and limit = "1000" with random offset (prevent cache) ~ 500 calls/min)
+	e.PUT(api.CreatePath("admin/product/bulk"), handlers.AdminHandler.BulkUpdateProduct)
 
 	// NO.13 Search + Loop to recalculate the product internally with keyword = "" and limit = "100000" with random offset (prevent cache) ~ 5 calls/min + randomly choose and save 10~20 products into DB
 	// NO.14 Search + Loop to recalculate the product internally with keyword = "" and limit = "1000" with random offset (prevent cache) ~ 500 calls/min + randomly choose and save 10~20 products into DB
