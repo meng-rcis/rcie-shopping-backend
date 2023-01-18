@@ -25,13 +25,8 @@ func init() {
 func (h *searchHandler) SearchProduct(c echo.Context) error {
 	searchQuery := types.SearchQuery{
 		Keyword: c.QueryParam("keyword"),
-		ShopId:  c.QueryParam("shopId"),
 		Offset:  c.QueryParam("offset"),
-	}
-
-	limit := c.QueryParam("limit")
-	if limit != "" {
-		searchQuery.Limit = limit
+		Limit:   c.QueryParam("limit"),
 	}
 
 	searchResult, err := services.SearchService.SearchProduct(&searchQuery)

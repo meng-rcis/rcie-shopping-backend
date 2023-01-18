@@ -3,6 +3,7 @@ package services
 import (
 	"github.com/nuttchai/go-rest/internal/models"
 	"github.com/nuttchai/go-rest/internal/types"
+	"github.com/nuttchai/go-rest/internal/utils/query"
 )
 
 type searchService struct {
@@ -24,26 +25,11 @@ func init() {
 }
 
 func (s *searchService) SearchProduct(searchQuery *types.SearchQuery) ([]*models.Product, error) {
-	searchFilter := []*types.QueryFilter{}
-	if searchQuery.Keyword != "" {
-		searchFilter = append(searchFilter, &types.QueryFilter{
-			Field:    "p.name",
-			Operator: "LIKE",
-			Value:    "%" + searchQuery.Keyword + "%",
-		})
-	}
-
-	if searchQuery.ShopId != "" {
-		searchFilter = append(searchFilter, &types.QueryFilter{
-			Field:    "p.shop_id",
-			Operator: "=",
-			Value:    searchQuery.ShopId,
-		})
-	}
+	filter := query.GenerateProductFilter(searchQuery)
 
 	return s.repo.Models.DB.SearchProduct(
 		searchQuery.Offset,
 		searchQuery.Limit,
-		searchFilter...,
+		filter...,
 	)
 }
