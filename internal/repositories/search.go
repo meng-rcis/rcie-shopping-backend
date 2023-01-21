@@ -12,10 +12,16 @@ import (
 func (m *DBModel) SearchProduct(
 	offset string,
 	limit string,
+	isHiddenRequired bool,
 	filters ...*types.QueryFilter,
 ) ([]*models.Product, error) {
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
+
+	status := "Shown"
+	if isHiddenRequired {
+		status = "Hidden"
+	}
 
 	baseQuery := `
 		select p.id, p.name, p.description, p.price, p.quantity, p.shop_id, ps.name, p.created_at, p.updated_at
@@ -23,7 +29,7 @@ func (m *DBModel) SearchProduct(
 		join product_status as ps on p.status_id = ps.id
 		where ps.name = $1
 	`
-	baseArgs := []interface{}{"Shown"}
+	baseArgs := []interface{}{status}
 	query, args := db.BuildQueryWithFilter(baseQuery, baseArgs, filters...)
 	query += " order by p.name asc"
 

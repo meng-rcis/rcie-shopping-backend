@@ -29,7 +29,12 @@ func (h *searchHandler) SearchProduct(c echo.Context) error {
 		Limit:   c.QueryParam("limit"),
 	}
 
-	searchResult, err := services.SearchService.SearchProduct(&searchQuery)
+	isHiddenRequired := false
+	if c.QueryParam("isHiddenRequired") == "true" {
+		isHiddenRequired = true
+	}
+
+	searchResult, err := services.SearchService.SearchProduct(&searchQuery, isHiddenRequired)
 	if err != nil {
 		jsonErr := api.InternalServerError(err)
 		return c.JSON(jsonErr.Status, jsonErr)

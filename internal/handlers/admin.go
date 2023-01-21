@@ -4,6 +4,8 @@ import (
 	"github.com/labstack/echo"
 	"github.com/nuttchai/go-rest/internal/constants"
 	admindto "github.com/nuttchai/go-rest/internal/dto/admin"
+	shareddto "github.com/nuttchai/go-rest/internal/dto/shared"
+	"github.com/nuttchai/go-rest/internal/models"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/types"
 	"github.com/nuttchai/go-rest/internal/utils/api"
@@ -74,23 +76,45 @@ func (h *adminHandler) BulkUpdateProduct(c echo.Context) error {
 		Limit:     c.QueryParam("limit"),
 	}
 
-	products, err := services.SearchService.SearchProduct(&searchQuery)
+	products, err := services.SearchService.SearchProduct(&searchQuery, true)
 	if err != nil {
 		jsonErr := api.InternalServerError(err)
 		return c.JSON(jsonErr.Status, jsonErr)
 	}
 
+	result, successCount, isPreview := []*models.Product{}, 0, c.QueryParam("isPreview") == "true"
 	for _, product := range products {
-		product.Price = reqBody.Price
-		product.Status = reqBody.Status
-		product.Quantity = reqBody.Quantity
-
-		if _, err := services.ProductService.UpdateProduct(product); err != nil {
-			jsonErr := api.InternalServerError(err)
-			return c.JSON(jsonErr.Status, jsonErr)
+		if reqBody.Description != "" {
+			product.Description = reqBody.Description
 		}
+		if reqBody.Price > 0 {
+			product.Price = reqBody.Price
+		}
+		if reqBody.Status != "" {
+			product.Status = reqBody.Status
+		}
+		if reqBody.Quantity > 0 {
+			product.Quantity = reqBody.Quantity
+		}
+
+		if !isPreview {
+			if _, err := services.ProductService.UpdateProduct(product); err != nil {
+				jsonErr := api.InternalServerError(err)
+				return c.JSON(jsonErr.Status, jsonErr)
+			}
+		}
+		result = append(result, product)
+		successCount++
 	}
 
-	res := api.SuccessResponse(nil, constants.BulkUpdateProductSuccessMsg)
+	res := api.SuccessResponse(&shareddto.ValidatorResultDTO{
+		IsSuccess: true,
+		Action:    "bulk_update_product",
+		Result: map[string]interface{}{
+			"success_count": successCount,
+			"is_preview":    isPreview,
+			"products":      result,
+		},
+	}, constants.BulkUpdateProductSuccessMsg)
 	return c.JSON(res.Status, res)
 }

@@ -11,7 +11,7 @@ type searchService struct {
 }
 
 type searchServiceInterface interface {
-	SearchProduct(searchQuery *types.SearchQuery) ([]*models.Product, error)
+	SearchProduct(searchQuery *types.SearchQuery, isHiddenRequired bool) ([]*models.Product, error)
 }
 
 var (
@@ -24,12 +24,13 @@ func init() {
 	}
 }
 
-func (s *searchService) SearchProduct(searchQuery *types.SearchQuery) ([]*models.Product, error) {
+func (s *searchService) SearchProduct(searchQuery *types.SearchQuery, isHiddenRequired bool) ([]*models.Product, error) {
 	filter := query.GenerateProductFilter(searchQuery)
 
 	return s.repo.Models.DB.SearchProduct(
 		searchQuery.Offset,
 		searchQuery.Limit,
+		isHiddenRequired,
 		filter...,
 	)
 }

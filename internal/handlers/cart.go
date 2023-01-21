@@ -104,7 +104,7 @@ func (h *cartHandler) RemoveCartItem(c echo.Context) error {
 	res := api.SuccessResponse(
 		&shareddto.ValidatorResultDTO{
 			IsSuccess: true,
-			Action:    "RemoveCartItem",
+			Action:    "remove_cart_item",
 		},
 		constants.RemoveCartItemSuccessMsg)
 
