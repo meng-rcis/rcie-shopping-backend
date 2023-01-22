@@ -4,6 +4,7 @@ import (
 	orderdto "github.com/nuttchai/go-rest/internal/dto/order"
 	"github.com/nuttchai/go-rest/internal/models"
 	"github.com/nuttchai/go-rest/internal/types"
+	"github.com/nuttchai/go-rest/internal/utils/query"
 )
 
 type orderService struct {
@@ -27,24 +28,8 @@ func init() {
 }
 
 func (s *orderService) GetOrders(orderQuery *types.OrderQuery) ([]*models.Order, error) {
-	orderFilter := []*types.QueryFilter{}
-	if orderQuery.UserId != "" {
-		orderFilter = append(orderFilter, &types.QueryFilter{
-			Field:    "o.owner_id",
-			Operator: "=",
-			Value:    orderQuery.UserId,
-		})
-	}
-
-	if orderQuery.Status != "" {
-		orderFilter = append(orderFilter, &types.QueryFilter{
-			Field:    "os.name",
-			Operator: "=",
-			Value:    orderQuery.Status,
-		})
-	}
-
-	return s.repo.Models.DB.GetOrders(orderFilter...)
+	filters := query.GenerateOrderFilter(orderQuery)
+	return s.repo.Models.DB.GetOrders(filters...)
 }
 
 func (s *orderService) CreateOrder(orderdto *orderdto.CreateOrderDTO) (*models.Order, error) {

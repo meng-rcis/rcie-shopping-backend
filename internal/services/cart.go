@@ -4,6 +4,7 @@ import (
 	cartdto "github.com/nuttchai/go-rest/internal/dto/cart"
 	"github.com/nuttchai/go-rest/internal/models"
 	"github.com/nuttchai/go-rest/internal/types"
+	"github.com/nuttchai/go-rest/internal/utils/query"
 	"github.com/nuttchai/go-rest/internal/utils/validators"
 )
 
@@ -31,16 +32,8 @@ func init() {
 }
 
 func (s *cartService) GetCartItem(id string, cartQuery *types.CartQuery) (*models.CartItem, error) {
-	cartFilter := []*types.QueryFilter{}
-	if cartQuery.UserId != "" {
-		cartFilter = append(cartFilter, &types.QueryFilter{
-			Field:    "owner_id",
-			Operator: "=",
-			Value:    cartQuery.UserId,
-		})
-	}
-
-	return s.repo.Models.DB.GetCartItem(id, cartFilter...)
+	filters := query.GenerateCartFilter(cartQuery)
+	return s.repo.Models.DB.GetCartItem(id, filters...)
 }
 
 func (s *cartService) GetAllCartItems(userId string) ([]*models.CartItem, error) {
