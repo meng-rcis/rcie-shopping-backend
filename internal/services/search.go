@@ -25,12 +25,11 @@ func init() {
 }
 
 func (s *searchService) SearchProduct(searchQuery *types.SearchQuery, isHiddenRequired bool) ([]*models.Product, error) {
-	filter := query.GenerateProductFilter(searchQuery)
+	filter := query.GenerateProductFilter(searchQuery, isHiddenRequired)
 
 	return s.repo.Models.DB.SearchProduct(
 		searchQuery.Offset,
 		searchQuery.Limit,
-		isHiddenRequired,
 		filter...,
 	)
 }
