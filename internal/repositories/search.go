@@ -18,18 +18,19 @@ func (m *DBModel) SearchProduct(
 	ctx, cancel := context.WithTimeout(3)
 	defer cancel()
 
-	status := "Shown"
+	status := "('Shown')"
 	if isHiddenRequired {
-		status = "Hidden"
+		status = "('Shown', 'Hidden')"
 	}
 
+	baseArgs := []interface{}{status}
 	baseQuery := `
 		select p.id, p.name, p.description, p.price, p.quantity, p.shop_id, ps.name, p.created_at, p.updated_at
 		from product as p 
 		join product_status as ps on p.status_id = ps.id
 		where ps.name = $1
 	`
-	baseArgs := []interface{}{status}
+
 	query, args := db.BuildQueryWithFilter(baseQuery, baseArgs, filters...)
 	query += " order by p.name asc"
 
