@@ -85,3 +85,7 @@ Hash -> {{password}} + {{ salt }}
 To-do List
 
 - create unit test
+
+NOTE to future me
+
+- If you struggle to connect local db that reports an error "FATAL: database "shopping" does not exist", try to kill local port 5432 running on Windows [How do I kill the process currently using a port on localhost in Windows?](https://stackoverflow.com/questions/39632667/how-do-i-kill-the-process-currently-using-a-port-on-localhost-in-windows)
