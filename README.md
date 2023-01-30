@@ -85,6 +85,7 @@ Hash -> {{password}} + {{ salt }}
 To-do List
 
 - create unit test
+- update repository layer (create filter query)
 
 NOTE to future me
 
