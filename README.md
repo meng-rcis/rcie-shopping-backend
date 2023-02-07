@@ -97,4 +97,4 @@ NOTE to future me
 
 example command
 
-`jmeter -n -t ./rcie/script/jmx/rcie-api-no1.jmx -l ./rcie/log/183000272023-rcie-api-no1.csv -e -o ./rcie/report/183000272023-rcie-api-no1`
+`jmeter -n -t ./rcie/script/jmx/rcie-api-no1.jmx -l ./rcie/log/18300002072023-rcie-api-no1.csv -e -o ./rcie/report/18300002072023-rcie-api-no1`
