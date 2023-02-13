@@ -111,7 +111,7 @@ Definition of file name
 Way to increase jmeter heap size
 
 1. Open jmeter.bat file in bin folder
-2. Allocate size at -Xmx256m -> -Xmx1024m (or more)
+2. Allocate size at -Xmx1g -> -Xmx4g (4GB) or more
 
 Temporary command to paste in terminal
-`jmeter -n -t ./rcie/script/jmx/rcie-api-no5.jmx -l ./rcie/log/00000002132023-rcie-api-no5.jtl -e -o ./rcie/report/00000002132023-rcie-api-no5`
+`jmeter -n -t ./rcie/script/jmx/rcie-api-no5.jmx -l ./rcie/log/00550002142023-rcie-api-no5.jtl -e -o ./rcie/report/00550002142023-rcie-api-no5`
