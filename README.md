@@ -107,3 +107,11 @@ Definition of file name
 - 02 = month
 - 07 = day
 - 2023 = year
+
+Way to increase jmeter heap size
+
+1. Open jmeter.bat file in bin folder
+2. Allocate size at -Xmx256m -> -Xmx1024m (or more)
+
+Temporary command to paste in terminal
+`jmeter -n -t ./rcie/script/jmx/rcie-api-no5.jmx -l ./rcie/log/00000002132023-rcie-api-no5.jtl -e -o ./rcie/report/00000002132023-rcie-api-no5`
