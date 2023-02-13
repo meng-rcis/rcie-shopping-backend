@@ -97,13 +97,13 @@ NOTE to future me
 
 example command
 
-`jmeter -n -t ./rcie/script/jmx/rcie-api-no1.jmx -l ./rcie/log/18300002072023-rcie-api-no1.jtl -e -o ./rcie/report/18300002072023-rcie-api-no1`
+`jmeter -n -t ./rcie/script/jmx/rcie-api-no5.jmx -l ./rcie/log/12130002072023-rcie-api-no5.jtl -e -o ./rcie/report/12130002072023-rcie-api-no5`
 
 Definition of file name
 
-- 18 = hours
-- 30 = minutes
+- 12 = hours
+- 13 = minutes
 - 00 = seconds
-- 02 = day
-- 07 = month
+- 02 = month
+- 07 = day
 - 2023 = year
