@@ -115,10 +115,3 @@ Way to increase jmeter heap size
 
 Temporary command to paste in terminal
 `jmeter -n -t ./rcie/script/jmx/rcie-api-no5.jmx -l ./rcie/log/01500002142023-rcie-api-no5.jtl -e -o ./rcie/report/01500002142023-rcie-api-no5`
-
-VSCode Shortcut
-
-- control + 0: toggle sidebar
-- control + 1: exit sidebar
-- control + tab: switch between tab
-- control + shift + tab: switch between tab (reverse)
