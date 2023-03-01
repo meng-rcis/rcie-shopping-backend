@@ -69,7 +69,7 @@ func main() {
 
 	err = cmd.Wait()
 	if err != nil {
-		console.App.Log(os.Stderr, "Error waiting for CMD", err)
+		console.App.Log(os.Stderr, "Error Waiting for CMD", err)
 		return
 	}
 
