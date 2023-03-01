@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bufio"
+	"os"
 	"os/exec"
 	"time"
 
@@ -27,10 +29,15 @@ const (
 )
 
 func main() {
-	console.App.Log("Start Running JMeter CLI...")
-
 	meta := generateMeta()
 
+	if cli.GetArg(2, "true") == "false" {
+		console.App.Log("Skip Running JMeter CLI...")
+		console.App.Log("File name", meta.FileName)
+		return
+	}
+
+	console.App.Log("Start Running JMeter CLI...")
 	console.App.Log("Running File", meta.FileName)
 	console.App.Log("Running Time", meta.ExecutionTime)
 	console.App.Log("Script Location", meta.Script)
@@ -41,8 +48,29 @@ func main() {
 
 	console.App.Log("Running Command", cmd.String())
 
-	if err := cmd.Run(); err != nil {
-		console.App.Fatal("Failed to Execute Command", err)
+	cmdReader, err := cmd.StdoutPipe()
+	if err != nil {
+		console.App.Fatal(os.Stderr, "Error Creating StdoutPipe for CMD", err)
+		return
+	}
+
+	scanner := bufio.NewScanner(cmdReader)
+	go func() {
+		for scanner.Scan() {
+			console.App.Logf("\t > %s\n", scanner.Text())
+		}
+	}()
+
+	err = cmd.Start()
+	if err != nil {
+		console.App.Log(os.Stderr, "Error Starting CMD", err)
+		return
+	}
+
+	err = cmd.Wait()
+	if err != nil {
+		console.App.Log(os.Stderr, "Error waiting for CMD", err)
+		return
 	}
 
 	console.App.Log("Done Running JMeter CLI with", meta.FileNameWithTime)
