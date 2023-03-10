@@ -37,9 +37,8 @@ func main() {
 		return
 	}
 
-	console.App.Log("Start Running JMeter CLI...")
+	console.App.Log("Start Running JMeter CLI at", meta.ExecutionTime)
 	console.App.Log("Running File", meta.FileName)
-	console.App.Log("Running Time", meta.ExecutionTime)
 	console.App.Log("Script Location", meta.Script)
 	console.App.Log("Log Location", meta.Log)
 	console.App.Log("Report Location", meta.Report)
