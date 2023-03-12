@@ -21,7 +21,7 @@ type FileMeta struct {
 }
 
 const (
-	BASE_PATH     = "D:/nuttchai/dev/Projects/rcie/jmeter/rcie/"
+	BASE_PATH     = "../../external/jmeter/"
 	BASE_FILENAME = "rcie-api-no"
 	SCRIPT_FOLDER = "script/jmx/"
 	LOG_FOLDER    = "log/"
