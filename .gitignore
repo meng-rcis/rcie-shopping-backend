@@ -2,4 +2,5 @@
 /external/database/volumes
 /external/database/backup
 jmeter.log
-/external/jmeter/report
+/external/jmeter/report/**
+!.gitkeep
