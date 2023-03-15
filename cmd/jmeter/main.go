@@ -28,7 +28,7 @@ const (
 	REPORT_FOLDER = "report/"
 	JMX_FILE_TYPE = ".jmx"
 	LOG_FILE_TYPE = ".csv"
-	TIME_FORMAT   = "2006:01:02-15:04:05"
+	TIME_FORMAT   = "2006-01-02_15-04-05"
 )
 
 func main() {
@@ -83,7 +83,7 @@ func generateMeta() *FileMeta {
 	logFileType := env.GetEnv("LOG_TYPE", LOG_FILE_TYPE)
 	api := cli.GetArg(1, "1")
 	fileName := BASE_FILENAME + api
-	fileNameWithTime := currentTime + "-" + fileName
+	fileNameWithTime := currentTime + "_" + fileName
 
 	return &FileMeta{
 		ExecutionTime:    currentTime,
