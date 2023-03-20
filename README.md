@@ -110,7 +110,7 @@ Definition of file name
 
 Way to increase jmeter heap size
 
-1. Open jmeter.bat file in bin folder
+1. Open jmeter.bat file in bin folder (location: `D:\jmeter\apache-jmeter-5.5\bin`)
 2. Allocate size at -Xmx1g -> -Xmx4g (4GB) or more
 
 Temporary command to paste in terminal
