@@ -27,16 +27,18 @@ const (
 	LOG_FOLDER    = "log/"
 	REPORT_FOLDER = "report/"
 	JMX_FILE_TYPE = ".jmx"
-	LOG_FILE_TYPE = ".csv"
+	LOG_FILE_TYPE = ".jtl"
 	TIME_FORMAT   = "2006-01-02_15-04-05"
 )
 
+// TO FUTURE ME: IF STILL FREEZE, TRY TO RUN THE COMMAND WITH SET HEAP SIZE
 func main() {
 	meta := generateMeta()
 
 	if cli.GetArg(2, "true") == "false" {
 		console.App.Log("Skip Running JMeter CLI...")
 		console.App.Log("File name", meta.FileName)
+		console.App.Log("CLI Command:", "jmeter -n -t", meta.Script, "-l", meta.Log, "-e -o", meta.Report)
 		return
 	}
 
