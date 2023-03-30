@@ -31,7 +31,6 @@ const (
 	TIME_FORMAT   = "2006-01-02_15-04-05"
 )
 
-// TO FUTURE ME: IF STILL FREEZE, TRY TO RUN THE COMMAND WITH SET HEAP SIZE
 func main() {
 	meta := generateMeta()
 

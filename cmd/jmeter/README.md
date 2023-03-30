@@ -42,3 +42,8 @@ Way to increase jmeter heap size
 
 Temporary command to paste in terminal
 `jmeter -n -t ./rcie/script/jmx/rcie-api-no5.jmx -l ./rcie/log/01500002142023-rcie-api-no5.jtl -e -o ./rcie/report/01500002142023-rcie-api-no5`
+
+Way to fix freeze Jmeter
+
+1. Increase HEAP size
+2. Add Time out in Jmeter sampler request in advance setting
