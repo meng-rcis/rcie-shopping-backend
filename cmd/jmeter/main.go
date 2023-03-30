@@ -27,7 +27,7 @@ const (
 	LOG_FOLDER    = "log/"
 	REPORT_FOLDER = "report/"
 	JMX_FILE_TYPE = ".jmx"
-	LOG_FILE_TYPE = ".jtl"
+	LOG_FILE_TYPE = ".csv"
 	TIME_FORMAT   = "2006-01-02_15-04-05"
 )
 
