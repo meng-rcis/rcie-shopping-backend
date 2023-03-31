@@ -22,7 +22,7 @@ type FileMeta struct {
 
 const (
 	BASE_PATH     = "./external/jmeter/" // NOTE: Run CLI from root folder
-	BASE_FILENAME = "rcie-api-no"
+	BASE_FILENAME = "rcie-api"
 	SCRIPT_FOLDER = "script/jmx/"
 	LOG_FOLDER    = "log/"
 	REPORT_FOLDER = "report/"
@@ -82,8 +82,14 @@ func main() {
 func generateMeta() *FileMeta {
 	currentTime := time.Now().Format(TIME_FORMAT)
 	logFileType := env.GetEnv("LOG_TYPE", LOG_FILE_TYPE)
-	api := cli.GetArg(1, "1")
-	fileName := BASE_FILENAME + api
+	api := cli.GetArg(1, "default")
+	fileName := BASE_FILENAME
+	if api == "default" {
+		fileName += "-default"
+	} else {
+		fileName += "-no" + api
+	}
+
 	fileNameWithTime := currentTime + "_" + fileName
 
 	return &FileMeta{
