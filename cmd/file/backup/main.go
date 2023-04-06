@@ -105,7 +105,7 @@ func extractFile(basePath string, paths ...string) ([][]string, error) {
 
 		// NOTE: Store data
 	}
-
+	return nil, nil
 }
 
 func readFile(path string) string {
