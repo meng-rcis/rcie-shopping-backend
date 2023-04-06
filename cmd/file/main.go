@@ -1,6 +1,9 @@
 package main
 
 import (
+	"bufio"
+	"encoding/csv"
+	"io"
 	"os"
 
 	"github.com/nuttchai/go-rest/internal/shared/console"
@@ -44,6 +47,99 @@ func main() {
 	console.App.Log("Memory File Path: " + memoryPath)
 	console.App.Log("Network File Path: " + networkPath)
 
+	readFile(cpuPath)
+}
+
+func extractFile(basePath string, paths ...string) ([][]string, error) {
+	timestamp := []string{}
+	baseFile, err := os.Open(basePath)
+
+	if err != nil {
+		return nil, err
+	}
+	defer baseFile.Close()
+
+	r := csv.NewReader(bufio.NewReader(baseFile))
+	r.Comma = ','
+	r.LazyQuotes = true
+
+	// NOTE: Skip first line
+	if _, err = r.Read(); err != nil {
+		return nil, err
+	}
+
+	// NOTE: Store timestamp
+	for {
+		record, err := r.Read()
+
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			console.App.Fatal(err)
+		}
+		timestamp = append(timestamp, record[0])
+	}
+
+	columns := []string{}
+	for _, path := range paths {
+		file, err := os.Open(path)
+
+		if err != nil {
+			return nil, err
+		}
+		defer file.Close()
+
+		r := csv.NewReader(bufio.NewReader(file))
+		r.Comma = ','
+		r.LazyQuotes = true
+
+		// NOTE: Store column name
+		columnRecord, err := r.Read()
+		if len(columns) == 0 {
+			columns = columnRecord
+		} else {
+			columnsRecordWithoutTime := columnRecord[1:]
+			columns = append(columns, columnsRecordWithoutTime...)
+		}
+
+		// NOTE: Store data
+	}
+
+}
+
+func readFile(path string) string {
+	file, err := os.Open(path)
+
+	if err != nil {
+		console.App.Fatal(err)
+		return ""
+	}
+	defer file.Close()
+
+	r := csv.NewReader(bufio.NewReader(file))
+	r.Comma = ','
+	r.LazyQuotes = true
+
+	for {
+		record, err := r.Read()
+
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			console.App.Fatal(err)
+		}
+
+		console.App.Log("record:", record)
+		for value := range record {
+			console.App.Log("value:", value)
+			console.App.Log("record-value:", record[value])
+		}
+	}
+
+	return ""
 }
 
 func getBaseName(dateTime string) string {
