@@ -8,6 +8,9 @@ const main = async () => {
 
   console.log("Starting formatting...");
   const updateFile = await formatMetrics(path);
+
+  console.log("Updated file:", updateFile);
+  console.log("Done!");
 };
 
 main();
