@@ -20,6 +20,7 @@ export const addTimeToFail = async (
   const sortedResponse = failedResponse.sort(
     (a, b) => Number(a.timeStamp) - Number(b.timeStamp)
   );
+
   await streamAddTimeToFail(metrics, newFile, sortedResponse);
   return newFile;
 };

@@ -2,15 +2,32 @@ export const findNearestFailedTime = (
   timeStamp: string,
   failedResponse: any[]
 ): string => {
-  let diff = 0;
   const timeStampInt = Number(timeStamp);
+  let diff = -1;
+  let skip = 0;
+  let foundNearest = false;
 
-  failedResponse.forEach((error) => {
-    if (timeStampInt > Number(error.timeStamp)) {
-      return diff;
+  for (let i = 0; i < failedResponse.length; i++) {
+    const error = failedResponse[i];
+    const isTimeStampBigger = timeStampInt > Number(error.timeStamp);
+    if (!isTimeStampBigger) {
+      break;
     }
-    diff = Number(error.timeStamp) - timeStampInt;
-  });
+    skip++;
+  }
 
-  return diff.toString();
+  for (let i = skip; i < failedResponse.length; i++) {
+    const error = failedResponse[i];
+    const isTimeStampBigger = timeStampInt > Number(error.timeStamp);
+    if (isTimeStampBigger) {
+      break;
+    }
+    const currentDiff = Number(error.timeStamp) - timeStampInt;
+    if (!foundNearest || currentDiff < diff) {
+      diff = currentDiff;
+      foundNearest = true;
+    }
+  }
+
+  return foundNearest ? diff.toString() : "unknown";
 };
