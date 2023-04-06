@@ -29,5 +29,5 @@ export const findNearestFailedTime = (
     }
   }
 
-  return foundNearest ? diff.toString() : "unknown";
+  return foundNearest ? diff.toString() : "";
 };
