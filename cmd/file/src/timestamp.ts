@@ -3,7 +3,7 @@ import {
   streamAddMetricsTimeStamp,
   streamAddTimeToFail,
   streamGetFailedResponse,
-} from "./stream";
+} from "./stream/timestamp";
 
 export const addMetricsTimeStamp = async (metrics: string): Promise<string> => {
   const newFile = metrics.replace(".csv", "_with_output.csv");
