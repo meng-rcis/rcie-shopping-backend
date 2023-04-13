@@ -2,7 +2,7 @@ import fs from "fs";
 import csv from "csv-parser";
 // @ts-ignore
 import { parse } from "json2csv";
-import { findNearestFailedTime } from "../utils/utils";
+import { findNearestFailedTime } from "./utils";
 
 export const streamAddMetricsTimeStamp = async (
   currentFile: string,
@@ -105,6 +105,9 @@ export const streamAddTimeToFail = async (
 ): Promise<void> => {
   let count = 0;
   const collection: any[] = [];
+  const sortedResponse = errorResponse.sort(
+    (a, b) => Number(a.timeStamp) - Number(b.timeStamp)
+  );
 
   return new Promise(function (resolve, reject) {
     fs.createReadStream(currentFile)
@@ -136,7 +139,7 @@ export const streamAddTimeToFail = async (
           count++;
           return;
         }
-        data.timeToFail = findNearestFailedTime(data.timeStamp, errorResponse);
+        data.timeToFail = findNearestFailedTime(data.timeStamp, sortedResponse);
         collection.push(data);
       })
       .on("end", () => {

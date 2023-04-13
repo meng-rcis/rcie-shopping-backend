@@ -1,5 +1,5 @@
 import fs from "fs";
-import { IPath } from "./interface";
+import { IPath } from "./interfaces/path";
 
 const BASE_PATH = "../../external/jmeter";
 const LOG_PATH = `${BASE_PATH}/log`;
@@ -9,8 +9,8 @@ const BASE_NAME = "rcie-api-";
 
 export const getPath = (): IPath => {
   const cli = process.argv;
-  const time = cli[3];
-  const type = cli[4] || "default";
+  const time = cli[2];
+  const type = cli[3] || "default";
 
   if (!time) {
     throw new Error("Please enter the time of the test");
