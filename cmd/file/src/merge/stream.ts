@@ -2,7 +2,7 @@ import fs from "fs";
 import csv from "csv-parser";
 // @ts-ignore
 import { parse } from "json2csv";
-import { findNearestFailedTime } from "./utils";
+import { findNearestFailedTime } from "../utils/utils";
 
 export const streamAddMetricsTimeStamp = async (
   currentFile: string,

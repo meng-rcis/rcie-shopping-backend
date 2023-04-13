@@ -9,8 +9,8 @@ const BASE_NAME = "rcie-api-";
 
 export const getPath = (): IPath => {
   const cli = process.argv;
-  const time = cli[2];
-  const type = cli[3] || "default";
+  const time = cli[3];
+  const type = cli[4] || "default";
 
   if (!time) {
     throw new Error("Please enter the time of the test");

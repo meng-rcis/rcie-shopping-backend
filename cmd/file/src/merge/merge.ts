@@ -25,7 +25,7 @@ export const addTimeToFail = async (
   return newFile;
 };
 
-export const formatMetrics = async (path: IPath): Promise<string> => {
+export const mergeMetrics = async (path: IPath): Promise<string> => {
   const { logFile, metricsFile } = path;
   const metricsWithTimeStamp = await addMetricsTimeStamp(metricsFile);
   const metricsWithLog = await addTimeToFail(logFile, metricsWithTimeStamp);
