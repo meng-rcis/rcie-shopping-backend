@@ -1,29 +1,14 @@
+import { UNIT_METADATA } from "./constant/unit-meta";
 import { IPath } from "./interfaces/path";
-import { IStandardUnit } from "./interfaces/standard-unit";
+import { streamStandardizeUnit } from "./stream/unit";
 
-const STANDARD_UNIT: IStandardUnit = {
-  cpu: {
-    iowait: "%",
-    irq: "%",
-    nice: "%",
-    softirq: "%",
-    steal: "%",
-    system: "%",
-    user: "%",
-  },
-  memory: {
-    used: "MiB",
-  },
-  network: {
-    br: "MB/s",
-    docker0: "MB/s",
-    eth0: "MB/s",
-    eth1: "MB/s",
-    lo: "MB/s",
-    veth: "MB/s",
-  },
-};
+export const standardizeUnit = async (path: IPath): Promise<void> => {
+  const { metricsWithOutputFile, metricsWithOutputAndStandardizedUnitFile } =
+    path;
 
-export const standardizeUnit = async (path: IPath): Promise<string> => {
-  return new Promise(() => "");
+  await streamStandardizeUnit(
+    metricsWithOutputFile,
+    metricsWithOutputAndStandardizedUnitFile,
+    UNIT_METADATA
+  );
 };

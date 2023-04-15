@@ -4,6 +4,7 @@ import {
   MEM_HEADER,
   NET_HEADER,
 } from "./src/constant/metrics-header";
+import { MetricType } from "./src/enum/metrics-type";
 import { IMetric } from "./src/interfaces/metric";
 import { standardizeUnit } from "./src/unit";
 
@@ -13,9 +14,9 @@ const main = async () => {
 
   console.log("Generating metrics file...");
   const metrics: IMetric[] = [
-    { path: path.cpuFile, headers: CPU_HEADER },
-    { path: path.memoryFile, headers: MEM_HEADER },
-    { path: path.networkFile, headers: NET_HEADER },
+    { type: MetricType.CPU, path: path.cpuFile, headers: CPU_HEADER },
+    { type: MetricType.Memory, path: path.memoryFile, headers: MEM_HEADER },
+    { type: MetricType.Network, path: path.networkFile, headers: NET_HEADER },
   ];
   await mergeMetrics(metrics, path);
 
@@ -23,7 +24,7 @@ const main = async () => {
   await addTimeToFail(metrics, path);
 
   console.log("Standardize unit...");
-  // await standardizeUnit(path);
+  await standardizeUnit(path);
 
   console.log("Done!");
 };

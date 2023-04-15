@@ -2,13 +2,11 @@ import fs from "fs";
 import csv from "csv-parser";
 // @ts-ignore
 import { parse } from "json2csv";
-import { findNearestFailedTime } from "../utils";
+import { findNearestFailedTime } from "../utils/timestamp";
 import {
-  CPU_HEADER,
-  MEM_HEADER,
-  NET_HEADER,
   TIMESTAMP_HEADER,
   TIME_HEADER,
+  TIME_TO_FAIL_HEADER,
 } from "../constant/metrics-header";
 import { LOG_HEADER } from "../constant/log-header";
 import { IMetric } from "../interfaces/metric";
@@ -44,7 +42,7 @@ export const streamAddTimeToFail = async (
 ): Promise<void> => {
   let count = 0;
   const collection: any[] = [];
-  const metricsHeader = metrics.flatMap((metric) => metric.headers);
+  const metricsHeaders = metrics.flatMap((metric) => metric.headers);
   const sortedErrors = errorResponse.sort((a, b) => a.timeStamp - b.timeStamp);
 
   return new Promise(function (resolve, reject) {
@@ -52,7 +50,7 @@ export const streamAddTimeToFail = async (
       .pipe(
         csv({
           separator: ",",
-          headers: [TIME_HEADER, TIMESTAMP_HEADER, ...metricsHeader],
+          headers: [TIME_HEADER, TIMESTAMP_HEADER, ...metricsHeaders],
         })
       )
       .on("data", (data: any) => {
@@ -60,7 +58,7 @@ export const streamAddTimeToFail = async (
           count++;
           return;
         }
-        data.timeToFail = findNearestFailedTime(
+        data[TIME_TO_FAIL_HEADER] = findNearestFailedTime(
           data[TIMESTAMP_HEADER],
           sortedErrors
         );
