@@ -1,4 +1,4 @@
-import { getPath, addTimestamp, mergeMetrics } from "./src";
+import { getPath, addTimeToFail, mergeMetrics } from "./src";
 
 const main = async () => {
   console.log("Starting getting path...");
@@ -8,7 +8,7 @@ const main = async () => {
   const generateFile = await mergeMetrics(path);
 
   console.log("Adding timestamp output to metrics file...");
-  const updateFile = await addTimestamp(path);
+  const updateFile = await addTimeToFail(path);
 
   console.log("Updated file:", updateFile);
   console.log("Done!");

@@ -4,63 +4,6 @@ import csv from "csv-parser";
 import { parse } from "json2csv";
 import { findNearestFailedTime } from "../utils";
 
-export const streamAddMetricsTimeStamp = async (
-  currentFile: string,
-  newFile: string
-): Promise<void> => {
-  let count = 0;
-  const collection: any[] = [];
-
-  return new Promise(function (resolve, reject) {
-    fs.createReadStream(currentFile)
-      .pipe(
-        csv({
-          separator: ",",
-          headers: [
-            "Time",
-            "iowait",
-            "irq",
-            "nice",
-            "softirq",
-            "steal",
-            "system",
-            "user",
-            "Used",
-            "Buffer",
-            "Cached",
-            "Free",
-            "br-10cd1f6f3899 receive",
-            "docker0 receive",
-            "eth0 receive",
-            "eth1 receive",
-            "lo receive",
-            "veth6750e95 receive",
-            "br-10cd1f6f3899 transmit",
-            "docker0 transmit",
-            "eth0 transmit",
-            "eth1 transmit",
-            "lo transmit",
-            "veth6750e95 transmit",
-          ],
-        })
-      )
-      .on("data", (data: any) => {
-        if (count === 0) {
-          count++;
-          return;
-        }
-        data.timeStamp = new Date(data.Time).getTime().toString();
-        collection.push(data);
-      })
-      .on("end", () => {
-        var result = parse(collection);
-        fs.writeFileSync(newFile, result);
-        resolve();
-      })
-      .on("error", reject);
-  });
-};
-
 export const streamGetFailedResponse = async (log: string): Promise<any[]> => {
   let countLog = 0;
   const failedResponse: any[] = [];
