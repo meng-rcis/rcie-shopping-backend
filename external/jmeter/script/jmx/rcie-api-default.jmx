@@ -3676,10 +3676,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">296</stringProp>
         <stringProp name="ThreadGroup.ramp_time">145</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">165</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -3765,10 +3766,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">312</stringProp>
         <stringProp name="ThreadGroup.ramp_time">241</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">261</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -3854,10 +3856,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">251</stringProp>
         <stringProp name="ThreadGroup.ramp_time">90</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">110</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -3943,10 +3946,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">213</stringProp>
         <stringProp name="ThreadGroup.ramp_time">312</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">332</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4032,10 +4036,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">215</stringProp>
         <stringProp name="ThreadGroup.ramp_time">195</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">215</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4121,10 +4126,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">121</stringProp>
         <stringProp name="ThreadGroup.ramp_time">277</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">297</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4210,10 +4216,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">12</stringProp>
         <stringProp name="ThreadGroup.ramp_time">63</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">83</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4299,10 +4306,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">287</stringProp>
         <stringProp name="ThreadGroup.ramp_time">111</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">131</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4388,10 +4396,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">356</stringProp>
         <stringProp name="ThreadGroup.ramp_time">290</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">310</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4477,10 +4486,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">89</stringProp>
         <stringProp name="ThreadGroup.ramp_time">30</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">50</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4566,10 +4576,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">124</stringProp>
         <stringProp name="ThreadGroup.ramp_time">142</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">162</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4655,10 +4666,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">275</stringProp>
         <stringProp name="ThreadGroup.ramp_time">201</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">221</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4744,10 +4756,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">290</stringProp>
         <stringProp name="ThreadGroup.ramp_time">312</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">332</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4833,10 +4846,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">160</stringProp>
         <stringProp name="ThreadGroup.ramp_time">211</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">231</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -4922,10 +4936,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">90</stringProp>
         <stringProp name="ThreadGroup.ramp_time">165</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">185</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -5011,10 +5026,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">147</stringProp>
         <stringProp name="ThreadGroup.ramp_time">226</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">246</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -5100,10 +5116,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">270</stringProp>
         <stringProp name="ThreadGroup.ramp_time">187</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">207</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -5189,10 +5206,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">215</stringProp>
         <stringProp name="ThreadGroup.ramp_time">63</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">83</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -5278,10 +5296,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">241</stringProp>
         <stringProp name="ThreadGroup.ramp_time">176</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">196</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
@@ -5368,10 +5387,11 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">139</stringProp>
         <stringProp name="ThreadGroup.ramp_time">163</stringProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">183</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
       </ThreadGroup>
       <hashTree>
         <SwitchController guiclass="SwitchControllerGui" testclass="SwitchController" testname="[Switch Controller] Random Request" enabled="true">
