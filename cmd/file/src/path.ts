@@ -24,14 +24,23 @@ export const getPath = (): IPath => {
 
   const name = `${time}_${BASE_NAME}${type}`;
   const logFile = `${LOG_PATH}/${name}${FILE_TYPE}`;
+  const cpuFile = `${METRICS_PATH}/${name}/cpu${FILE_TYPE}`;
+  const memoryFile = `${METRICS_PATH}/${name}/memory${FILE_TYPE}`;
+  const networkFile = `${METRICS_PATH}/${name}/network${FILE_TYPE}`;
   const metricsFile = `${METRICS_PATH}/${name}/metrics${FILE_TYPE}`;
 
-  const isPathExist = verifyPath(logFile, metricsFile);
+  const isPathExist = verifyPath(logFile, cpuFile, memoryFile, networkFile);
   if (!isPathExist) {
     throw new Error("Please enter a valid path");
   }
 
-  const path: IPath = { logFile, metricsFile };
+  const path: IPath = {
+    logFile,
+    cpuFile,
+    memoryFile,
+    networkFile,
+    metricsFile,
+  };
   return path;
 };
 
