@@ -3,6 +3,15 @@ import csv from "csv-parser";
 // @ts-ignore
 import { parse } from "json2csv";
 import { findNearestFailedTime } from "../utils";
+import {
+  CPU_HEADER,
+  MEM_HEADER,
+  NET_HEADER,
+  TIMESTAMP_HEADER,
+  TIME_HEADER,
+} from "../constant/metrics-header";
+import { LOG_HEADER } from "../constant/log-header";
+import { IMetric } from "../interfaces/metric";
 
 export const streamGetFailedResponse = async (log: string): Promise<any[]> => {
   let countLog = 0;
@@ -10,30 +19,7 @@ export const streamGetFailedResponse = async (log: string): Promise<any[]> => {
 
   return new Promise(function (resolve, reject) {
     fs.createReadStream(log)
-      .pipe(
-        csv({
-          separator: ",",
-          headers: [
-            "timeStamp",
-            "elapsed",
-            "label",
-            "responseCode",
-            "responseMessage",
-            "threadName",
-            "dataType",
-            "success",
-            "failureMessage",
-            "bytes",
-            "sentBytes",
-            "grpThreads",
-            "allThreads",
-            "URL",
-            "Latency",
-            "IdleTime",
-            "Connect",
-          ],
-        })
-      )
+      .pipe(csv({ separator: ",", headers: LOG_HEADER }))
       .on("data", (data: any) => {
         if (countLog === 0) {
           countLog++;
@@ -53,37 +39,20 @@ export const streamGetFailedResponse = async (log: string): Promise<any[]> => {
 export const streamAddTimeToFail = async (
   currentFile: string,
   newFile: string,
-  errorResponse: any[]
+  errorResponse: any[],
+  metrics: IMetric[]
 ): Promise<void> => {
   let count = 0;
   const collection: any[] = [];
-  const sortedResponse = errorResponse.sort(
-    (a, b) => Number(a.timeStamp) - Number(b.timeStamp)
-  );
+  const metricsHeader = metrics.flatMap((metric) => metric.headers);
+  const sortedErrors = errorResponse.sort((a, b) => a.timeStamp - b.timeStamp);
 
   return new Promise(function (resolve, reject) {
     fs.createReadStream(currentFile)
       .pipe(
         csv({
           separator: ",",
-          headers: [
-            "Time",
-            "iowait",
-            "irq",
-            "nice",
-            "softirq",
-            "steal",
-            "system",
-            "user",
-            "Used",
-            "br-10cd1f6f3899 receive",
-            "docker0 receive",
-            "eth0 receive",
-            "eth1 receive",
-            "lo receive",
-            "veth6750e95 receive",
-            "timeStamp",
-          ],
+          headers: [TIME_HEADER, TIMESTAMP_HEADER, ...metricsHeader],
         })
       )
       .on("data", (data: any) => {
@@ -91,7 +60,10 @@ export const streamAddTimeToFail = async (
           count++;
           return;
         }
-        data.timeToFail = findNearestFailedTime(data.timeStamp, sortedResponse);
+        data.timeToFail = findNearestFailedTime(
+          data[TIMESTAMP_HEADER],
+          sortedErrors
+        );
         collection.push(data);
       })
       .on("end", () => {
