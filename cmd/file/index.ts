@@ -5,6 +5,7 @@ import {
   NET_HEADER,
 } from "./src/constant/metrics-header";
 import { IMetric } from "./src/interfaces/metric";
+import { standardizeUnit } from "./src/unit";
 
 const main = async () => {
   console.log("Starting getting path...");
@@ -16,10 +17,13 @@ const main = async () => {
     { path: path.memoryFile, headers: MEM_HEADER },
     { path: path.networkFile, headers: NET_HEADER },
   ];
-  await mergeMetrics(metrics, path.metricsFile);
+  await mergeMetrics(metrics, path);
 
   console.log("Adding timestamp output to metrics file...");
-  await addTimeToFail(path, metrics);
+  await addTimeToFail(metrics, path);
+
+  console.log("Standardize unit...");
+  // await standardizeUnit(path);
 
   console.log("Done!");
 };

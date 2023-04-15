@@ -1,3 +1,4 @@
+import { IPath } from "./interfaces/path";
 import { IStandardUnit } from "./interfaces/standard-unit";
 
 const STANDARD_UNIT: IStandardUnit = {
@@ -23,7 +24,6 @@ const STANDARD_UNIT: IStandardUnit = {
   },
 };
 
-export const convertUnit = async (path: string): Promise<string> => {
-  const test = " ";
+export const standardizeUnit = async (path: IPath): Promise<string> => {
   return new Promise(() => "");
 };

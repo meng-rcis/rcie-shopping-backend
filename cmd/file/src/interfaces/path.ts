@@ -4,4 +4,6 @@ export interface IPath {
   memoryFile: string;
   networkFile: string;
   metricsFile: string;
+  metricsWithOutputFile: string;
+  metricsWithOutputAndStandardizedUnitFile: string;
 }

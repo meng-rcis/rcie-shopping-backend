@@ -28,6 +28,8 @@ export const getPath = (): IPath => {
   const memoryFile = `${METRICS_PATH}/${name}/memory${FILE_TYPE}`;
   const networkFile = `${METRICS_PATH}/${name}/network${FILE_TYPE}`;
   const metricsFile = `${METRICS_PATH}/${name}/metrics${FILE_TYPE}`;
+  const metricsWithOutputFile = `${METRICS_PATH}/${name}/metrics-with-output${FILE_TYPE}`;
+  const metricsWithOutputAndStandardizedUnitFile = `${METRICS_PATH}/${name}/metrics-with-output-and-standardized-unit${FILE_TYPE}`;
 
   const isPathExist = verifyPath(logFile, cpuFile, memoryFile, networkFile);
   if (!isPathExist) {
@@ -40,6 +42,8 @@ export const getPath = (): IPath => {
     memoryFile,
     networkFile,
     metricsFile,
+    metricsWithOutputFile,
+    metricsWithOutputAndStandardizedUnitFile,
   };
   return path;
 };

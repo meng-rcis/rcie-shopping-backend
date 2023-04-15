@@ -5,7 +5,7 @@ import { streamMergeMetrics } from "./stream/metric";
 
 export const mergeMetrics = async (
   metrics: IMetric[],
-  mergedPath: string
+  path: IPath
 ): Promise<void> => {
-  await streamMergeMetrics(metrics, mergedPath);
+  await streamMergeMetrics(metrics, path.metricsFile);
 };
