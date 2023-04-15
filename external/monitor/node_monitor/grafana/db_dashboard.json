@@ -55,7 +55,10 @@
             },
             "lineInterpolation": "linear",
             "lineStyle": {
-              "dash": [10, 10],
+              "dash": [
+                10,
+                10
+              ],
               "fill": "dash"
             },
             "lineWidth": 1,
@@ -118,7 +121,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "avg without(cpu) (irate(node_cpu_seconds_total{mode!=\"idle\", job=\"db\", instance=\"10.104.0.2:9100\"}[1m]))",
+          "expr": "avg without(cpu) (irate(node_cpu_seconds_total{job=\"db\", instance=\"10.104.0.2:9100\", mode!=\"idle\"}[1m]))",
           "legendFormat": "{{mode}}",
           "range": true,
           "refId": "A"
@@ -223,7 +226,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_transmit_bytes_total{job=\"api-service\",instance=\"159.65.135.45:9100\"}[5m])",
+          "expr": "irate(node_network_transmit_bytes_total{job=\"db\",instance=\"10.104.0.2:9100\"}[5m])",
           "hide": false,
           "legendFormat": "{{device}} transmit",
           "range": true,
@@ -281,8 +284,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -308,7 +310,9 @@
           "placement": "bottom",
           "showLegend": true
         },
-        "timezone": [""],
+        "timezone": [
+          ""
+        ],
         "tooltip": {
           "mode": "single",
           "sort": "none"
@@ -332,7 +336,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_memory_Buffers_bytes{job=\"api-service\", instance=\"159.65.135.45:9100\"}",
+          "expr": "node_memory_Buffers_bytes{job=\"db\", instance=\"10.104.0.2:9100\"}",
           "hide": false,
           "legendFormat": "Buffer",
           "range": true,
@@ -344,7 +348,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_memory_Cached_bytes{job=\"api-service\", instance=\"159.65.135.45:9100\"}",
+          "expr": "node_memory_Cached_bytes{job=\"db\", instance=\"10.104.0.2:9100\"}",
           "hide": false,
           "legendFormat": "Cached",
           "range": true,
@@ -356,7 +360,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_memory_MemFree_bytes{job=\"api-service\", instance=\"159.65.135.45:9100\"}",
+          "expr": "node_memory_MemFree_bytes{job=\"db\", instance=\"10.104.0.2:9100\"}",
           "hide": false,
           "legendFormat": "Free",
           "range": true,
@@ -411,8 +415,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -450,7 +453,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{job=\"db\",instance=\"10.104.0.2:9100\",device!~\"/dev/loop.*\", device!~\"tmpfs|nsfs\", device!=\"gvfsd-fuse\"} - node_filesystem_avail_bytes{job=\"db\",instance=\"10.104.0.2:9100\"}",
+          "expr": "node_filesystem_size_bytes{job=\"db\",instance=\"10.104.0.2:9100\",device!~\"/dev/loop.*\", device!~\"tmpfs | nsfs\", device!=\"gvfsd-fuse\"} - node_filesystem_avail_bytes{job=\"db\",instance=\"10.104.0.2:9100\"}",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -504,8 +507,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -543,7 +545,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_avail_bytes{job=\"db\",instance=\"10.104.0.2:9100\",device!~\"/dev/loop.*\",device!~\"tmpfs|nsfs\",device!=\"gvfsd-fuse\"}",
+          "expr": "node_filesystem_avail_bytes{job=\"db\",instance=\"10.104.0.2:9100\",device!~\"/dev/loop.*\",device!~\"tmpfs | nsfs\",device!=\"gvfsd-fuse\"}",
           "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
@@ -568,6 +570,6 @@
   "timezone": "",
   "title": "DB Node",
   "uid": "7lAyM14Vw",
-  "version": 8,
+  "version": 12,
   "weekStart": ""
 }
