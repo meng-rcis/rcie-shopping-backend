@@ -28,7 +28,9 @@ const convert = (value: string, desiredUnit: string): string => {
   }
 
   if (isPercentageType) {
-    return value.replace("%", "");
+    const number = parseFloat(value.replace("%", ""));
+    const decimal = number / 100;
+    return decimal.toString();
   }
 
   const number = parseFloat(substrings[0]);
@@ -58,7 +60,8 @@ export const convertUnit = (data: any, unitMeta: IUnit[]): any => {
 
       if (value) {
         const convertedValue = convert(value, unit);
-        const headerWithUnit = header + " [" + unit + "]";
+        const displayedUnit = unit === UnitType.Percentage ? "Ratios" : unit;
+        const headerWithUnit = header + " [" + displayedUnit + "]";
         standardizedRow[headerWithUnit] = convertedValue;
       }
     });
