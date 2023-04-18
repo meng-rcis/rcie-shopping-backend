@@ -8,22 +8,22 @@ import (
 	"github.com/nuttchai/go-rest/internal/config"
 )
 
-func responseTimeMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+func prometheusMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		start := time.Now()
 		err := next(c)
-		duration := time.Since(start)
 		status := strconv.Itoa(c.Response().Status)
 		method := c.Request().Method
 		path := c.Path()
+		duration := time.Since(start)
 
-		config.HttpDuration.WithLabelValues(method, path).Observe(duration.Seconds())
 		config.HttpRequestsTotal.WithLabelValues(status, method, path).Inc()
+		config.HttpDuration.WithLabelValues(method, path).Observe(duration.Seconds())
 
 		return err
 	}
 }
 
 func EnableResponseTimeMiddleware(e *echo.Echo) {
-	e.Use(responseTimeMiddleware)
+	e.Use(prometheusMiddleware)
 }
