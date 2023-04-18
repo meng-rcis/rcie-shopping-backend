@@ -25,3 +25,10 @@ export const NET_HEADER = [
   "lo transmit",
   "veth6750e95 transmit",
 ];
+export const TPS_HEADER = ["total-req-rate", "ok-req-rate", "error-req-rate"];
+export const RESPONSE_HEADER = ["avg-res-time"];
+export const LATENCY_HEADER = [
+  "latency-50-percentile",
+  "latency-95-percentile",
+  "latency-99-percentile",
+];

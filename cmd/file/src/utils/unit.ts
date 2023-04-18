@@ -14,6 +14,10 @@ const findConvertRatio = (actualUnit: string, desiredUnit: string): number => {
     case UnitType.GigabytePerSecond:
       if (desiredUnit === UnitType.KilobytePerSecond) return 1000000;
       if (desiredUnit === UnitType.MegabytePerSecond) return 1000;
+    case UnitType.Second:
+      if (desiredUnit === UnitType.Millisecond) return 1000;
+    case UnitType.Millisecond:
+      if (desiredUnit === UnitType.Second) return 1 / 1000;
     default:
       return -1;
   }
@@ -21,7 +25,13 @@ const findConvertRatio = (actualUnit: string, desiredUnit: string): number => {
 
 const convert = (value: string, desiredUnit: string): string => {
   let substrings = value.split(" ");
-  const isPercentageType = substrings.length === 1;
+  const isSubstringIncluded = substrings.length > 0;
+  if (!isSubstringIncluded) {
+    console.log("Substrings not found: " + value);
+    return value;
+  }
+
+  const isPercentageType = value.includes(UnitType.Percentage);
   if (isPercentageType && desiredUnit !== UnitType.Percentage) {
     console.log("Incorrect unit input, value: " + value);
     return value;
