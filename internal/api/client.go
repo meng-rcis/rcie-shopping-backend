@@ -11,10 +11,16 @@ import (
 	"github.com/nuttchai/go-rest/internal/routers"
 	"github.com/nuttchai/go-rest/internal/services"
 	"github.com/nuttchai/go-rest/internal/shared/console"
+	"github.com/prometheus/client_golang/prometheus"
 )
 
 var appConfig *config.AppConfig
 var apiConfig config.APIConfig
+
+func init() {
+	// Register Prometheus Metrics
+	prometheus.MustRegister(config.ResponseTimeHistogram)
+}
 
 func Client() {
 	// Add the Configuration into ApiConfig
@@ -48,6 +54,7 @@ func Client() {
 	console.App.Logf("Initializing Routers...")
 	e := echo.New()
 	middleware.EnableCORS(e)
+	middleware.EnableResponseTimeMiddleware(e)
 	routers.InitRouters(e)
 
 	// Start Server
