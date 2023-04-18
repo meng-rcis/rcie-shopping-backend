@@ -45,7 +45,15 @@ export const getPath = (): IPath => {
   const metricsWithOutputFile = `${METRICS_PATH}/${name}/${COMBINED_WITH_OUTPUT}${FILE_TYPE}`;
   const metricsWithOutputAndStandardizedUnitFile = `${METRICS_PATH}/${name}/${COMBINED_WITH_OUTPUT_AND_STANDARDIZED_UNIT}${FILE_TYPE}`;
 
-  const isPathExist = verifyPath(logFile, cpuFile, memoryFile, networkFile);
+  const isPathExist = verifyPath(
+    logFile,
+    cpuFile,
+    memoryFile,
+    networkFile,
+    tpsFile,
+    latencyFile,
+    responseFile
+  );
   if (!isPathExist) {
     throw new Error("Please enter a valid path");
   }
