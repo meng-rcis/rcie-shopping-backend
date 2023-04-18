@@ -380,109 +380,6 @@
         "type": "prometheus",
         "uid": "hH_Wpg4Vz"
       },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 48,
-            "gradientMode": "hue",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "dash": [
-                10,
-                10
-              ],
-              "fill": "dash"
-            },
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 12,
-        "w": 8,
-        "x": 0,
-        "y": 12
-      },
-      "id": 14,
-      "interval": "5s",
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "hH_Wpg4Vz"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "1000 * sum(rate(http_response_time_seconds_sum{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance) /\nsum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance)",
-          "instant": false,
-          "legendFormat": "avg-response-time",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Response Time",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "hH_Wpg4Vz"
-      },
       "description": "Transactions Per Second",
       "fieldConfig": {
         "defaults": {
@@ -547,7 +444,7 @@
       "gridPos": {
         "h": 12,
         "w": 8,
-        "x": 8,
+        "x": 0,
         "y": 12
       },
       "id": 16,
@@ -572,9 +469,33 @@
           },
           "editorMode": "code",
           "expr": "sum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance)",
-          "legendFormat": "transaction-rate",
+          "legendFormat": "total-req-rate",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "hH_Wpg4Vz"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(http_requests_total{job=\"api-golang\", instance=\"10.104.0.3:8000\", status=\"200\"}[1m])) by (job, instance)",
+          "hide": false,
+          "legendFormat": "ok-req-rate",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "hH_Wpg4Vz"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(http_requests_total{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance) - sum(rate(http_requests_total{job=\"api-golang\", instance=\"10.104.0.3:8000\", status=\"200\"}[1m])) by (job, instance)",
+          "hide": false,
+          "legendFormat": "error-req-rate",
+          "range": true,
+          "refId": "C"
         }
       ],
       "title": "TPS",
@@ -585,7 +506,109 @@
         "type": "prometheus",
         "uid": "hH_Wpg4Vz"
       },
-      "description": "Error per second",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 48,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "dash": [
+                10,
+                10
+              ],
+              "fill": "dash"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 8,
+        "y": 12
+      },
+      "id": 14,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "hH_Wpg4Vz"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "1000 * sum(rate(http_response_time_seconds_sum{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance) /\nsum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance)",
+          "instant": false,
+          "legendFormat": "avg-response-time",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Response Time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "hH_Wpg4Vz"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -642,7 +665,7 @@
               }
             ]
           },
-          "unit": "reqps"
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -652,8 +675,7 @@
         "x": 16,
         "y": 12
       },
-      "id": 18,
-      "interval": "5s",
+      "id": 20,
       "options": {
         "legend": {
           "calcs": [],
@@ -673,13 +695,37 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_requests_total{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance) - sum(rate(http_requests_total{job=\"api-golang\", instance=\"10.104.0.3:8000\", status=\"200\"}[1m])) by (job, instance)",
-          "legendFormat": "error-rate",
+          "expr": "1000 * histogram_quantile(0.5, sum(rate(http_response_time_seconds_bucket{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (le))",
+          "legendFormat": "latency-50-percentile",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "hH_Wpg4Vz"
+          },
+          "editorMode": "code",
+          "expr": "1000 * histogram_quantile(0.95, sum(rate(http_response_time_seconds_bucket{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (le))",
+          "hide": false,
+          "legendFormat": "latency-95-percentile",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "hH_Wpg4Vz"
+          },
+          "editorMode": "code",
+          "expr": "1000 * histogram_quantile(0.99, sum(rate(http_response_time_seconds_bucket{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (le))",
+          "hide": false,
+          "legendFormat": "latency-99-percentile",
+          "range": true,
+          "refId": "C"
         }
       ],
-      "title": "Error",
+      "title": "Latency",
       "type": "timeseries"
     }
   ],
@@ -691,8 +737,8 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2023-04-18T06:59:12.000Z",
+    "to": "2023-04-18T09:59:12.000Z"
   },
   "timepicker": {},
   "timezone": "",
