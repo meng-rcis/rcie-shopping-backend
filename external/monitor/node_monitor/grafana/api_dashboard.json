@@ -428,8 +428,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -449,6 +448,28 @@
       },
       "id": 16,
       "interval": "5s",
+      "libraryPanel": {
+        "meta": {
+          "connectedDashboards": 0,
+          "created": "2023-04-18T07:15:00.637694139Z",
+          "createdBy": {
+            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+            "id": 1,
+            "name": "admin"
+          },
+          "folderName": "",
+          "folderUid": "",
+          "updated": "2023-04-18T07:15:00.637694219Z",
+          "updatedBy": {
+            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+            "id": 1,
+            "name": "admin"
+          }
+        },
+        "name": "TPS",
+        "uid": "j9HyK5P4k",
+        "version": 1
+      },
       "options": {
         "legend": {
           "calcs": [],
@@ -609,6 +630,7 @@
         "type": "prometheus",
         "uid": "hH_Wpg4Vz"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -676,6 +698,30 @@
         "y": 12
       },
       "id": 20,
+      "libraryPanel": {
+        "description": "",
+        "meta": {
+          "connectedDashboards": 1,
+          "created": "2023-04-18T07:14:20Z",
+          "createdBy": {
+            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+            "id": 1,
+            "name": "admin"
+          },
+          "folderName": "General",
+          "folderUid": "",
+          "updated": "2023-04-18T07:14:20Z",
+          "updatedBy": {
+            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
+            "id": 1,
+            "name": "admin"
+          }
+        },
+        "name": "Latency",
+        "type": "timeseries",
+        "uid": "GCkPKcE4z",
+        "version": 1
+      },
       "options": {
         "legend": {
           "calcs": [],
@@ -744,6 +790,6 @@
   "timezone": "",
   "title": "API Node",
   "uid": "7lAyM14Vk",
-  "version": 25,
+  "version": 26,
   "weekStart": ""
 }
