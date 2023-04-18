@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"strconv"
 	"time"
 
 	"github.com/labstack/echo"
@@ -12,7 +13,13 @@ func responseTimeMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		start := time.Now()
 		err := next(c)
 		duration := time.Since(start)
-		config.ResponseTimeHistogram.WithLabelValues(c.Request().Method, c.Path()).Observe(duration.Seconds())
+		status := strconv.Itoa(c.Response().Status)
+		method := c.Request().Method
+		path := c.Path()
+
+		config.HttpDuration.WithLabelValues(method, path).Observe(duration.Seconds())
+		config.HttpRequestsTotal.WithLabelValues(status, method, path).Inc()
+
 		return err
 	}
 }

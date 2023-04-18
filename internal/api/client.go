@@ -19,7 +19,8 @@ var apiConfig config.APIConfig
 
 func init() {
 	// Register Prometheus Metrics
-	prometheus.MustRegister(config.ResponseTimeHistogram)
+	prometheus.MustRegister(config.HttpDuration)
+	prometheus.MustRegister(config.HttpRequestsTotal)
 }
 
 func Client() {
