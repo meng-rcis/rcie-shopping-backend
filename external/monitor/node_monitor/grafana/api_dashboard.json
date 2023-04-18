@@ -617,7 +617,7 @@
           "exemplar": false,
           "expr": "1000 * sum(rate(http_response_time_seconds_sum{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance) /\nsum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance)",
           "instant": false,
-          "legendFormat": "avg-response-time",
+          "legendFormat": "avg-res-time",
           "range": true,
           "refId": "A"
         }
@@ -790,6 +790,6 @@
   "timezone": "",
   "title": "API Node",
   "uid": "7lAyM14Vk",
-  "version": 26,
+  "version": 27,
   "weekStart": ""
 }
