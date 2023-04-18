@@ -7,7 +7,7 @@ import (
 	"github.com/nuttchai/go-rest/internal/utils/api"
 )
 
-func initAdminRouterPath(e *echo.Echo) *echo.Echo {
+func initAdminRouterPath(e *echo.Echo) {
 	e.PUT(api.CreatePath("admin/order"), handlers.AdminHandler.UpdateOrderStatus)
 	e.PUT(api.CreatePath("admin/product/quantity"), handlers.AdminHandler.AddProductQuantity)
 
@@ -20,5 +20,4 @@ func initAdminRouterPath(e *echo.Echo) *echo.Echo {
 	// NO.16 Search + Loop to recalculate the product internally with keyword = "" and limit = "1000" with random offset (prevent cache) ~ 500 calls/min + choose and save all products into DB
 
 	console.App.Log("Admin Router Initialized")
-	return e
 }

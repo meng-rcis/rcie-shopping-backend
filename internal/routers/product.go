@@ -7,9 +7,8 @@ import (
 	"github.com/nuttchai/go-rest/internal/utils/api"
 )
 
-func initProductRouterPath(e *echo.Echo) *echo.Echo {
+func initProductRouterPath(e *echo.Echo) {
 	e.GET(api.CreatePath("product/:id"), handlers.ProductHandler.GetProduct) // API NO.1
 
 	console.App.Log("Product Router Initialized")
-	return e
 }
