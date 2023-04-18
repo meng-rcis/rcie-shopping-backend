@@ -61,7 +61,8 @@ const convert = (value: string, desiredUnit: string): string => {
 
 export const convertUnit = (data: any, unitMeta: IUnit[]): any => {
   const { Time, Timestamp, TimeToFail, ...rest } = data;
-  const standardizedRow: any = { Time, Timestamp };
+  const timestampHeader = "Timestamp [ms]";
+  const standardizedRow: any = { Time, [timestampHeader]: Timestamp };
 
   unitMeta.forEach((meta) => {
     const { headers, unit } = meta;
@@ -77,6 +78,7 @@ export const convertUnit = (data: any, unitMeta: IUnit[]): any => {
     });
   });
 
-  standardizedRow.TimeToFail = TimeToFail;
+  const timeToFailHeader = "TimeToFail [ms]";
+  standardizedRow[timeToFailHeader] = TimeToFail;
   return standardizedRow;
 };
