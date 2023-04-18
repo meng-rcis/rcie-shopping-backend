@@ -95,13 +95,13 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
-        "w": 24,
+        "h": 12,
+        "w": 16,
         "x": 0,
         "y": 0
       },
       "id": 2,
-      "interval": "1s",
+      "interval": "5s",
       "options": {
         "legend": {
           "calcs": [],
@@ -122,7 +122,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "avg without(cpu) (irate(node_cpu_seconds_total{job=\"api-service\", instance=\"10.104.0.3:9100\", mode!=\"idle\"}[1m]))",
+          "expr": "avg without(cpu) (irate(node_cpu_seconds_total{job=\"api\", instance=\"10.104.0.3:9100\", mode!=\"idle\"}[1m]))",
           "interval": "",
           "legendFormat": "{{mode}}",
           "range": true,
@@ -195,13 +195,13 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
-        "w": 24,
-        "x": 0,
-        "y": 11
+        "h": 12,
+        "w": 8,
+        "x": 16,
+        "y": 0
       },
       "id": 4,
-      "interval": "1s",
+      "interval": "5s",
       "options": {
         "legend": {
           "calcs": [],
@@ -224,7 +224,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_memory_MemTotal_bytes{job=\"api-service\", instance=\"10.104.0.3:9100\"} - node_memory_MemFree_bytes{job=\"api-service\", instance=\"10.104.0.3:9100\"} - node_memory_Cached_bytes{job=\"api-service\", instance=\"10.104.0.3:9100\"} - node_memory_Buffers_bytes{job=\"api-service\", instance=\"10.104.0.3:9100\"}",
+          "expr": "node_memory_MemTotal_bytes{job=\"api\", instance=\"10.104.0.3:9100\"} - node_memory_MemFree_bytes{job=\"api\", instance=\"10.104.0.3:9100\"} - node_memory_Cached_bytes{job=\"api\", instance=\"10.104.0.3:9100\"} - node_memory_Buffers_bytes{job=\"api\", instance=\"10.104.0.3:9100\"}",
           "legendFormat": "Used",
           "range": true,
           "refId": "A"
@@ -235,7 +235,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_memory_Buffers_bytes{job=\"api-service\", instance=\"10.104.0.3:9100\"}",
+          "expr": "node_memory_Buffers_bytes{job=\"api\", instance=\"10.104.0.3:9100\"}",
           "hide": false,
           "legendFormat": "Buffer",
           "range": true,
@@ -247,7 +247,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_memory_Cached_bytes{job=\"api-service\", instance=\"10.104.0.3:9100\"}",
+          "expr": "node_memory_Cached_bytes{job=\"api\", instance=\"10.104.0.3:9100\"}",
           "hide": false,
           "legendFormat": "Cached",
           "range": true,
@@ -259,7 +259,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_memory_MemFree_bytes{job=\"api-service\", instance=\"10.104.0.3:9100\"}",
+          "expr": "node_memory_MemFree_bytes{job=\"api\", instance=\"10.104.0.3:9100\"}",
           "hide": false,
           "legendFormat": "Free",
           "range": true,
@@ -267,6 +267,211 @@
         }
       ],
       "title": "Memory Usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "hH_Wpg4Vz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 48,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "dash": [
+                10,
+                10
+              ],
+              "fill": "dash"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 0,
+        "y": 12
+      },
+      "id": 14,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "hH_Wpg4Vz"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "1000 * sum(rate(http_response_time_seconds_sum{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance) /\nsum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance)",
+          "instant": false,
+          "legendFormat": "avg-response-time",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Response Time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "hH_Wpg4Vz"
+      },
+      "description": "Transactions Per Second",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "dash": [
+                10,
+                10
+              ],
+              "fill": "dash"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 8,
+        "y": 12
+      },
+      "id": 16,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "hH_Wpg4Vz"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m]))",
+          "legendFormat": "req/s",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "TPS",
       "type": "timeseries"
     },
     {
@@ -328,13 +533,13 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
-        "w": 24,
-        "x": 0,
-        "y": 22
+        "h": 12,
+        "w": 8,
+        "x": 16,
+        "y": 12
       },
       "id": 12,
-      "interval": "1s",
+      "interval": "5s",
       "options": {
         "legend": {
           "calcs": [],
@@ -354,7 +559,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_receive_bytes_total{instance=\"10.104.0.3:9100\",job=\"api-service\"}[5m])",
+          "expr": "irate(node_network_receive_bytes_total{instance=\"10.104.0.3:9100\",job=\"api\"}[5m])",
           "legendFormat": "{{device}} receive",
           "range": true,
           "refId": "A"
@@ -365,7 +570,7 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_transmit_bytes_total{job=\"api-service\",instance=\"10.104.0.3:9100\"}[5m])",
+          "expr": "irate(node_network_transmit_bytes_total{job=\"api\",instance=\"10.104.0.3:9100\"}[5m])",
           "hide": false,
           "legendFormat": "{{device}} transmit",
           "range": true,
@@ -384,13 +589,13 @@
     "list": []
   },
   "time": {
-    "from": "2023-04-15T17:40:57.000Z",
-    "to": "2023-04-15T20:40:57.000Z"
+    "from": "now-5m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "API Node",
   "uid": "7lAyM14Vk",
-  "version": 19,
+  "version": 23,
   "weekStart": ""
 }
