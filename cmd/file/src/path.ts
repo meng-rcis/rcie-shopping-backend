@@ -1,22 +1,20 @@
 import fs from "fs";
 import { IPath } from "./interfaces/path";
-
-const BASE_PATH = "../../external/jmeter";
-const LOG_PATH = `${BASE_PATH}/log`;
-const METRICS_PATH = `${BASE_PATH}/grafana`;
-const FILE_TYPE = ".csv";
-const BASE_NAME = "rcie-api-";
-
-const CPU = "cpu";
-const MEMORY = "memory";
-const NETWORK = "network";
-const TPS = "tps";
-const LATENCY = "latency";
-const RESPONSE = "response";
-const COMBINED = "metrics";
-const COMBINED_WITH_OUTPUT = "metrics-with-output";
-const COMBINED_WITH_OUTPUT_AND_STANDARDIZED_UNIT =
-  "metrics-with-output-and-standardized-unit";
+import {
+  BASE_NAME,
+  COMBINED,
+  COMBINED_WITH_OUTPUT,
+  COMBINED_WITH_OUTPUT_AND_STANDARDIZED_UNIT,
+  CPU,
+  FILE_TYPE,
+  LATENCY,
+  LOG_PATH,
+  MEMORY,
+  METRICS_PATH,
+  NETWORK,
+  RESPONSE,
+  TPS,
+} from "./constant/path";
 
 export const getPath = (): IPath => {
   const cli = process.argv;
