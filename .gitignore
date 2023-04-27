@@ -1,6 +1,7 @@
 build
 /external/database/volumes
 /external/database/backup
+/external/database/data
 jmeter.log
 /external/jmeter/report/**
 !.gitkeep
