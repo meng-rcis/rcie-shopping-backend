@@ -51,7 +51,7 @@
         <stringProp name="TestPlan.comments">sample body for updating product api</stringProp>
         <stringProp name="delimiter">,</stringProp>
         <stringProp name="fileEncoding"></stringProp>
-        <stringProp name="filename">D:/nuttchai/dev/Projects/rcie/stub-server/rcie-shopping-backend/external/jmeter/data/update-product-body-sample.csv</stringProp>
+        <stringProp name="filename">D:/nuttchai/dev/Projects/rcie/repo/rcie-shopping-backend/external/jmeter/data/update-product-body-sample.csv</stringProp>
         <boolProp name="ignoreFirstLine">false</boolProp>
         <boolProp name="quotedData">false</boolProp>
         <boolProp name="recycle">true</boolProp>
