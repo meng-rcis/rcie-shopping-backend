@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 4,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -102,6 +102,7 @@
       },
       "id": 2,
       "interval": "5s",
+      "maxDataPoints": 3000,
       "options": {
         "legend": {
           "calcs": [],
@@ -122,14 +123,14 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "avg without(cpu) (irate(node_cpu_seconds_total{job=\"api\", instance=\"10.104.0.3:9100\", mode!=\"idle\"}[1m]))",
+          "expr": "sum without(mode) (irate(node_cpu_seconds_total{job=\"api\", instance=\"10.104.0.3:9100\", mode!=\"idle\"}[1m]))",
           "interval": "",
-          "legendFormat": "{{mode}}",
+          "legendFormat": "cpu_usage",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "CPU Utilization",
+      "title": "CPU",
       "transparent": true,
       "type": "timeseries"
     },
@@ -190,7 +191,7 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -202,6 +203,7 @@
       },
       "id": 4,
       "interval": "5s",
+      "maxDataPoints": 3000,
       "options": {
         "legend": {
           "calcs": [],
@@ -224,49 +226,13 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "node_memory_MemTotal_bytes{job=\"api\", instance=\"10.104.0.3:9100\"} - node_memory_MemFree_bytes{job=\"api\", instance=\"10.104.0.3:9100\"} - node_memory_Cached_bytes{job=\"api\", instance=\"10.104.0.3:9100\"} - node_memory_Buffers_bytes{job=\"api\", instance=\"10.104.0.3:9100\"}",
-          "legendFormat": "Used",
+          "expr": "1 - ((node_memory_MemFree_bytes{job=\"api\", instance=\"10.104.0.3:9100\"} + node_memory_Cached_bytes{job=\"api\", instance=\"10.104.0.3:9100\"} + node_memory_Buffers_bytes{job=\"api\", instance=\"10.104.0.3:9100\"})/node_memory_MemTotal_bytes{job=\"api\", instance=\"10.104.0.3:9100\"})",
+          "legendFormat": "memory_usage",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "hH_Wpg4Vz"
-          },
-          "editorMode": "code",
-          "expr": "node_memory_Buffers_bytes{job=\"api\", instance=\"10.104.0.3:9100\"}",
-          "hide": false,
-          "legendFormat": "Buffer",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "hH_Wpg4Vz"
-          },
-          "editorMode": "code",
-          "expr": "node_memory_Cached_bytes{job=\"api\", instance=\"10.104.0.3:9100\"}",
-          "hide": false,
-          "legendFormat": "Cached",
-          "range": true,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "hH_Wpg4Vz"
-          },
-          "editorMode": "code",
-          "expr": "node_memory_MemFree_bytes{job=\"api\", instance=\"10.104.0.3:9100\"}",
-          "hide": false,
-          "legendFormat": "Free",
-          "range": true,
-          "refId": "D"
         }
       ],
-      "title": "Memory Usage",
+      "title": "Memory",
       "type": "timeseries"
     },
     {
@@ -335,6 +301,7 @@
       },
       "id": 12,
       "interval": "5s",
+      "maxDataPoints": 3000,
       "options": {
         "legend": {
           "calcs": [],
@@ -354,8 +321,8 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_receive_bytes_total{instance=\"10.104.0.3:9100\",job=\"api\"}[5m])",
-          "legendFormat": "{{device}} receive",
+          "expr": "sum without(device) (irate(node_network_receive_bytes_total{instance=\"10.104.0.3:9100\",job=\"api\"}[1m]))",
+          "legendFormat": "bandwidth_inbound",
           "range": true,
           "refId": "A"
         },
@@ -365,14 +332,14 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "irate(node_network_transmit_bytes_total{job=\"api\",instance=\"10.104.0.3:9100\"}[5m])",
+          "expr": "sum without(device) (irate(node_network_transmit_bytes_total{instance=\"10.104.0.3:9100\",job=\"api\"}[1m]))",
           "hide": false,
-          "legendFormat": "{{device}} transmit",
+          "legendFormat": "bandwidth_outbound",
           "range": true,
           "refId": "B"
         }
       ],
-      "title": "Network Traffic",
+      "title": "Bandwidth",
       "type": "timeseries"
     },
     {
@@ -428,7 +395,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -448,28 +416,7 @@
       },
       "id": 16,
       "interval": "5s",
-      "libraryPanel": {
-        "meta": {
-          "connectedDashboards": 0,
-          "created": "2023-04-18T07:15:00.637694139Z",
-          "createdBy": {
-            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
-            "id": 1,
-            "name": "admin"
-          },
-          "folderName": "",
-          "folderUid": "",
-          "updated": "2023-04-18T07:15:00.637694219Z",
-          "updatedBy": {
-            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
-            "id": 1,
-            "name": "admin"
-          }
-        },
-        "name": "TPS",
-        "uid": "j9HyK5P4k",
-        "version": 1
-      },
+      "maxDataPoints": 3000,
       "options": {
         "legend": {
           "calcs": [],
@@ -489,10 +436,10 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance)",
-          "legendFormat": "total-req-rate",
+          "expr": "sum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[10s])) by (job, instance)",
+          "legendFormat": "tps",
           "range": true,
-          "refId": "A"
+          "refId": "Total-Request-Rate"
         },
         {
           "datasource": {
@@ -500,23 +447,11 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_requests_total{job=\"api-golang\", instance=\"10.104.0.3:8000\", status=\"200\"}[1m])) by (job, instance)",
+          "expr": "sum(rate(http_requests_total{job=\"api-golang\", instance=\"10.104.0.3:8000\", status=\"500\"}[10s])) by (job, instance)",
           "hide": false,
-          "legendFormat": "ok-req-rate",
+          "legendFormat": "tps_error",
           "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "hH_Wpg4Vz"
-          },
-          "editorMode": "code",
-          "expr": "sum(rate(http_requests_total{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance) - sum(rate(http_requests_total{job=\"api-golang\", instance=\"10.104.0.3:8000\", status=\"200\"}[1m])) by (job, instance)",
-          "hide": false,
-          "legendFormat": "error-req-rate",
-          "range": true,
-          "refId": "C"
+          "refId": "Total-Failed-Request-Rate"
         }
       ],
       "title": "TPS",
@@ -595,6 +530,7 @@
       },
       "id": 14,
       "interval": "5s",
+      "maxDataPoints": 3000,
       "options": {
         "legend": {
           "calcs": [],
@@ -615,9 +551,9 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "1000 * sum(rate(http_response_time_seconds_sum{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance) /\nsum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (job, instance)",
+          "expr": "1000 * sum(rate(http_response_time_seconds_sum{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[10s])) by (job, instance) /\nsum(rate(http_response_time_seconds_count{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[10s])) by (job, instance)",
           "instant": false,
-          "legendFormat": "avg-res-time",
+          "legendFormat": "response_time",
           "range": true,
           "refId": "A"
         }
@@ -630,7 +566,6 @@
         "type": "prometheus",
         "uid": "hH_Wpg4Vz"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -643,8 +578,8 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 50,
-            "gradientMode": "hue",
+            "fillOpacity": 10,
+            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -652,11 +587,7 @@
             },
             "lineInterpolation": "linear",
             "lineStyle": {
-              "dash": [
-                10,
-                10
-              ],
-              "fill": "dash"
+              "fill": "solid"
             },
             "lineWidth": 1,
             "pointSize": 5,
@@ -687,41 +618,18 @@
               }
             ]
           },
-          "unit": "ms"
+          "unit": "bytes"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 12,
+        "h": 13,
         "w": 8,
-        "x": 16,
-        "y": 12
+        "x": 0,
+        "y": 24
       },
-      "id": 20,
-      "libraryPanel": {
-        "description": "",
-        "meta": {
-          "connectedDashboards": 1,
-          "created": "2023-04-18T07:14:20Z",
-          "createdBy": {
-            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
-            "id": 1,
-            "name": "admin"
-          },
-          "folderName": "General",
-          "folderUid": "",
-          "updated": "2023-04-18T07:14:20Z",
-          "updatedBy": {
-            "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
-            "id": 1,
-            "name": "admin"
-          }
-        },
-        "name": "Latency",
-        "type": "timeseries",
-        "uid": "GCkPKcE4z",
-        "version": 1
-      },
+      "id": 18,
+      "interval": "5s",
       "options": {
         "legend": {
           "calcs": [],
@@ -741,37 +649,110 @@
             "uid": "hH_Wpg4Vz"
           },
           "editorMode": "code",
-          "expr": "1000 * histogram_quantile(0.5, sum(rate(http_response_time_seconds_bucket{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (le))",
-          "legendFormat": "latency-50-percentile",
+          "expr": "node_filesystem_size_bytes{job=\"api\", instance=\"10.104.0.3:9100\",device!~\"/dev/loop.*\", device!~\"tmpfs | nsfs\", device!=\"gvfsd-fuse\"} - node_filesystem_avail_bytes{job=\"api\", instance=\"10.104.0.3:9100\"}",
+          "legendFormat": "{{device}}",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "hH_Wpg4Vz"
-          },
-          "editorMode": "code",
-          "expr": "1000 * histogram_quantile(0.95, sum(rate(http_response_time_seconds_bucket{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (le))",
-          "hide": false,
-          "legendFormat": "latency-95-percentile",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "hH_Wpg4Vz"
-          },
-          "editorMode": "code",
-          "expr": "1000 * histogram_quantile(0.99, sum(rate(http_response_time_seconds_bucket{job=\"api-golang\", instance=\"10.104.0.3:8000\"}[1m])) by (le))",
-          "hide": false,
-          "legendFormat": "latency-99-percentile",
-          "range": true,
-          "refId": "C"
         }
       ],
-      "title": "Latency",
+      "title": "Used",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "hH_Wpg4Vz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 8,
+        "x": 8,
+        "y": 24
+      },
+      "id": 19,
+      "interval": "5s",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "hH_Wpg4Vz"
+          },
+          "editorMode": "code",
+          "expr": "node_filesystem_avail_bytes{job=\"api\",instance=\"10.104.0.3:9100\",device!~\"/dev/loop.*\",device!~\"tmpfs | nsfs\",device!=\"gvfsd-fuse\"}",
+          "legendFormat": "{{device}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Available",
       "type": "timeseries"
     }
   ],
@@ -783,13 +764,13 @@
     "list": []
   },
   "time": {
-    "from": "2023-04-18T06:59:12.000Z",
-    "to": "2023-04-18T09:59:12.000Z"
+    "from": "2023-06-12T04:33:10.000Z",
+    "to": "2023-06-12T07:33:10.000Z"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "API Node",
-  "uid": "7lAyM14Vk",
-  "version": 27,
+  "title": "API Node v2",
+  "uid": "cMSBrFwVz",
+  "version": 7,
   "weekStart": ""
 }
