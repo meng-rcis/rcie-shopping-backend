@@ -26,13 +26,13 @@
 
     docker-compose up --build
 
-### Software Required
+### Software Required - Setup
 
 - [SB Data Generator](https://soft-builder.com/sb-data-generator/)
 - [Hash Password Generator Tool](https://emn178.github.io/online-tools/sha256.html)
 - [Random String Generator](https://www.random.org/strings/)
 
-### Account Password
+### Account Password 
 
 Hash Algorithm: SHA256
 
