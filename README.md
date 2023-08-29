@@ -1,6 +1,6 @@
 # rcie-shopping-backend
 
-### Command to Clear All Database Data and Docker Related Resources
+### Command to Clear Database Data and Docker Related Resources
 
 - MacOS
 
