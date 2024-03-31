@@ -1,4 +1,4 @@
-# rcie-shopping-backend
+# rcie-shopping-backend (mock server)
 
 ### Command to Clear Database Data and Docker Resources
 
